@@ -11,7 +11,7 @@ const FinancialRoute = require('./routes/financial_routes');
 const JobHireRoute = require('./routes/jobHire_routes')
 const JobFindRoute = require('./routes/jobFind_routes');
 
-
+const EventRoute = require('./routes/event_routes');
 
 const app = express();
 
@@ -39,6 +39,8 @@ app.use((req, res, next) => {
 app.use('/financial', FinancialRoute);
 app.use('/jobHire', JobHireRoute);
 app.use('/jobFind', JobFindRoute);
+
+app.use('/event', EventRoute);
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
