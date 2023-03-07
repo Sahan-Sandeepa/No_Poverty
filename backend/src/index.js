@@ -10,6 +10,7 @@ const cors = require('cors');
 const FinancialRoute = require('./routes/financial_routes');
 
 const EventRoute = require('./routes/event_routes');
+const EventUser = require('./routes/event_regiter_routes')
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use(bodyParser.urlencoded({
 app.use('/financial', FinancialRoute);
 
 app.use('/event', EventRoute);
+app.use('/event-registration', EventUser);
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
