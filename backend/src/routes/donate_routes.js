@@ -6,7 +6,7 @@ const {getDonations,getDonationById,makeDonation,deleteDonation,updateDonation} 
 router.get('/', getDonations);
 router.get('/:id', getDonationById);
 router.post('/', makeDonation);
-router.put('/:id', deleteDonation);
-router.delete('/:id', updateDonation);
+router.put('/:id', updateDonation);
+router.delete('/:id', deleteDonation);
 
 module.exports = router;

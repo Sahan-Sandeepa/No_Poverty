@@ -6,7 +6,7 @@ const {getAllAds,getAdById,addAdvertistment,deleteAd,updateAd} = require('../con
 router.get('/', getAllAds);
 router.get('/:id', getAdById);
 router.post('/', addAdvertistment);
-router.put('/:id', deleteAd);
-router.delete('/:id', updateAd);
+router.put('/:id', updateAd);
+router.delete('/:id', deleteAd);
 
 module.exports = router;

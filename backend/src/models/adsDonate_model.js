@@ -6,7 +6,7 @@ const adsDonate = new Schema({
     smallDes: { type: String, required: true },
     longDes: { type: String, required: true },
     location: { type: String, required: true },
-    help: { type: Number, required: true },
+    help: { type: String, required: true },
 }
 
 )
