@@ -4,8 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+
 
 
 //routes
@@ -43,7 +42,6 @@ app.use((req, res, next) => {
 
 
 app.use('/financial', FinancialRoute);
-
 app.use('/jobHire', JobHireRoute);
 app.use('/jobFind', JobFindRoute);
 app.use('/event', EventRoute);
