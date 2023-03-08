@@ -12,6 +12,7 @@ const JobHireRoute = require('./routes/jobHire_routes')
 const JobFindRoute = require('./routes/jobFind_routes');
 
 const EventRoute = require('./routes/event_routes');
+const EventUser = require('./routes/event_regiter_routes')
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use('/jobHire', JobHireRoute);
 app.use('/jobFind', JobFindRoute);
 
 app.use('/event', EventRoute);
+app.use('/event-registration', EventUser);
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
