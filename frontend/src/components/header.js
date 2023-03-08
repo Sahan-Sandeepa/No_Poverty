@@ -18,6 +18,7 @@ import {
     CarFilled
 } from "@ant-design/icons"
 import Header_bar from "./header_bar"
+import Home from "../pages/AdminDashboard/Admin_dashboard"
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -42,7 +43,6 @@ const Dashboard = props => {
         getItem("Job Portal", 2, <CarFilled />),
         getItem("Financial", 3, <LineChartOutlined />),
         getItem("Event", 3, <LineChartOutlined />),
-        getItem("Log Out", 4, <MoneyCollectFilled />),
 
     ]
 
@@ -50,7 +50,8 @@ const Dashboard = props => {
     const [activeIndex, setActiveIndex] = useState(0)
 
     const bodyContainer = [
-        // <Home />,
+
+        <Home />,
         // <Customer />,
         // <DeliveryOrder />,
         // <SalesOrder />,
