@@ -18,6 +18,8 @@ import {
     CarFilled
 } from "@ant-design/icons"
 import Header_bar from "./header_bar"
+import Home from "../pages/AdminDashboard/Admin_dashboard"
+import Financial from "./financial"
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -49,8 +51,9 @@ const Dashboard = props => {
     const [activeIndex, setActiveIndex] = useState(0)
 
     const bodyContainer = [
-        // <Home />,
-        // <Customer />,
+
+        <Home />,
+        <Financial />,
         // <DeliveryOrder />,
         // <SalesOrder />,
         // <PurchaseOrder />,
