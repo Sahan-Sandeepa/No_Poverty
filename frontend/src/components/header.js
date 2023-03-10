@@ -19,7 +19,7 @@ import {
 } from "@ant-design/icons"
 import Header_bar from "./header_bar"
 import Home from "../pages/AdminDashboard/Admin_dashboard"
-import Financial from "../pages/Financial/financial"
+import Financial from "./financial"
 
 const { Header, Content, Footer, Sider } = Layout
 

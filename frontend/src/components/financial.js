@@ -1,6 +1,6 @@
 import React from 'react'
 import { Table, Icon, Button, Space, Input } from 'antd';
-import Header from '../../components/header';
+import Header from './header';
 import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 
 
