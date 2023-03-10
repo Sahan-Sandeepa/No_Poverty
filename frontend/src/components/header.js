@@ -40,9 +40,8 @@ const Dashboard = props => {
         getItem("Dashboard", 0, <BankTwoTone />),
         getItem("Donation", 1, <UserOutlined />),
         getItem("Job Portal", 2, <CarFilled />),
-        getItem("Financial", 3, <LineChartOutlined />),
         getItem("Event", 3, <LineChartOutlined />),
-        getItem("Log Out", 4, <MoneyCollectFilled />),
+        getItem("Financial", 4, <LineChartOutlined />),
 
     ]
 
