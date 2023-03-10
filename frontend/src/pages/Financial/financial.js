@@ -105,7 +105,7 @@ const Financial = props => {
                 <div style={{ paddingLeft: 980 }}>
                     <Button style={{ alignItems: "end", backgroundColor: "red" }} type="primary">Create Report</Button>
                 </div>
-                <div style={{ padding: 25}}>
+                <div style={{ padding: 25 }}>
                     <Search
                         placeholder="input search text"
                         onSearch={onSearch}
@@ -116,10 +116,10 @@ const Financial = props => {
                     <Table columns={fincolums} dataSource={data}
                         bordered
                         title={() => 'Financial Details'}
-                        style={{backgroundColor:"grey"}}
+                        style={{ backgroundColor: "grey" }}
                         footer={() => 'Total Bill:'} />
 
-<br></br><br></br>
+                    <br></br><br></br>
                     <Table columns={columns} dataSource={data}
                         bordered
                         title={() => 'Donation History'}
