@@ -43,7 +43,7 @@ const Dashboard = props => {
         getItem("Donation", 1, <UserOutlined />),
         getItem("Job Portal", 2, <CarFilled />),
         getItem("Event", 3, <LineChartOutlined />),
-        getItem("Financial", 3, <LineChartOutlined />),
+        getItem("Financial", 4, <LineChartOutlined />),
 
     ]
 
