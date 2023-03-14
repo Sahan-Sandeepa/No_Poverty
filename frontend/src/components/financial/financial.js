@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Table, Icon, Button, Space, Input, Col } from 'antd';
 import Header from '../header';
 import axios from "axios";
-import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
+import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
 
@@ -12,64 +12,38 @@ const { Search } = Input;
 
 const Financial = () => {
     const [financial, setFinancial] = useState([]);
+    const [column, setColumns] = useState([]);
 
-    // useEffect(() => {
-    //     axios.get('http://localhost/5000/financial/')
-    //         .then(response => {
-    //             setFinancial(response.data);
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         });
-    // }, []);
-    // function getAllBranchDetails() {
-    //     axios.get("http://localhost:3000/financial/")
-    //         .then((res) => {
-    //             setFinancial(res.data);
-    //         })
-    //         .catch((err) => {
-    //             alert(err.message);
-    //         });
-    // }
-
-    // const fetchData=()=>{
-    //     return
-    //     fetch('http://localhost:3000/financial')
-    //     .then((response)=> response.json())
-    //     .then((data)=>setFinancial(data));
-    // }
-    // const fetchFinancial=async()=>{
-    //     const response=await fetch('http://localhost:5000/financial/')
-    //     const json=await response.json()
-
-    //     if(response.ok){
-    //         setFinancial(json)
-
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     fetchFinancial();
-    // }, [])
+    function getFinancial() {
+        axios.get("http://localhost:4000/financial/")
+            .then((res) => {
+                setFinancial(res.data);
+            })
+            .catch((err) => {
+                alert(err.message);
+            });
+    }
+    useEffect(() => {
+        getFinancial();
+    }, [])
 
 
     const onSearch = (value) => console.log(value);
 
-    const columns = [{
-        title: 'Donation Name',
-        dataIndex: 'name',
-        key: 'name',
-        render: text => <a href="#">{text}</a>,
-    }, {
-        title: 'Fund',
-        dataIndex: 'address',
-        key: 'address',
-    },
-    ];
+    // const columns = [{
+    //     title: 'Donation Name',
+    //     dataIndex: 'name',
+    //     key: 'name',
+    //     render: text => <a href="#">{text}</a>,
+    // }, {
+    //     title: 'Fund',
+    //     dataIndex: 'address',
+    //     key: 'address',
+    // },
+    // ];
+    
 
-
-
-    const fincolums = [{
+    const Columns=[{
         title: 'Program Name',
         dataIndex: 'name',
         key: 'name',
@@ -126,10 +100,10 @@ const Financial = () => {
                                 width: 200,
                             }}
                         />
-                        <Button icon={<FilePdfTwoTone />} />
+                        <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} />
                     </CustomRow>
                 </WrapperCard>
-                <Table columns={fincolums} dataSource={financial}
+                <Table columns={Columns} dataSource={financial}
                     bordered
                 // title={() => 'Financial Details'}
                 />
