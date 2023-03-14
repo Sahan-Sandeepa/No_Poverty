@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components';const CustomRow = styled.div`
+import styled, { css } from 'styled-components';
+const CustomRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

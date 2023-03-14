@@ -27,7 +27,7 @@ const getFinancialById = async (req, res) => {
 
 // create a new Financial
 const createFinancial = async (req, res) => {
-  const {name,type,month,date,total,status} = req.body
+  const {name,type,date,venue,total,status} = req.body
 
 //   let emptyFields = []
 
@@ -46,7 +46,7 @@ const createFinancial = async (req, res) => {
 
   // add to the database
   try {
-    const financial = await Financial.create({ name,type,month,date,total,status })
+    const financial = await Financial.create({ name,type,date,venue,total,status })
     res.status(200).json(financial)
   } catch (error) {
     res.status(400).json({ error: error.message })
