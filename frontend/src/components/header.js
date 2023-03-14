@@ -23,6 +23,7 @@ import AddFinancial from "../components/financial/AddFinancial"
 import Financial from "../components/financial/financial"
 import PublishAd from "./DonationAdmin/PublishAd"
 import JobPost from "./jobPortal/JobPost"
+import JobList from "./jobPortal/JobList"
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -63,8 +64,8 @@ const Dashboard = props => {
         <PublishAd />,
         // <PurchaseOrder />,
         // <PurchaseRequest />,
-        <JobPost/>
-        // <PuchaseItems />,
+        <JobPost/>,
+        <JobList />,
         // <Users />,
         // <StockOrder />
     ]
