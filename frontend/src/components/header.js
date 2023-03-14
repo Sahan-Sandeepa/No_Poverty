@@ -21,6 +21,7 @@ import Header_bar from "./header_bar"
 import Home from "../pages/AdminDashboard/Admin_dashboard"
 import AddFinancial from "../components/financial/AddFinancial"
 import Financial from "../components/financial/financial"
+import JobPost from "./jobPortal/JobPost"
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -46,6 +47,8 @@ const Dashboard = props => {
         getItem("Event", 3, <LineChartOutlined />),
         getItem("Financial", 4, <LineChartOutlined />),
 
+        getItem("JobSaku", 6, <LineChartOutlined />),
+
     ]
 
     const [collapsed, setCollapsed] = useState(false)
@@ -59,6 +62,7 @@ const Dashboard = props => {
         // <SalesOrder />,
         // <PurchaseOrder />,
         // <PurchaseRequest />,
+        <JobPost/>
         // <PuchaseItems />,
         // <Users />,
         // <StockOrder />
