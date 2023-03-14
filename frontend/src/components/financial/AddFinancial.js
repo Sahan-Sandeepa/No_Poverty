@@ -20,6 +20,8 @@ import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
 import WrapperContainer from '../common/Wrapper_container';
 import axios from "axios";
+import {} from "react-router-dom";
+
 
 const { Option } = Select;
 const { Header, Content, Footer } = Layout;
@@ -52,7 +54,7 @@ const AddFinancial = () => {
         };
 
         axios
-            .post("http://localhost/5000/financial/", financialSchema)
+            .post("http://localhost/4000/financial/", financialSchema)
             .then(() => {
                 message("inserted!", "Data Inserted!", "success");
                 window.location.reload(false);
@@ -74,10 +76,8 @@ const AddFinancial = () => {
                     </CustomRow>
                 </WrapperCard>
                 <Form
-                    layout='vertical'
-                    autoComplete="false"
-                    style={{ padding: 1, paddingLeft: 140 }}
                     onSubmit={sendData}
+                    style={{ padding: 1, paddingLeft: 140 }}
                 >
                     <br></br>
 
@@ -94,11 +94,9 @@ const AddFinancial = () => {
                             ]}
                         >
                             <Input
-                                value={name}
                                 onChange={(val) => {
-                                    if (val) {
                                         setName(val.target.value);
-                                    }
+                                    
                                 }}
                             />
                         </Form.Item>
@@ -116,13 +114,11 @@ const AddFinancial = () => {
                                     message: 'Please select Type!',
                                 },
                             ]}
-                            value={type}
 
                             onChange={(val) => {
-                                if (val) {
                                     setType(val.target.value);
 
-                                }
+                                
                             }}
 
                         >
@@ -130,21 +126,18 @@ const AddFinancial = () => {
                                 <Option value="male">Donation</Option>
                                 <Option value="female">Events</Option>
                             </Select>
-                            
+
                         </Form.Item>
                         <Col span={4} />
 
-                        <Form.Item name="date-picker" label="DatePicker" {...config}>
+                        {/* <Form.Item name="date-picker" label="DatePicker" {...config}>
                             <DatePicker
-                                value={date}
-
                                 onChange={(val) => {
-                                    if (val) {
                                         setDate(val.target.value);
 
-                                    }
+                                    
                                 }} />
-                        </Form.Item>
+                        </Form.Item> */}
                     </Row>
                     <br></br>
 
@@ -161,12 +154,9 @@ const AddFinancial = () => {
                             ]}
                         >
                             <Input
-                                value={venue}
-                                onChange={(val) => {
-                                    if (val) {
-                                        setVenue(val.target.value);
-                                    }
-                                }}
+                               onChange={(e) => {
+                                setVenue(e.target.value);
+                              }}
                             />
                         </Form.Item>
                     </Col>
@@ -181,21 +171,15 @@ const AddFinancial = () => {
 
                                 rules={[
                                     {
-                                        type: "number",
-                                        message: "invalid format"
-                                    },
-                                    {
                                         required: true,
                                         message: "Please enter the total amount"
                                     }
                                 ]}
                             >
                                 <Input
-                                    value={total}
                                     onChange={(val) => {
-                                        if (val) {
                                             setTotal(val.target.value);
-                                        }
+                                        
                                     }}
                                 />
                             </Form.Item>
@@ -212,13 +196,11 @@ const AddFinancial = () => {
                                     message: 'Please select Status!',
                                 },
                             ]}
-                            value={status}
 
                             onChange={(val) => {
-                                if (val) {
                                     setStatus(val.target.value);
 
-                                }
+                                
                             }}
                         >
                             <Select placeholder="select your Status">
@@ -240,7 +222,8 @@ const AddFinancial = () => {
                         </Form.Item>
                         <Col span={1} />
                         <Form.Item label=" " colon={false}>
-                            <Button type="primary" htmlType="submit" style={{ fontWeight: "bold" }} >
+                            <Button type="primary" htmlType="submit"
+                                style={{ fontWeight: "bold" }} >
                                 Submit
                             </Button>
                         </Form.Item>
