@@ -22,6 +22,7 @@ import Home from "../pages/AdminDashboard/Admin_dashboard"
 import AddFinancial from "../components/financial/AddFinancial"
 import Financial from "../components/financial/financial"
 import PublishAd from "./DonationAdmin/PublishAd"
+import JobPost from "./jobPortal/JobPost"
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -48,6 +49,8 @@ const Dashboard = props => {
         getItem("Financial", 4, <LineChartOutlined />),
         
 
+        getItem("JobSaku", 5, <LineChartOutlined />),
+
     ]
 
     const [collapsed, setCollapsed] = useState(false)
@@ -61,6 +64,7 @@ const Dashboard = props => {
         <PublishAd />,
         // <PurchaseOrder />,
         // <PurchaseRequest />,
+        <JobPost/>
         // <PuchaseItems />,
         // <Users />,
         // <StockOrder />
