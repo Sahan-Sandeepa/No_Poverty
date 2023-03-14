@@ -19,8 +19,8 @@ import {
 } from "@ant-design/icons"
 import Header_bar from "./header_bar"
 import Home from "../pages/AdminDashboard/Admin_dashboard"
-import Financial from "./financial"
-
+import Financial from '../components/financial/financial'
+import AddFinancial from "./financial/AddFinancial"
 const { Header, Content, Footer, Sider } = Layout
 
 
@@ -43,7 +43,7 @@ const Dashboard = props => {
         getItem("Donation", 1, <UserOutlined />),
         getItem("Job Portal", 2, <CarFilled />),
         getItem("Event", 3, <LineChartOutlined />),
-        getItem("Financial", 3, <LineChartOutlined />),
+        getItem("Financial", 4, <LineChartOutlined />),
 
     ]
 
@@ -54,7 +54,7 @@ const Dashboard = props => {
 
         <Home />,
         <Financial />,
-        // <DeliveryOrder />,
+        <AddFinancial />,
         // <SalesOrder />,
         // <PurchaseOrder />,
         // <PurchaseRequest />,
