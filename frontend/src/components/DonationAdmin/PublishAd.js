@@ -18,6 +18,7 @@ import Form_header from '../common/Form_header';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
 import WrapperContainer from '../common/Wrapper_container';
+import { Link } from 'react-router-dom';
 const { Option } = Select;
 const { Header, Content, Footer } = Layout;
 
@@ -181,6 +182,7 @@ const PublishAd = () => {
                     
 
                 </Form >
+                
             </div>
         </>
 

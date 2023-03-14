@@ -23,7 +23,13 @@ import AddFinancial from "../components/financial/AddFinancial"
 import Financial from "../components/financial/financial"
 import PublishAd from "./DonationAdmin/PublishAd"
 import JobPost from "./jobPortal/JobPost"
+<<<<<<< HEAD
 import JobList from "./jobPortal/JobList"
+=======
+import Ads from "./DonationAdmin/ShowAllAds"
+import Donations from "./DoDonations/ShowDonations"
+
+>>>>>>> 2a86fd1f342a1afa3902bd96b540371699eb1fca
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -48,8 +54,10 @@ const Dashboard = props => {
         getItem("Job Portal", 2, <CarFilled />),
         getItem("Add Donation Content", 3, <LineChartOutlined />),
         getItem("Financial", 4, <LineChartOutlined />),
-
         getItem("JobSaku", 5, <LineChartOutlined />),
+        getItem("Show Ads", 5, <LineChartOutlined />),
+        getItem("Show Donations", 6, <LineChartOutlined />),
+
 
     ]
 
@@ -62,10 +70,16 @@ const Dashboard = props => {
         <Financial />,
         <AddFinancial />,
         <PublishAd />,
+        <Ads/>,
         // <PurchaseOrder />,
         // <PurchaseRequest />,
         <JobPost/>,
+<<<<<<< HEAD
         <JobList />,
+=======
+        <Donations/>,
+        // <PuchaseItems />,
+>>>>>>> 2a86fd1f342a1afa3902bd96b540371699eb1fca
         // <Users />,
         // <StockOrder />
     ]
