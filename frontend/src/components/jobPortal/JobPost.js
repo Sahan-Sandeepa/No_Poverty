@@ -46,23 +46,23 @@ const JobPost = () => {
     const [total, setTotal] = useState("");
     const [status, setStatus] = useState("");
 
-    function sendData(e) {
-        e.preventDefault();
+    // function sendData(e) {
+    //     e.preventDefault();
 
-        const financialSchema = {
-            name, type, date, venue, total, status,
-        };
+    //     const financialSchema = {
+    //         name, type, date, venue, total, status,
+    //     };
 
-        axios
-            .post("http://localhost/4000/financial/", financialSchema)
-            .then(() => {
-                message("inserted!", "Data Inserted!", "success");
-                window.location.reload(false);
-            })
-            .catch((err) => {
-                alert(err);
-            });
-    }
+    //     axios
+    //         .post("http://localhost/4000/financial/", financialSchema)
+    //         .then(() => {
+    //             message("inserted!", "Data Inserted!", "success");
+    //             window.location.reload(false);
+    //         })
+    //         .catch((err) => {
+    //             alert(err);
+    //         });
+    // }
 
 
     return (
@@ -76,7 +76,7 @@ const JobPost = () => {
                     </CustomRow>
                 </WrapperCard>
                 <Form
-                    onSubmit={sendData}
+                    // onSubmit={sendData}
                     style={{ padding: 1, paddingLeft: 140 }}
                 >
                     <br></br>
