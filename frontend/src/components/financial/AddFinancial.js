@@ -42,14 +42,14 @@ const AddFinancial = () => {
 
             <WrapperCard style={{ backgroundColor: "#37475E" }}>
                         <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                            <h1 style={{ color: "White" }}>Add Financial Summmary</h1>
+                            <h1 style={{ color: "White" }}>Financial Summmary</h1>
 
                         </CustomRow>
                     </WrapperCard>
                 <Form
                     layout='vertical'
                     autoComplete="false"
-                    style={{padding:1, paddingLeft:150}}
+                    style={{padding:1, paddingLeft:140}}
                 >
                     <br></br>
                     
@@ -148,7 +148,7 @@ const AddFinancial = () => {
                         >
                             <Select placeholder="select your Status">
                                 <Option value="male">Completed</Option>
-                                <Option value="female">INCompleted</Option>
+                                <Option value="female">inCompleted</Option>
                             </Select>
                         </Form.Item>
                         {/* </Col> */}
@@ -163,6 +163,7 @@ const AddFinancial = () => {
                                 Cancel
                             </Button>
                         </Form.Item>
+                        <Col span={2}/>
                         <Form.Item label=" " colon={false}>
                             <Button type="primary" htmlType="submit">
                                 Submit
