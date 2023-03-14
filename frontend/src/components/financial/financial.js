@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Icon, Button, Space, Input } from 'antd';
+import { Table, Icon, Button, Space, Input, Col } from 'antd';
 import Header from '../header';
 import axios from "axios";
-import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, SelectOutlined, MessageOutlined } from '@ant-design/icons';
+import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
+import CustomRow from '../common/Form_header';
+import WrapperCard from '../common/Wrapper_card';
 
 
 const { Search } = Input;
@@ -11,15 +13,15 @@ const { Search } = Input;
 const Financial = () => {
     const [financial, setFinancial] = useState([]);
 
-    useEffect(() => {
-        axios.get('http://localhost/5000/financial/')
-            .then(response => {
-                setFinancial(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     axios.get('http://localhost/5000/financial/')
+    //         .then(response => {
+    //             setFinancial(response.data);
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //         });
+    // }, []);
     // function getAllBranchDetails() {
     //     axios.get("http://localhost:3000/financial/")
     //         .then((res) => {
@@ -109,46 +111,30 @@ const Financial = () => {
         ),
     }];
     return (
-        // <>
+        <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
+            <Col span={50} />
+            <Col span={30}>
 
-        //     <div style={{ padding: 80, backgroundColor: "whitesmoke" }}>
-
-
-        //         <div style={{ paddingLeft: 980 }}>
-        //             <Button style={{ alignfinancials: "end", backgroundColor: "red" }} type="primary">Create Report</Button>
-        //         </div>
-        //         <div style={{ padding: 25 }}>
-        //             <Search
-        //                 placeholder="input search text"
-        //                 onSearch={onSearch}
-        //                 style={{
-        //                     width: 200,
-        //                 }}
-        //             />
-        //             <Table columns={fincolums} dataSource={financial}
-        //                 bordered
-        //                 title={() => 'Financial Details'}
-        //                 style={{ backgroundColor: "grey" }}
-        //                 footer={() => 'Total Bill:'} />
-
-        //             <br></br><br></br>
-        //             {/* <Table columns={columns} dataSource={financial}
-        //                 bordered
-        //                 title={() => 'Donation History'}
-        //                 footer={() => 'Total Bill:'} /> */}
-
-        //         </div>
-        //     </div>
-        // </>
-        <div>
-            <h1>My App</h1>
-            <ul>
-                {financial.map(financial => (
-                    <><td>{financial.name}</td><td>{financial.type}</td><td>{financial.date}</td><td>{financial.venue}</td><td>{financial.total}</td><td>{financial.status}</td></>
-                ))}
-            </ul>
+                <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
+                        <h1 style={{ color: "White" }}>Financial Summmary</h1>
+                        <Col span={10} />
+                        <Search
+                            placeholder="input search text"
+                            onSearch={onSearch}
+                            style={{
+                                width: 200,
+                            }}
+                        />
+                        <Button icon={<FilePdfTwoTone />} />
+                    </CustomRow>
+                </WrapperCard>
+                <Table columns={fincolums} dataSource={financial}
+                    bordered
+                // title={() => 'Financial Details'}
+                />
+            </Col>
         </div>
-
     )
 }
 
