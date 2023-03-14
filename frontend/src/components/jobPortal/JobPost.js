@@ -20,7 +20,7 @@ import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
 import WrapperContainer from '../common/Wrapper_container';
 import axios from "axios";
-import {} from "react-router-dom";
+import { } from "react-router-dom";
 
 
 const { Option } = Select;
@@ -39,22 +39,22 @@ const config = {
 
 const JobPost = () => {
     const [size, setSize] = useState('large'); // default is 'middle'
-    const [name, setName] = useState("");
-    const [type, setType] = useState("");
-    const [date, setDate] = useState("");
-    const [venue, setVenue] = useState("");
-    const [total, setTotal] = useState("");
-    const [status, setStatus] = useState("");
+    const [name, setJobTitle] = useState("");
+    const [location, setLocation] = useState("");
+    const [openingDate, setOpeningDate] = useState("");
+    const [closingDate, setClosingDate] = useState("");
+    const [company, setCompany] = useState("");
+
 
     // function sendData(e) {
     //     e.preventDefault();
 
-    //     const financialSchema = {
-    //         name, type, date, venue, total, status,
+    //     const jobPostSchema = {
+    //         name, location, openingDate, closingDate, company,
     //     };
 
     //     axios
-    //         .post("http://localhost/4000/financial/", financialSchema)
+    //         .post("http://localhost:5000/jobHire/add", jobPostSchema)
     //         .then(() => {
     //             message("inserted!", "Data Inserted!", "success");
     //             window.location.reload(false);
@@ -71,8 +71,7 @@ const JobPost = () => {
 
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
                     <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                        <h1 style={{ color: "White" }}>Job Summmary</h1>
-
+                        <h1 style={{ color: "White" }}>Add New Vacancy</h1>
                     </CustomRow>
                 </WrapperCard>
                 <Form
@@ -80,138 +79,80 @@ const JobPost = () => {
                     style={{ padding: 1, paddingLeft: 140 }}
                 >
                     <br></br>
-
-                    <Col span={12}>
+                    <h1 style={{ color: "Black" }}>Add New Vacancy</h1><br></br>
+                    <Row>
+                        {/* <Col span={12}> */}
                         <Form.Item
                             name="name"
-                            label="Program_name"
+                            label="Job Title"
                             rules={[
                                 {
                                     required: true,
-                                    message: "Enter the Program name"
+                                    message: "Enter Job Title"
                                 }
 
                             ]}
                         >
                             <Input
                                 onChange={(val) => {
-                                        setName(val.target.value);
-                                    
+                                    setJobTitle(val.target.value);
                                 }}
                             />
                         </Form.Item>
-                    </Col>
-                    <br></br>
-
-                    <Row>
-
-                        <Form.Item
-                            name="Type"
-                            label="Type"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please select Type!',
-                                },
-                            ]}
-
-                            onChange={(val) => {
-                                    setType(val.target.value);
-
-                                
-                            }}
-
-                        >
-                            <Select placeholder="select your type">
-                                <Option value="male">Donation</Option>
-                                <Option value="female">Events</Option>
-                            </Select>
-
-                        </Form.Item>
-                        <Col span={4} />
-
-                        {/* <Form.Item name="date-picker" label="DatePicker" {...config}>
+                        <Form.Item name="openingDate" label="Opening Date" {...config}>
                             <DatePicker
                                 onChange={(val) => {
-                                        setDate(val.target.value);
-
-                                    
+                                    setOpeningDate(val.target.value);
                                 }} />
-                        </Form.Item> */}
-                    </Row>
-                    <br></br>
-
-                    <Col span={18}>
-                        <Form.Item
-                            name="Enter the venue"
-                            label="Venue"
-
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Please enter the place or venue"
-                                }
-                            ]}
-                        >
-                            <Input
-                               onChange={(e) => {
-                                setVenue(e.target.value);
-                              }}
-                            />
-                        </Form.Item>
-                    </Col>
-                    <br></br>
-
-                    <Row>
-                        <Col span={5} >
-
-                            <Form.Item
-                                name="Total"
-                                label="Total"
-
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "Please enter the total amount"
-                                    }
-                                ]}
-                            >
-                                <Input
-                                    onChange={(val) => {
-                                            setTotal(val.target.value);
-                                        
-                                    }}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <br></br>
-                        <Col span={5} />
-
-                        <Form.Item
-                            name="Status"
-                            label="Status"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please select Status!',
-                                },
-                            ]}
-
-                            onChange={(val) => {
-                                    setStatus(val.target.value);
-
-                                
-                            }}
-                        >
-                            <Select placeholder="select your Status">
-                                <Option value="male">Completed</Option>
-                                <Option value="female">inCompleted</Option>
-                            </Select>
                         </Form.Item>
                         {/* </Col> */}
                     </Row>
-                    {/* <br></br> */}
 
+                    <Row>
+                        <Form.Item
+                            name="location"
+                            label="Location"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Enter Location"
+                                }
+
+                            ]}
+                        >
+                            <Input
+                                onChange={(val) => {
+                                    setLocation(val.target.value);
+                                }}
+                            />
+                        </Form.Item>
+                        <Form.Item name="closingDate" label="Closing Date" {...config}>
+                            <DatePicker
+                                onChange={(val) => {
+                                    setClosingDate(val.target.value);
+                                }} />
+                        </Form.Item>
+                    </Row>
+
+                    <Row>
+                        <Form.Item
+                            name="company"
+                            label="Company"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Enter the Company name"
+                                }
+
+                            ]}
+                        >
+                            <Input
+                                onChange={(val) => {
+                                    setCompany(val.target.value);
+                                }}
+                            />
+                        </Form.Item>
+                    </Row>
 
                     <Row>
                         <Col span={13} />
