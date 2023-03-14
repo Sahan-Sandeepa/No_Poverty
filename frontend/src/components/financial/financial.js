@@ -32,7 +32,7 @@ const Financial = () => {
     }, [])
 
     //delete fubction
-  function deleteCustomerbill(id) {
+  function deleteFinancial(id) {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this Record!",
@@ -45,9 +45,8 @@ const Financial = () => {
         //true
         //save.it
       axios
-      .delete("http://localhost:4000/financial/" + id)
+      .delete("http://localhost:4000/financial/" +id)
       .then((result) => {
-        // alert("CustomerBill deleted successfully");
         swal("Done! Record has been deleted!", {
           icon: "success",
         });
@@ -114,7 +113,7 @@ const Financial = () => {
             <span>
 
                 <Button icon={<EditTwoTone />}></Button>
-                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />} onClick={()=> deleteCustomerbill(financial.id)}></Button>
+                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />} onClick={deleteFinancial(financial._id)}></Button>
 
                 {/* <a href="#">Action 一 {record.name}</a>
                 <span className="ant-divider" />
@@ -145,6 +144,7 @@ const Financial = () => {
                     bordered
                 // title={() => 'Financial Details'}
                 />
+                <a href='/action2'>Tag</a>
             </Col>
         </div>
     )

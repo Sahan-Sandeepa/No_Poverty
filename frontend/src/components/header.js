@@ -51,8 +51,8 @@ const Dashboard = props => {
         getItem("Add Donation Content", 3, <LineChartOutlined />),
         getItem("Financial", 4, <LineChartOutlined />),
         getItem("JobSaku", 5, <LineChartOutlined />),
-        getItem("Show Ads", 5, <LineChartOutlined />),
-        getItem("Show Donations", 6, <LineChartOutlined />),
+        getItem("Show Ads", 6, <LineChartOutlined />),
+        getItem("Show Donations", 7, <LineChartOutlined />),
 
 
     ]
