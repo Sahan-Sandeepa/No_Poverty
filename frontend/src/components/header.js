@@ -47,14 +47,14 @@ const Dashboard = props => {
 
     const items = [
         getItem("Dashboard", 0, <BankTwoTone />),
-        getItem("Donation", 1, <UserOutlined />),
-        getItem("Job Portal", 2, <CarFilled />),
+        getItem("Financial", 1, <UserOutlined />),
+        getItem("AddFinancial", 2, <CarFilled />),
         getItem("Add Donation Content", 3, <LineChartOutlined />),
-        getItem("Financial", 4, <LineChartOutlined />),
-        getItem("JobSaku", 5, <LineChartOutlined />),
-        getItem("Show Ads", 6, <LineChartOutlined />),
-        getItem("Show Donations", 7, <LineChartOutlined />),
-        getItem("job epaa una saku", 8, <LineChartOutlined />),
+        getItem("Show Ads", 4, <LineChartOutlined />),
+        getItem("Show Donations", 5, <LineChartOutlined />),
+        getItem("job Post krmutheee? ", 6, <LineChartOutlined />),
+        getItem("job epa una krmutheee? ", 7, <LineChartOutlined />),
+
 
 
 
@@ -70,10 +70,8 @@ const Dashboard = props => {
         <AddFinancial />,
         <PublishAd />,
         <Ads/>,
-        // <PurchaseOrder />,
-        // <PurchaseRequest />,
-        <JobPost/>,
         <Donations/>,
+        <JobPost/>,
         <JobList />,
         // <Users />,
         // <StockOrder />
