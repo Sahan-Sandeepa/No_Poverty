@@ -19,7 +19,8 @@ import {
 } from "@ant-design/icons"
 import Header_bar from "./header_bar"
 import Home from "../pages/AdminDashboard/Admin_dashboard"
-import Financial from "./financial"
+import AddFinancial from "../components/financial/AddFinancial"
+import Financial from "../components/financial/financial"
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -54,7 +55,7 @@ const Dashboard = props => {
 
         <Home />,
         <Financial />,
-        // <DeliveryOrder />,
+        <AddFinancial />,
         // <SalesOrder />,
         // <PurchaseOrder />,
         // <PurchaseRequest />,
