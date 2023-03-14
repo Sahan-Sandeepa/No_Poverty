@@ -182,7 +182,7 @@ const PublishAd = () => {
                     
 
                 </Form >
-                <a href="#">View Data</a>
+                
             </div>
         </>
 

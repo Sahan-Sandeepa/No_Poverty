@@ -22,6 +22,7 @@ import Home from "../pages/AdminDashboard/Admin_dashboard"
 import AddFinancial from "../components/financial/AddFinancial"
 import Financial from "../components/financial/financial"
 import PublishAd from "./DonationAdmin/PublishAd"
+import Ads from "./DonationAdmin/ShowAllAds"
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -46,6 +47,7 @@ const Dashboard = props => {
         getItem("Job Portal", 2, <CarFilled />),
         getItem("Add Donation Content", 3, <LineChartOutlined />),
         getItem("Financial", 4, <LineChartOutlined />),
+        getItem("Show Ads", 5, <LineChartOutlined />),
 
     ]
 
@@ -58,6 +60,7 @@ const Dashboard = props => {
         <Financial />,
         <AddFinancial />,
         <PublishAd />,
+        <Ads/>,
         // <PurchaseOrder />,
         // <PurchaseRequest />,
         // <PuchaseItems />,
