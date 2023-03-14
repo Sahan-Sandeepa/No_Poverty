@@ -25,6 +25,7 @@ import PublishAd from "./DonationAdmin/PublishAd"
 import JobPost from "./jobPortal/JobPost"
 import Ads from "./DonationAdmin/ShowAllAds"
 import Donations from "./DoDonations/ShowDonations"
+import JobList from "./jobPortal/JobList"
 
 
 const { Header, Content, Footer, Sider } = Layout
@@ -53,6 +54,8 @@ const Dashboard = props => {
         getItem("JobSaku", 5, <LineChartOutlined />),
         getItem("Show Ads", 6, <LineChartOutlined />),
         getItem("Show Donations", 7, <LineChartOutlined />),
+        getItem("job epaa una saku", 8, <LineChartOutlined />),
+
 
 
     ]
@@ -71,7 +74,7 @@ const Dashboard = props => {
         // <PurchaseRequest />,
         <JobPost/>,
         <Donations/>,
-        // <PuchaseItems />,
+        <JobList />,
         // <Users />,
         // <StockOrder />
     ]
