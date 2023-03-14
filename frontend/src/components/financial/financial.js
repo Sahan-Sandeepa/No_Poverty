@@ -5,8 +5,6 @@ import axios from "axios";
 import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
-import swal from 'sweetalert';
-
 
 
 const { Search } = Input;
@@ -15,8 +13,6 @@ const { Search } = Input;
 const Financial = () => {
     const [financial, setFinancial] = useState([]);
     const [column, setColumns] = useState([]);
-    const [isDeleteModalOpen, setIsDelete] = useState(false)
-
 
     function getFinancial() {
         axios.get("http://localhost:4000/financial/")
@@ -31,40 +27,6 @@ const Financial = () => {
         getFinancial();
     }, [])
 
-    //delete fubction
-  function deleteCustomerbill(id) {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this Record!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        //true
-        //save.it
-      axios
-      .delete("http://localhost:4000/financial/" + id)
-      .then((result) => {
-        // alert("CustomerBill deleted successfully");
-        swal("Done! Record has been deleted!", {
-          icon: "success",
-        });
-        setTimeout(function () {
-
-          window.location.reload();
-
-        }, 2000);
-      })
-        .catch((err)=>{
-           alert((err.message));
-        })  
-      } else {
-        swal("Your record is safe!");
-      }
-    });
-  }
 
     const onSearch = (value) => console.log(value);
 
@@ -114,7 +76,7 @@ const Financial = () => {
             <span>
 
                 <Button icon={<EditTwoTone />}></Button>
-                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />} onClick={()=> deleteCustomerbill(financial.id)}></Button>
+                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}></Button>
 
                 {/* <a href="#">Action 一 {record.name}</a>
                 <span className="ant-divider" />
