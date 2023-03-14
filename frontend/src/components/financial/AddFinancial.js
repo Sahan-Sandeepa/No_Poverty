@@ -38,9 +38,9 @@ const AddFinancial = () => {
 
     return (
         <>
-            <div style={{ padding: 1, alignItems: "center", backgroundColor: '#D3D3D3', width: 900, height: 650 }}>
+            <div style={{ padding: 1, alignItems: "center", backgroundColor: '#D3D3D3', width: 900, height: 650, borderRadius:5 }}>
 
-            <WrapperCard style={{ backgroundColor: "#37475E" }}>
+            <WrapperCard style={{ backgroundColor: "#37475E"}}>
                         <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
                             <h1 style={{ color: "White" }}>Financial Summmary</h1>
 
@@ -153,19 +153,19 @@ const AddFinancial = () => {
                         </Form.Item>
                         {/* </Col> */}
                     </Row>
-                    <br></br>
+                    {/* <br></br> */}
 
 
                     <Row>
                         <Col span={13} />
-                        <Form.Item label=" " colon={false}>
-                            <Button type="default" color='red' htmlType="submit">
+                        <Form.Item label=" " colon={false} >
+                            <Button type="primary" color='red' htmlType="submit" style={{backgroundColor:"#f44336", fontWeight:"bold"}}>
                                 Cancel
                             </Button>
                         </Form.Item>
-                        <Col span={2}/>
+                        <Col span={1}/>
                         <Form.Item label=" " colon={false}>
-                            <Button type="primary" htmlType="submit">
+                            <Button type="primary" htmlType="submit" style={{ fontWeight:"bold"}} >
                                 Submit
                             </Button>
                         </Form.Item>
