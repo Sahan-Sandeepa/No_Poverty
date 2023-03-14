@@ -21,6 +21,7 @@ import Header_bar from "./header_bar"
 import Home from "../pages/AdminDashboard/Admin_dashboard"
 import AddFinancial from "../components/financial/AddFinancial"
 import Financial from "../components/financial/financial"
+import PublishAd from "./DonationAdmin/PublishAd"
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -43,7 +44,7 @@ const Dashboard = props => {
         getItem("Dashboard", 0, <BankTwoTone />),
         getItem("Donation", 1, <UserOutlined />),
         getItem("Job Portal", 2, <CarFilled />),
-        getItem("Event", 3, <LineChartOutlined />),
+        getItem("Add Donation Content", 3, <LineChartOutlined />),
         getItem("Financial", 4, <LineChartOutlined />),
         
 
@@ -57,7 +58,7 @@ const Dashboard = props => {
         <Home />,
         <Financial />,
         <AddFinancial />,
-        // <SalesOrder />,
+        <PublishAd />,
         // <PurchaseOrder />,
         // <PurchaseRequest />,
         // <PuchaseItems />,
