@@ -11,19 +11,7 @@ import UpdateEvent from './components/Event/Admin/UpdateEvent';
 function App() {
   return (
     <div>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path='/financial'
-            component={Financial}
-          />
-          <Route path='/addfinancial'
-            component={AddFinancial}
-
-          />
-        </Routes>
-
-      </Router>
+      <Header/>
     </div>
   );
 }

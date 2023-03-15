@@ -5,7 +5,7 @@ const {getFinancials,getFinancialById,createFinancial,updateFinancial,deleteFina
 
 router.get('/', getFinancials);
 router.get('/:id', getFinancialById);
-router.post('/', createFinancial);
+router.post('/create', createFinancial);
 router.put('/:id', updateFinancial);
 router.delete('/:id', deleteFinancial);
 
