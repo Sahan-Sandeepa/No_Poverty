@@ -1,13 +1,26 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
 import Header from './components/header';
 import Header_bar from './components/header_bar';
 import AddFinancial from './components/financial/AddFinancial';
+import Financial from './components/financial/financial';
 
 function App() {
   return (
     <div>
-      <Header />
+      <Router>
+        <Header />
+        <Routes>
+          <Route path='/financial'
+            component={Financial}
+          />
+          <Route path='/addfinancial'
+            component={AddFinancial}
+
+          />
+        </Routes>
+
+      </Router>
     </div>
   );
 }
