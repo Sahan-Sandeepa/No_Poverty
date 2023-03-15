@@ -4,8 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+
 
 
 //routes
@@ -15,8 +14,10 @@ const JobFindRoute = require('./routes/jobFind_routes');
 const EventRoute = require('./routes/event_routes');
 const EventUser = require('./routes/event_regiter_routes')
 const RegisterUsers = require('./routes/register_routes');
-const User = require('./models/user_model')
+//const User = require('./models/user_model')
 const authRoutes = require('./routes/auth_routes');
+const Donations = require('./routes/donate_routes');
+const adDonation = require('./routes/adsDonate_routes');
 
 const auth = require("./middleware/auth");
 
@@ -43,13 +44,14 @@ app.use((req, res, next) => {
 
 
 app.use('/financial', FinancialRoute);
-
 app.use('/jobHire', JobHireRoute);
 app.use('/jobFind', JobFindRoute);
 app.use('/event', EventRoute);
 app.use('/event-registration', EventUser);
 app.use('/regiUser', RegisterUsers);
 app.use('/api/auth', authRoutes);
+app.use('/donation',Donations);
+app.use('/adDonations',adDonation);
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)

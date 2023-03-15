@@ -18,6 +18,14 @@ import {
     CarFilled
 } from "@ant-design/icons"
 import Header_bar from "./header_bar"
+import Home from "../pages/AdminDashboard/Admin_dashboard"
+import AddFinancial from "../components/financial/AddFinancial"
+import Financial from "../components/financial/financial"
+import PublishAd from "./DonationAdmin/PublishAd"
+import JobPost from "./jobPortal/JobPost"
+import Ads from "./DonationAdmin/ShowAllAds"
+import Donations from "./DoDonations/ShowDonations"
+
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -40,9 +48,12 @@ const Dashboard = props => {
         getItem("Dashboard", 0, <BankTwoTone />),
         getItem("Donation", 1, <UserOutlined />),
         getItem("Job Portal", 2, <CarFilled />),
-        getItem("Financial", 3, <LineChartOutlined />),
-        getItem("Event", 3, <LineChartOutlined />),
-        getItem("Log Out", 4, <MoneyCollectFilled />),
+        getItem("Add Donation Content", 3, <LineChartOutlined />),
+        getItem("Financial", 4, <LineChartOutlined />),
+        getItem("JobSaku", 5, <LineChartOutlined />),
+        getItem("Show Ads", 5, <LineChartOutlined />),
+        getItem("Show Donations", 6, <LineChartOutlined />),
+
 
     ]
 
@@ -50,12 +61,16 @@ const Dashboard = props => {
     const [activeIndex, setActiveIndex] = useState(0)
 
     const bodyContainer = [
-        // <Home />,
-        // <Customer />,
-        // <DeliveryOrder />,
-        // <SalesOrder />,
+
+        <Home />,
+        <Financial />,
+        <AddFinancial />,
+        <PublishAd />,
+        <Ads/>,
         // <PurchaseOrder />,
         // <PurchaseRequest />,
+        <JobPost/>,
+        <Donations/>,
         // <PuchaseItems />,
         // <Users />,
         // <StockOrder />
