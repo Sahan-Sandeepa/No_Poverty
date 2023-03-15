@@ -1,13 +1,9 @@
 import React, { useEffect } from 'react'
 import {
-    AutoComplete,
     Button,
-    Cascader,
-    Checkbox,
     Col,
     Form,
     Input,
-    InputNumber,
     Row,
     Select,
     DatePicker,
@@ -27,11 +23,6 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import Link from 'antd/es/typography/Link';
 dayjs.extend(customParseFormat);
-const { RangePicker } = DatePicker;
-
-const { Option } = Select;
-const { Header, Content, Footer } = Layout;
-const url = "http://localhost/4000/financial/";
 
 const config = {
     rules: [
@@ -43,16 +34,6 @@ const config = {
     ],
 };
 const dateFormat = 'YYYY/MM/DD';
-const customFormat = (value) => `custom format: ${value.format(dateFormat)}`;
-function handleButtonClick(e) {
-    message.info('Click on left button.');
-    console.log('click left button', e);
-}
-
-function handleMenuClick(e) {
-    message.info('Click on menu item.');
-    console.log('click', e);
-}
 
 
 const AddFinancial = props => {
@@ -106,14 +87,6 @@ const AddFinancial = props => {
 
     return (
         <>
-            <Button type="primary" onClick={showModal}>
-                Open Modal
-            </Button>
-            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-            </Modal>
 
             <div style={{ padding: 1, alignItems: "center", backgroundColor: '#D3D3D3', width: 900, height: 650, borderRadius: 5 }}>
 
