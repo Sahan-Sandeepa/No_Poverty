@@ -20,16 +20,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AllEvent = () => {
 
-    const [dropdown, setDropdown] = useState("COLLECT");
+    const [dropdown, setDropdown] = useState("OPEN");
 
     async function handleUpdateStatus(id, value) {
-        console.log(id, value);
+        // console.log(id, value);
 
         axios
             .patch(
                 `http://localhost:4000/event/update/${id}`,
                 {
-                    status: value,
+                    eventStatus: value,
                 },
                 { headers: { "Content-Type": "application/json" } }
             )
@@ -42,24 +42,24 @@ const AllEvent = () => {
             });
     }
 
-    const [claimDetails, setAllClaimdetails] = useState([]);
+    const [eventDetails, setAllEventDetails] = useState([]);
     const [searchDetail, setsearchDetail] = useState("");
 
-    function getAllClaimDetails() {
+    function getAllEventDetails() {
         axios
             .get("http://localhost:4000/event/getAll")
             .then((res) => {
                 console.log(res);
-                setAllClaimdetails(res.data.Claim);
+                setAllEventDetails(res.data.Event);
             })
             .catch(() => {
                 alert("Check The Connectivity");
             });
     }
+    // console.log(eventDetails);
+    useEffect(() => getAllEventDetails(), []);
 
-    useEffect(() => getAllClaimDetails(), []);
-
-    function deleteClaimDetail(id) {
+    function deleteEventDetail(id) {
         // if (window.confirm("Are You Sure Want To Delete?")) {
         axios
             .delete("http://localhost:4000/event/delete/" + id)
@@ -111,7 +111,7 @@ const AllEvent = () => {
                                         width="38"
                                         height="45"
                                         fill="currentColor"
-                                        class="bi bi-plus-circle"
+                                        className="bi bi-plus-circle"
                                         viewBox="0 0 20 19"
                                     >
                                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -138,9 +138,9 @@ const AllEvent = () => {
                             </Form>
                         </Col>
                     </Row>
-                    <div class="container p-3 my-3 bg-light text-white">
+                    <div className="container p-3 my-3 bg-light text-white">
                         <Container fluid="sm">
-                            {claimDetails
+                            {eventDetails
                                 ?.filter((val) => {
                                     if (searchDetail === " ") {
                                         return val;
@@ -158,9 +158,9 @@ const AllEvent = () => {
                                         return val;
                                     }
                                 })
-                                .map((claimDetailsVal) => (
+                                ?.map((eventDetailsVal) => (
                                     <Accordion responsive>
-                                        <div class="container p-0 my-1">
+                                        <div className="container p-0 my-1">
                                             <Accordion.Item eventKey="0">
                                                 <Accordion.Header>
                                                     <Container fluid="sm">
@@ -169,7 +169,7 @@ const AllEvent = () => {
                                                                 <h4>
                                                                     {" "}
                                                                     <Badge bg="secondary">
-                                                                        Serial Number - {claimDetailsVal.eventNo}
+                                                                        Serial Number - {eventDetailsVal.eventNo}
                                                                     </Badge>
                                                                     <Badge bg="">
                                                                         <br></br>
@@ -182,7 +182,7 @@ const AllEvent = () => {
                                                                         <br></br>
                                                                     </Badge>{" "}
                                                                     <Badge bg="secondary">
-                                                                        Receive Date - {claimDetailsVal.eventName}
+                                                                        Receive Date - {eventDetailsVal.eventName}
                                                                     </Badge>
                                                                     <Badge bg="">
                                                                         <br></br>
@@ -196,7 +196,7 @@ const AllEvent = () => {
                                                                     </Badge>{" "}
                                                                     <Badge bg="light">
                                                                         {" "}
-                                                                        
+
                                                                     </Badge>
                                                                     <Badge bg="">
                                                                         <br></br>
@@ -208,7 +208,7 @@ const AllEvent = () => {
                                                 </Accordion.Header>
 
                                                 <Accordion.Body>
-                                                    <div class="card border-info mb-3">
+                                                    <div className="card border-info mb-3">
 
                                                         <Row>
                                                             <Col md={6} className="mb-2" >
@@ -223,7 +223,7 @@ const AllEvent = () => {
                                                                                 width="30"
                                                                                 height="20"
                                                                                 fill="red"
-                                                                                class="bi bi-square-fill"
+                                                                                className="bi bi-square-fill"
                                                                                 viewBox="0 0 30 15">
 
                                                                                 <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
@@ -231,7 +231,8 @@ const AllEvent = () => {
                                                                             <strong className="me-auto">File is going to be remove</strong>
                                                                             <small></small>
                                                                         </Toast.Header>
-                                                                        <Toast.Body><div className="Alignment">Delete : Press <strong>Delete</strong> To confirm</div></Toast.Body>
+                                                                        <Toast.Body>
+                                                                            <div className="Alignment">Delete : Press <strong>Delete</strong> To confirm</div></Toast.Body>
                                                                         <div className="Cbtn">
                                                                             <Row>
                                                                                 <Col>
@@ -241,7 +242,7 @@ const AllEvent = () => {
                                                                                         variant="outline-danger"
                                                                                         className="retrivebtn"
                                                                                         onClick={() =>
-                                                                                            deleteClaimDetail(claimDetailsVal._id)
+                                                                                            deleteEventDetail(eventDetailsVal._id)
                                                                                         }
                                                                                     >
 
@@ -249,7 +250,7 @@ const AllEvent = () => {
                                                                                             width="90"
                                                                                             height="23"
                                                                                             fill="currentColor"
-                                                                                            class="bi bi-file-earmark-x-fill"
+                                                                                            className="bi bi-file-earmark-x-fill"
                                                                                             viewBox="0 0 20 20">
                                                                                             <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
                                                                                         </svg>
@@ -268,7 +269,7 @@ const AllEvent = () => {
                                                                                             width="90"
                                                                                             height="23"
                                                                                             fill="currentColor"
-                                                                                            class="bi bi-x-square-fill"
+                                                                                            className="bi bi-x-square-fill"
                                                                                             viewBox="0 0 19 21">
                                                                                             <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z" />
                                                                                         </svg>
@@ -283,7 +284,7 @@ const AllEvent = () => {
                                                         </Row>
 
 
-                                                        <Card style={{ margin: 10 }}>
+                                                        {/* <Card style={{ margin: 10 }}>
                                                             <Card.Header style={{ display: "flex" }}>
                                                                 <span
                                                                     style={{
@@ -299,8 +300,8 @@ const AllEvent = () => {
                                                                 <div>
                                                                     <div
                                                                         ref={
-                                                                            "/ClaimHome/UpdateClaim/" +
-                                                                            claimDetailsVal._id
+                                                                            "../Admin/UpdateEvent.js/" +
+                                                                            eventDetailsVal._id
                                                                         }
                                                                     >
                                                                         <Button
@@ -313,12 +314,12 @@ const AllEvent = () => {
                                                                                 width="28"
                                                                                 height="35"
                                                                                 fill="currentColor"
-                                                                                class="bi bi-pencil-square"
+                                                                                className="bi bi-pencil-square"
                                                                                 viewBox="0 0 20 19"
                                                                             >
                                                                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                                                                 <path
-                                                                                    fill-rule="evenodd"
+                                                                                    fillRule="evenodd"
                                                                                     d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
                                                                                 />
                                                                             </svg>
@@ -326,18 +327,19 @@ const AllEvent = () => {
                                                                         </Button>
                                                                     </div>
                                                                     <div
-                                                                        // ref={
-                                                                        //     "/ClaimHome/PrintClaim/" +
-                                                                        //     claimDetailsVal._id
-                                                                        // }
+                                                                    // ref={
+                                                                    //     "/ClaimHome/PrintClaim/" +
+                                                                    //     claimDetailsVal._id
+                                                                    // }
                                                                     >
                                                                         <Button
                                                                             style={{ margin: "5px" }}
                                                                             variant="outline-warning"
                                                                             type="submit"
                                                                             href={
-                                                                                "/ClaimHome/PrintClaim/" +
-                                                                                claimDetailsVal._id
+                                                                                // "/ClaimHome/PrintClaim/" +
+                                                                                // claimDetailsVal._id
+                                                                                ""
                                                                             }
                                                                         >
                                                                             <svg
@@ -345,7 +347,7 @@ const AllEvent = () => {
                                                                                 width="28"
                                                                                 height="35"
                                                                                 fill="currentColor"
-                                                                                class="bi bi-file-earmark-arrow-down-fill"
+                                                                                className="bi bi-file-earmark-arrow-down-fill"
                                                                                 viewBox="0 0 20 19"
                                                                             >
                                                                                 <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zm-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0z" />
@@ -360,14 +362,14 @@ const AllEvent = () => {
                                                                             variant="outline-danger"
                                                                             type="submit"
                                                                             onClick={toggleShowA}
-                                                                            href={"/MainClaimPage"}
+                                                                            href={"../Admin/AllEvent.js"}
                                                                         >
                                                                             <svg
                                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                                 width="28"
                                                                                 height="35"
                                                                                 fill="currentColor"
-                                                                                class="bi bi-trash-fill"
+                                                                                className="bi bi-trash-fill"
                                                                                 viewBox="0 0 20 19"
                                                                             >
                                                                                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
@@ -378,7 +380,7 @@ const AllEvent = () => {
                                                                 </div>
                                                             </Card.Header>
                                                             <Card.Body>
-                                                                <div class="container p-3 my-3 bg-light text-dark">
+                                                                <div className="container p-3 my-3 bg-light text-dark">
                                                                     <blockquote className="blockquote mb-0">
                                                                         <p>
                                                                             <Table striped bordered hover responsive>
@@ -416,7 +418,7 @@ const AllEvent = () => {
                                                                                             <Row className="mb-1">
 
 
-                                                                                                <div class="input-group mb-3">
+                                                                                                <div className="input-group mb-3">
                                                                                                     <select
                                                                                                         class="form-select"
                                                                                                         id="inputGroupSelect01"
@@ -427,23 +429,23 @@ const AllEvent = () => {
                                                                                                             );
 
                                                                                                             handleUpdateStatus(
-                                                                                                                claimDetailsVal._id,
+                                                                                                                eventDetailsVal._id,
                                                                                                                 e.target.value
                                                                                                             );
                                                                                                         }}
                                                                                                     >
-                                                                                                        <option value="COLLECT">
+                                                                                                        <option value="OPEN">
                                                                                                             {'claimDetailsVal.status'}
                                                                                                         </option>
                                                                                                         {ColoredLine()}
-                                                                                                        <option value="COLLECT">
-                                                                                                            COLLECT
+                                                                                                        <option value="CLOSE">
+                                                                                                            CLOSE
                                                                                                         </option>
-                                                                                                        <option value="FIXING">
-                                                                                                            FIXING
+                                                                                                        <option value="POSTPONED">
+                                                                                                            POSTPONED
                                                                                                         </option>
-                                                                                                        <option value="CLAIMED">
-                                                                                                            CLAIMED
+                                                                                                        <option value="PENDING">
+                                                                                                            PENDING
                                                                                                         </option>
                                                                                                     </select>
                                                                                                 </div>
@@ -492,7 +494,7 @@ const AllEvent = () => {
                                                                     </blockquote>
                                                                 </div>
                                                             </Card.Body>
-                                                        </Card>
+                                                        </Card> */}
                                                     </div>
                                                 </Accordion.Body>
                                             </Accordion.Item>
