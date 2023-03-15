@@ -26,6 +26,7 @@ import JobPost from "./jobPortal/JobPost"
 import Ads from "./DonationAdmin/ShowAllAds"
 import Donations from "./DoDonations/ShowDonations"
 import JobList from "./jobPortal/JobList"
+import Register from "./Register/Register"
 
 
 const { Header, Content, Footer, Sider } = Layout
@@ -54,6 +55,7 @@ const Dashboard = props => {
         getItem("Show Donations", 5, <LineChartOutlined />),
         getItem("job Post krmutheee? ", 6, <LineChartOutlined />),
         getItem("job epa una krmutheee? ", 7, <LineChartOutlined />),
+        getItem("helllo regiter? ", 8, <LineChartOutlined />),
 
 
 
@@ -73,7 +75,7 @@ const Dashboard = props => {
         <Donations/>,
         <JobPost/>,
         <JobList />,
-        // <Users />,
+        <Register />,
         // <StockOrder />
     ]
 

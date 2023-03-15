@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
 import Header from './components/header';
 import Header_bar from './components/header_bar';
 import AddFinancial from './components/financial/AddFinancial';
@@ -11,26 +11,19 @@ import UpdateEvent from './components/Event/Admin/UpdateEvent';
 function App() {
   return (
     <div>
-      <BrowserRouter>
-      <Header />
-      <Routes>
-      <Route path='/financial'
-      element={<Financial/>}
-      />
-      <Route path='/addfinancial'
-      element={<AddFinancial/>}
-      />
+      <Router>
+        <Header />
+        <Routes>
+          <Route path='/financial'
+            component={Financial}
+          />
+          <Route path='/addfinancial'
+            component={AddFinancial}
 
-      {/* ==========================Sahan Routes========================== */}
+          />
+        </Routes>
 
-        <Route path='/eventMain' element={<AllEvent />} />
-        <Route path='/addEvent' element={<AddEvent />} />
-        <Route path='/updateEvent' element={<UpdateEvent />} />
-
-      {/* ==========================Sahan Routes========================== */}
-      </Routes>
-
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }
