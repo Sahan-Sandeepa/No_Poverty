@@ -28,23 +28,9 @@ const getAdById = async (req, res) => {
 // create a new Ad
 const addAdvertistment = async (req, res) => {
   const {name,smallDes,longDes,location,help} = req.body
+  console.log("name",name);
 
-//   let emptyFields = []
 
-//   if (!title) {
-//     emptyFields.push('title')
-//   }
-//   if (!load) {
-//     emptyFields.push('load')
-//   }
-//   if (!reps) {
-//     emptyFields.push('reps')
-//   }
-//   if (emptyFields.length > 0) {
-//     return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
-//   }
-
-  // add to the database
   try {
     const ad = await Advertistment.create({ name,smallDes,longDes,location,help })
     res.status(200).json(ad)

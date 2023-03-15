@@ -19,9 +19,10 @@ import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
 import WrapperContainer from '../common/Wrapper_container';
 import { Link } from 'react-router-dom';
+import axios, { Axios } from 'axios';
 const { Option } = Select;
 const { Header, Content, Footer } = Layout;
-
+const url = "http://localhost/4000/adDonations/";
 
 const config = {
     rules: [
@@ -33,49 +34,77 @@ const config = {
     ],
 };
 
-const PublishAd = () => {
-    const [size, setSize] = useState('large'); // default is 'middle'
+const PublishAd = props => {
+    
+    const [ name, setName ] = useState('');
+    const [ location, setLocation ] = useState('');
+    const [ smallDes, setSmallDes ] = useState('');
+    const [ longDes, setLongDes ] = useState("");
+    const [ help, setHelp ] = useState("");
+
+    function sendAdData(e) {
+        e.preventDefault();
+
+        const adSchema = {
+            name,
+            location,
+            smallDes,
+            longDes,
+            help
+        };
+
+        axios.post("http://localhost/4000/adDonations/", adSchema)
+            .then(value => {
+                console.log(value);
+            })
+            .catch((err) => {
+                console.log(`Error: ${err?.response?.data}`);
+            })
+    }
 
 
     return (
         <>
-            <div style={{ padding: 1, alignItems: "center", backgroundColor: '#D3D3D3', width: 900, height: 650, borderRadius:5 }}>
+            <div style={{ padding: 1, alignItems: "center", backgroundColor: '#D3D3D3', width: 900, height: 650, borderRadius: 5 }}>
 
-            <WrapperCard style={{ backgroundColor: "#37475E"}}>
-                        <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                            <h1 style={{ color: "White" }}>Publish Donation Opportunities</h1>
+                <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
+                        <h1 style={{ color: "White" }}>Publish Donation Opportunities</h1>
 
-                        </CustomRow>
-                    </WrapperCard>
+                    </CustomRow>
+                </WrapperCard>
                 <Form
                     layout='vertical'
                     autoComplete="false"
-                    style={{padding:1, paddingLeft:140}}
+                    style={{ padding: 1, paddingLeft: 140 }}
                 >
                     <br></br>
                     <Row>
-                    <Col span={12}>
+                        <Col span={12}>
+                            <Form.Item
+                                name="name"
+                                label="Name"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Enter name"
+                                    }
+
+                                ]}
+                            >
+                                <Input onChange={(val) => {
+                                    setName(val.target.value);
+                                }}
+                                />
+                            </Form.Item>
+                        </Col>
+
+                        <br></br>
+
+
+
                         <Form.Item
-                            name="Enter the program name"
-                            label="Name"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Enter name"
-                                }
-
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </Col>
-                    
-                    <br></br>
-
-                    
-
-                        <Form.Item
-                            name="Location"
+                            name="location"
                             label="Location"
                             rules={[
                                 {
@@ -84,16 +113,18 @@ const PublishAd = () => {
                                 },
                             ]}
                         >
-                            <Input placeholder='Enter Location'/>
+                            <Input placeholder='Enter Location' onChange={(val) => {
+                                setLocation(val.target.value);
+                            }} />
                         </Form.Item>
                         <Col span={4} />
                     </Row>
                     <Row>
-                        
-                    
-                    
+
+
+
                         <Form.Item
-                            name="Enter Small Description"
+                            name="smallDes"
                             label="Enter Small Description"
 
                             rules={[
@@ -103,11 +134,13 @@ const PublishAd = () => {
                                 }
                             ]}
                         >
-                            <Input />
+                            <Input onChange={(val) => {
+                                setSmallDes(val.target.value);
+                            }} />
                         </Form.Item>
-                    <Col span={3}/>
+                        <Col span={3} />
                         <Form.Item
-                            name="Help Required"
+                            name="help"
                             label="Help Required"
 
                             rules={[
@@ -117,48 +150,34 @@ const PublishAd = () => {
                                 }
                             ]}
                         >
-                            <Input />
+                            <Input onChange={(val) => {
+                                setHelp(val.target.value);
+                            }} />
                         </Form.Item>
-                    
-                    <br></br>
-                    </Row>        
+
+                        <br></br>
+                    </Row>
                     <Row>
-                    <Col span={13}  >
+                        <Col span={13}  >
 
-                        <Form.Item
-                            name="Enter Long Description"
-                            label="Enter Long Description"
+                            <Form.Item
+                                name="longDes"
+                                label="Enter Long Description"
 
-                            rules={[
+                                rules={[
 
-                                {
-                                    required: true,
-                                    message: "Please enter data"
-                                }
-                            ]}
-                        >
-                            <Input.TextArea />
-                        </Form.Item>
+                                    {
+                                        required: true,
+                                        message: "Please enter data"
+                                    }
+                                ]}
+                            >
+                                <Input.TextArea onChange={(val) => {
+                                    setLongDes(val.target.value);
+                                }} />
+                            </Form.Item>
                         </Col>
                         <br></br>
-                        {/* <Col span={5} />
-
-                        <Form.Item
-                            name="Status"
-                            label="Status"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please select Status!',
-                                },
-                            ]}
-                        >
-                            <Select placeholder="select your Status">
-                                <Option value="male">Completed</Option>
-                                <Option value="female">inCompleted</Option>
-                            </Select>
-                        </Form.Item> */}
-                        {/* </Col> */}
                     </Row>
                     {/* <br></br> */}
 
@@ -166,23 +185,23 @@ const PublishAd = () => {
                     <Row>
                         <Col span={13} />
                         <Form.Item label=" " colon={false} >
-                            <Button type="primary" color='red' htmlType="submit" style={{backgroundColor:"#f44336", fontWeight:"bold"}}>
+                            <Button type="primary" color='red' htmlType="submit" style={{ backgroundColor: "#f44336", fontWeight: "bold" }}>
                                 Cancel
                             </Button>
                         </Form.Item>
-                        <Col span={1}/>
+                        <Col span={1} />
                         <Form.Item label=" " colon={false}>
-                            <Button type="primary" htmlType="submit" style={{ fontWeight:"bold"}} >
+                            <Button type="primary" htmlType="submit" style={{ fontWeight: "bold" }} onClick={sendAdData} >
                                 Submit
                             </Button>
                         </Form.Item>
-                        
+
 
                     </Row>
-                    
+
 
                 </Form >
-                
+
             </div>
         </>
 

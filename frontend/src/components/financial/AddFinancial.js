@@ -43,16 +43,6 @@ const config = {
     ],
 };
 const dateFormat = 'YYYY/MM/DD';
-const customFormat = (value) => `custom format: ${value.format(dateFormat)}`;
-function handleButtonClick(e) {
-    message.info('Click on left button.');
-    console.log('click left button', e);
-}
-
-function handleMenuClick(e) {
-    message.info('Click on menu item.');
-    console.log('click', e);
-}
 
 
 const AddFinancial = props => {
