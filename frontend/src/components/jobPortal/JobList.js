@@ -5,65 +5,28 @@ import axios from "axios";
 import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
-import swal from 'sweetalert';
-
 
 
 const { Search } = Input;
 
 
-const Financial = () => {
-    const [financial, setFinancial] = useState([]);
+const JobList = () => {
+    const [jobList, setJobList] = useState([]);
     const [column, setColumns] = useState([]);
-    const [isDeleteModalOpen, setIsDelete] = useState(false)
 
-
-    function getFinancial() {
-        axios.get("http://localhost:4000/financial/")
+    function getJobList() {
+        axios.get("http://localhost:4000/jobHire/")
             .then((res) => {
-                setFinancial(res.data);
+                setJobList(res.data);
             })
             .catch((err) => {
                 alert(err.message);
             });
     }
     useEffect(() => {
-        getFinancial();
+        getJobList();
     }, [])
 
-    //delete fubction
-  function deleteFinancial(id) {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this Record!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        //true
-        //save.it
-      axios
-      .delete("http://localhost:4000/financial/" +id)
-      .then((result) => {
-        swal("Done! Record has been deleted!", {
-          icon: "success",
-        });
-        setTimeout(function () {
-
-          window.location.reload();
-
-        }, 2000);
-      })
-        .catch((err)=>{
-           alert((err.message));
-        })  
-      } else {
-        swal("Your record is safe!");
-      }
-    });
-  }
 
     const onSearch = (value) => console.log(value);
 
@@ -81,30 +44,26 @@ const Financial = () => {
     
 
     const Columns=[{
-        title: 'Program Name',
-        dataIndex: 'name',
-        key: 'name',
+        title: 'Job Title',
+        dataIndex: 'jobTitle',
+        key: 'jobTitle',
     }, {
-        title: 'Type',
-        dataIndex: 'type',
-        key: 'type',
+        title: 'Company',
+        dataIndex: 'company',
+        key: 'company',
     }, {
-        title: 'Date',
-        dataIndex: 'date',
-        key: 'date',
+        title: 'Location',
+        dataIndex: 'location',
+        key: 'location',
     },
     {
-        title: 'Venue',
-        dataIndex: 'venue',
-        key: 'venue',
+        title: 'Opening Date',
+        dataIndex: 'openingDate',
+        key: 'openingDate',
     }, {
-        title: 'Total',
-        dataIndex: 'total',
-        key: 'total',
-    }, {
-        title: 'Status',
-        dataIndex: 'status',
-        key: 'status',
+        title: 'Closing Date',
+        dataIndex: 'closingDate',
+        key: 'closingDate',
     },
     {
         title: 'Action',
@@ -113,7 +72,7 @@ const Financial = () => {
             <span>
 
                 <Button icon={<EditTwoTone />}></Button>
-                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />} onClick={deleteFinancial(financial._id)}></Button>
+                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}></Button>
 
                 {/* <a href="#">Action 一 {record.name}</a>
                 <span className="ant-divider" />
@@ -128,7 +87,7 @@ const Financial = () => {
 
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
                     <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                        <h1 style={{ color: "White" }}>Financial Summmary</h1>
+                        <h1 style={{ color: "White" }}>Job Vacancies</h1>
                         <Col span={10} />
                         <Search
                             placeholder="input search text"
@@ -140,14 +99,13 @@ const Financial = () => {
                         <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} />
                     </CustomRow>
                 </WrapperCard>
-                <Table columns={Columns} dataSource={financial}
+                <Table columns={Columns} dataSource={jobList}
                     bordered
                 // title={() => 'Financial Details'}
                 />
-                <a href='/action2'>Tag</a>
             </Col>
         </div>
     )
 }
 
-export default Financial
+export default JobList
