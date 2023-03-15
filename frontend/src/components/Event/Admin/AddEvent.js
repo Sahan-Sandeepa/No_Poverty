@@ -133,7 +133,7 @@ const AddEvent = () => {
                                             <Form.Label>Event Number</Form.Label>
                                             <Form.Control
                                                 type="text"
-                                                placeholder="Enter a Unique Event Number.."
+                                                placeholder="Enter a event number.."
                                                 required
                                                 onChange={(e) => {
                                                     seteventNo(e.target.value);
@@ -149,7 +149,7 @@ const AddEvent = () => {
                                             <Form.Label>Event Name</Form.Label>
                                             <Form.Control
                                                 type="text"
-                                                placeholder="Enter Event Name.."
+                                                placeholder="Enter a event name.."
                                                 required
                                                 onChange={(e) => {
                                                     seteventName(e.target.value.trim());
@@ -181,7 +181,7 @@ const AddEvent = () => {
                                             <Form.Label>Event Location</Form.Label>
                                             <Form.Control
                                                 type="text"
-                                                placeholder="Enter Event Location.."
+                                                placeholder="Enter event location.."
                                                 required
                                                 onChange={(e) => {
                                                     seteventPlace(e.target.value);
@@ -205,7 +205,7 @@ const AddEvent = () => {
                                             rows="2"
                                             cols="105.5"
                                             name="comment"
-                                            placeholder=" Enter Event Description .."
+                                            placeholder=" Enter event description"
                                             required
                                             onChange={(e) => {
                                                 seteventDetails(e.target.value);
