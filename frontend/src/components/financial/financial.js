@@ -8,7 +8,7 @@ import WrapperCard from '../common/Wrapper_card';
 import swal from 'sweetalert';
 import { Link, useParams } from 'react-router-dom'
 import AddFinancial from './AddFinancial';
-
+import DeleteModal from '../common/DeleteModal';
 
 
 const { Search } = Input;
@@ -22,30 +22,23 @@ const Financial = () => {
     const [venue, setVenue] = useState("");
     const [total, setTotal] = useState("");
     const [status, setStatus] = useState("");
-    const [isOpen, setIsOpen] = useState(false)
+    const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
+
+
     const { _id } = useParams();
+    const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [open, setOpen] = useState(false);
-    const [isEditModalOpen, setIsEditModalOpen] = useState < boolean > (false);
 
-
-
-
-    const openCloseEditModal = async () => {
-        await refresher();
-        setIsEditModalOpen(false);
-    }
-
-    const handleOk = async () => {
-        await refresher();
-        setIsOpen(false)
+    const showModal = () => {
+        setIsModalOpen(true);
     };
-
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
     const handleCancel = () => {
-        console.log('Clicked cancel button');
-        setIsOpen(false);
+        setIsModalOpen(false);
     };
-
     function getFinancial() {
         axios.get("http://localhost:4000/financial/")
             .then((res) => {
@@ -57,18 +50,25 @@ const Financial = () => {
     }
     useEffect(() => {
         getFinancial();
-    }, [])
+    }, [refresh])
 
-    useEffect(() => {
-
-
-    }, [])
 
     // const handleDelete = (_id) => {
     //     setFinancial(financial => financial.filter(financial => financial._id !== _id));
     //   };
     const handleDelete = async (_id) => {
+        setIsDeleteModalOpen(true)
         axios.delete("http://localhost:4000/financial/" + _id)
+            .then((result) => {
+                console.log("Deleted", result);
+            }).catch((err) => {
+                console.log(err);
+            })
+    };
+
+    const handleUpdate = async (_id) => {
+        setIsDeleteModalOpen(true)
+        axios.put("http://localhost:4000/financial/" + _id)
             .then((result) => {
                 console.log("Deleted", result);
             }).catch((err) => {
@@ -129,23 +129,11 @@ const Financial = () => {
         key: 'action',
         render: (text, record) => (
             <span>
-
-                <Button icon={<EditTwoTone />} onClick={() => {
-                    const d = {
-                        _id: record._id,
-                        name: record.name,
-                        type: record.type,
-                        date: record.date,
-                        venue: record.venue,
-                        total: record.total,
-                        status: record.status
-                    }
-                    setSelectedOrder(d)
-                    setIsEditModalOpen(true)
-                }} ></Button>
+                <Button icon={<EditTwoTone />} onClick={() => handleUpdate(record._id)}></Button>
                 <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}
                     //  onClick={handleDelete}
-                    onClick={() => handleDelete(record._id)}
+                    onClick={() => handleDelete(record._id)
+                    }
 
                 ></Button>
 
@@ -160,8 +148,19 @@ const Financial = () => {
         //     
         <>
 
-            <div>
-                <a href="/addfinancial"> <Button >Create Report</Button></a>
+            <br></br>
+            <br></br>
+            <br></br>
+
+            <div style={{ paddingLeft: 180 }} >
+                <div style={{ paddingLeft: 780 }} >
+                    <Button onClick={() => { setIsModalOpen(true) }} type="primary">Create Report</Button>
+
+
+                </div>
+                <br></br>
+                <br></br>
+
                 <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
                     <Col span={50} />
                     <Col span={30}>
@@ -181,16 +180,14 @@ const Financial = () => {
                             </CustomRow>
                         </WrapperCard>
                         <Table columns={Columns} dataSource={financial}
-                            bordered
-                        // title={() => 'Financial Details'}
                         />
                         <AddFinancial
-                            shouldOpen={isEditModalOpen}
-                            handleCancel={openCloseEditModal}
-                            handleDelete={openCloseEditModal}
+                            isModalOpen={isModalOpen}
+                            handleCancel={handleCancel}
                             handleOk={handleOk}
 
                         />
+
                     </Col>
                 </div>
             </div>

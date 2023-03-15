@@ -4,23 +4,12 @@ import Header from './components/header';
 import Header_bar from './components/header_bar';
 import AddFinancial from './components/financial/AddFinancial';
 import Financial from './components/financial/financial';
+import Modalll from './components/financial/modalll';
 
 function App() {
   return (
     <div>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path='/financial'
-            component={Financial}
-          />
-          <Route path='/addfinancial'
-            component={AddFinancial}
-
-          />
-        </Routes>
-
-      </Router>
+      <Header/>
     </div>
   );
 }

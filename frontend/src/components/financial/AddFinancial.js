@@ -33,11 +33,20 @@ const config = {
         },
     ],
 };
+
+const selection={
+    rules:[
+        {
+            required:true,
+            message:"Select the type"
+        }
+    ]
+}
 const dateFormat = 'YYYY/MM/DD';
 
 
 const AddFinancial = props => {
-    const {isModalOpen,setIsModalOpen,showModal,handleCancel,handleOk}=props;
+    const { isModalOpen, setIsModalOpen, showModal, handleCancel, handleOk } = props;
     const [size, setSize] = useState('large'); // default is 'middle'
     const [finid, setfinid] = useState("");
     const [name, setName] = useState("");
@@ -61,7 +70,7 @@ const AddFinancial = props => {
         console.log(`selected ${value}`);
         setType(value)
     };
-  
+
     function sendData(e) {
         e.preventDefault();
 
@@ -88,176 +97,206 @@ const AddFinancial = props => {
     return (
         <>
 
-            <div style={{ padding: 1, alignItems: "center", backgroundColor: '#D3D3D3', width: 900, height: 650, borderRadius: 5 }}>
+            <Modal
+                open={isModalOpen}
+                onCancel={handleCancel}
+                onOk={handleOk}
+                width={1000}
+                footer={null}
 
+            >
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                        <h1 style={{ color: "White" }}>Financial Summmary</h1>
+                    <CustomRow style={{ justifyContent: "space-between" }} >
+                        <h1 style={{ color: "White" , paddingLeft:30, fontSize:18 }}>Financial Summmary</h1>
 
                     </CustomRow>
                 </WrapperCard>
+                {/* <div style={{ padding: 1, alignItems: "center", backgroundColor: '#D3D3D3', width: 900, height: 650, borderRadius: 5 }}> */}
 
-                    <Form
 
-                        style={{ padding: 1, paddingLeft: 140 }}
-                    >
-                        <br></br>
 
-                        <Col span={12}>
+                {/* <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}> */}
+                <Form
+
+                    style={{ padding: 1, paddingLeft: 120 }}
+                >
+                    <br></br>
+
+                    <Col span={12}>
+                        <Form.Item
+                            name="name"
+                            label="name"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Enter the Program name"
+                                }
+
+                            ]}
+                        >
+                            <Input
+                                onChange={(val) => {
+                                    setName(val.target.value);
+
+                                }}
+                            />
+                        </Form.Item>
+                    </Col>
+                    <br></br>
+
+                    <Row>
+                        <Form.Item
+                            label="Select Program type"
+                            {...selection}
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please enter the place or venue"
+                                }
+                            ]}
+                            
+                        >
+                            <Select
+                                defaultValue="Type"
+                                style={{
+                                    width: 120,
+                                }}
+                                onChange={onType}
+                                options={[
+                                    {
+                                        value: 'Donation',
+                                        label: 'Donation',
+                                    },
+                                    {
+                                        value: 'Event',
+                                        label: 'Event',
+                                    },
+
+
+                                ]}
+                            />
+                        </Form.Item>
+                        <Col span={4} />
+
+                        <Form.Item name="date-picker" label="DatePicker" {...config}>
+
+                            <DatePicker defaultValue={dayjs('2015/01/01', dateFormat)} format={dateFormat}
+                                onChange={onChange}
+
+                            />
+
+                        </Form.Item>
+                    </Row>
+                    <br></br>
+
+                    <Col span={18}>
+                        <Form.Item
+                            name="venue"
+                            label="venue"
+
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please enter the place or venue"
+                                }
+                            ]}
+                        >
+                            <Input
+                                onChange={(e) => {
+                                    setVenue(e.target.value);
+                                }}
+                            />
+                        </Form.Item>
+                    </Col>
+                    <br></br>
+
+                    <Row>
+                        <Col span={5} >
+
                             <Form.Item
-                                name="name"
-                                label="name"
+                                name="total"
+                                label="total"
+
                                 rules={[
                                     {
                                         required: true,
-                                        message: "Enter the Program name"
+                                        message: "Please enter the total amount"
                                     }
-
                                 ]}
                             >
                                 <Input
                                     onChange={(val) => {
-                                        setName(val.target.value);
+                                        setTotal(val.target.value);
 
                                     }}
                                 />
                             </Form.Item>
                         </Col>
                         <br></br>
+                        <Col span={5} />
 
-                        <Row>
-
-                            <Form.Item
-                            >
-                                <Select
-                                    defaultValue="Type"
-                                    style={{
-                                        width: 120,
-                                    }}
-                                    onChange={onType}
-                                    options={[
-                                        {
-                                            value: 'Donation',
-                                            label: 'Donation',
-                                        },
-                                        {
-                                            value: 'Event',
-                                            label: 'Event',
-                                        },
-
-
-                                    ]}
-                                />
-                            </Form.Item>
-                            <Col span={4} />
-
-                            <Form.Item name="date-picker" label="DatePicker" {...config}>
-
-                                <DatePicker defaultValue={dayjs('2015/01/01', dateFormat)} format={dateFormat}
-                                    onChange={onChange}
-
-                                />
-
-                            </Form.Item>
-                        </Row>
-                        <br></br>
-
-                        <Col span={18}>
-                            <Form.Item
-                                name="venue"
-                                label="venue"
-
-                                rules={[
+                        <Form.Item
+                            label="Status"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please select status"
+                                }
+                            ]}
+                        >
+                            <Select
+                                defaultValue="Status"
+                                style={{
+                                    width: 120,
+                                }}
+                                onChange={onStatus}
+                                options={[
                                     {
-                                        required: true,
-                                        message: "Please enter the place or venue"
-                                    }
+                                        value: 'Completed',
+                                        label: 'Completed',
+                                    },
+                                    {
+                                        value: 'INCompleted',
+                                        label: 'INCompleted',
+                                    },
                                 ]}
+                            />
+                        </Form.Item>
+                        {/* </Col> */}
+                    </Row>
+                    <br></br>
+
+
+                    <Row>
+                        <Col span={13} />
+                        <Form.Item label=" " colon={false} >
+                            <Button type="primary" color='red' htmlType="submit"
+                                style={{ backgroundColor: "#f44336", fontWeight: "bold" }}
+                                onClick={handleCancel}
                             >
-                                <Input
-                                    onChange={(e) => {
-                                        setVenue(e.target.value);
-                                    }}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <br></br>
+                                Cancel
+                            </Button>
+                        </Form.Item>
+                        <Col span={1} />
+                        <Form.Item label=" " colon={false}>
 
-                        <Row>
-                            <Col span={5} >
-
-                                <Form.Item
-                                    name="total"
-                                    label="total"
-
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: "Please enter the total amount"
-                                        }
-                                    ]}
-                                >
-                                    <Input
-                                        onChange={(val) => {
-                                            setTotal(val.target.value);
-
-                                        }}
-                                    />
-                                </Form.Item>
-                            </Col>
-                            <br></br>
-                            <Col span={5} />
-
-                            <Form.Item
+                            <a href='/financial'><Button type="primary" htmlType="submit"
+                                style={{ fontWeight: "bold" }} onClick={sendData}
                             >
-                                <Select
-                                    defaultValue="lucy"
-                                    style={{
-                                        width: 120,
-                                    }}
-                                    onChange={onStatus}
-                                    options={[
-                                        {
-                                            value: 'Completed',
-                                            label: 'Completed',
-                                        },
-                                        {
-                                            value: 'INCompleted',
-                                            label: 'INCompleted',
-                                        },
-                                    ]}
-                                />
-                            </Form.Item>
-                            {/* </Col> */}
-                        </Row>
-                        {/* <br></br> */}
+                                Submit
+                            </Button>
+                            </a>
+                        </Form.Item>
 
 
-                        <Row>
-                            <Col span={13} />
-                            <Form.Item label=" " colon={false} >
-                                <Button type="primary" color='red' htmlType="submit" style={{ backgroundColor: "#f44336", fontWeight: "bold" }}>
-                                    Cancel
-                                </Button>
-                            </Form.Item>
-                            <Col span={1} />
-                            <Form.Item label=" " colon={false}>
-
-                                <a href='/financial'><Button type="primary" htmlType="submit"
-                                    style={{ fontWeight: "bold" }} onClick={sendData}
-                                >
-                                    Submit
-                                </Button>
-                                </a>
-                            </Form.Item>
+                    </Row>
 
 
-                        </Row>
+                </Form >
+            </Modal>
 
+            {/* </div> */}
 
-                    </Form >
-
-            </div>
 
         </>
 
