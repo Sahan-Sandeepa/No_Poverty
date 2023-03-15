@@ -57,9 +57,23 @@ const deleteEvent = async (req, res) => {
         });
 }
 
+//FIND specific detail
+const getSpecific = async (req, res) => {
+    let eventId = req.params.id;
+    const user = await Event.findById(eventId)
+        .then((Event) => {
+            res.status(200).send({ Event });
+        })
+        .catch((err) => {
+            console.log(err.message);
+            res.status(500).send({ error: err.message });
+        });
+};
+
 module.exports = {
     addEvent,
     getAllEvent,
     updateEvent,
     deleteEvent,
+    getSpecific,
 };
