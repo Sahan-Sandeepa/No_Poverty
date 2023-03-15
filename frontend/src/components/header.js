@@ -24,6 +24,7 @@ import Financial from "../components/financial/financial"
 import PublishAd from "./DonationAdmin/PublishAd"
 import JobPost from "./jobPortal/JobPost"
 import Ads from "./DonationAdmin/ShowAllAds"
+import AddEvent from "./Event/Admin/AddEvent"
 
 
 const { Header, Content, Footer, Sider } = Layout
@@ -50,7 +51,7 @@ const Dashboard = props => {
         getItem("Add Donation Content", 3, <LineChartOutlined />),
         getItem("Financial", 4, <LineChartOutlined />),
         getItem("JobSaku", 5, <LineChartOutlined />),
-        getItem("Show Ads", 5, <LineChartOutlined />),
+        getItem("Show Ads", 6, <LineChartOutlined />),
 
 
     ]
@@ -67,8 +68,8 @@ const Dashboard = props => {
         <Ads/>,
         // <PurchaseOrder />,
         // <PurchaseRequest />,
-        <JobPost/>
-        // <PuchaseItems />,
+        <JobPost/>,
+        <AddEvent />,
         // <Users />,
         // <StockOrder />
     ]
