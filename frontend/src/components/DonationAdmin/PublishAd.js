@@ -20,9 +20,7 @@ import WrapperCard from '../common/Wrapper_card';
 import WrapperContainer from '../common/Wrapper_container';
 import { Link } from 'react-router-dom';
 import axios, { Axios } from 'axios';
-const { Option } = Select;
-const { Header, Content, Footer } = Layout;
-const url = "http://localhost/4000/adDonations/";
+
 
 const config = {
     rules: [
@@ -34,7 +32,7 @@ const config = {
     ],
 };
 
-const PublishAd = props => {
+const PublishAd = () => {
     
     const [ name, setName ] = useState('');
     const [ location, setLocation ] = useState('');
@@ -53,7 +51,7 @@ const PublishAd = props => {
             help
         };
 
-        axios.post("http://localhost/4000/adDonations/", adSchema)
+        axios.post("http://localhost:4000/adDonations/create", adSchema)
             .then(value => {
                 console.log(value);
             })
