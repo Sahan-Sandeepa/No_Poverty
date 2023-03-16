@@ -81,28 +81,27 @@ const JobList = () => {
     }];
     return (
         <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
-            <Col span={50} />
-            <Col span={30}>
-
+            {/* <Col span={50} />
+            <Col span={30}> */}
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
                     <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
                         <h1 style={{ color: "White" }}>Job Vacancies</h1>
-                        <Col span={10} />
+                        <Col span={12} />
                         <Search
                             placeholder="input search text"
                             onSearch={onSearch}
                             style={{
-                                width: 200,
+                                width: 250,
                             }}
                         />
-                        <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} />
+                        <Button icon={<FilePdfOutlined style={{ fontSize: '21px', color: 'red' }} />} />
                     </CustomRow>
                 </WrapperCard>
                 <Table columns={Columns} dataSource={jobList}
-                    bordered
+                    // bordered
                 // title={() => 'Financial Details'}
                 />
-            </Col>
+            {/* </Col> */}
         </div>
     )
 }
