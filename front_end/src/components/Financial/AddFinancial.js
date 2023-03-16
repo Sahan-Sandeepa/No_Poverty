@@ -50,6 +50,8 @@ const AddFinancial = props => {
     const [venue, setVenue] = useState("");
     const [total, setTotal] = useState("");
     const [status, setStatus] = useState("");
+    const [refresh, seRefresh] = useState(false);
+
 
 
 
@@ -86,9 +88,13 @@ const AddFinancial = props => {
             .catch((err) => {
                 console.log(`Error: ${err?.response?.data}`);
             })
+            handleOk();
+            
+
         //   .catch((err)=> console.log(err));
     }
 
+    
     return (
         <>
 
