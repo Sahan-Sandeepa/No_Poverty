@@ -27,6 +27,14 @@ const Ads = () => {
         getAds();
     }, [])
 
+    const handleDelete = async (_id) => {
+        axios.delete("http://localhost:4000/adDonations/" + _id)
+            .then((result) => {
+                console.log("Deleted", result);
+            }).catch((err) => { 
+                console.log(err); 
+            })
+         };
 
     const onSearch = (value) => console.log(value);
 
@@ -44,6 +52,10 @@ const Ads = () => {
     
 
     const Columns=[{
+        title: '_id',
+        dataIndex:'_id',
+        key:'_id',
+    },{
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
@@ -76,7 +88,8 @@ const Ads = () => {
             <span>
 
                 <Button icon={<EditTwoTone />}></Button>
-                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}></Button>
+                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} 
+                onClick={()=>handleDelete(record._id)} />}></Button>
 
                 {/* <a href="#">Action 一 {record.name}</a>
                 <span className="ant-divider" />

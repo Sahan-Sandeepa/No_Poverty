@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Table, Icon, Button, Space, Input, Col } from 'antd';
-import Header from '../header';
 import axios from "axios";
 import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
-import swal from 'sweetalert';
-
+import { Link, useParams } from 'react-router-dom'
+import AddFinancial from './AddFinancial';
+import DeleteModal from '../common/DeleteModal';
 
 
 const { Search } = Input;
@@ -14,10 +14,30 @@ const { Search } = Input;
 
 const Financial = () => {
     const [financial, setFinancial] = useState([]);
-    const [column, setColumns] = useState([]);
-    const [isDeleteModalOpen, setIsDelete] = useState(false)
+    const [name, setName] = useState("");
+    const [type, setType] = useState("");
+    const [date, setDate] = useState('');
+    const [venue, setVenue] = useState("");
+    const [total, setTotal] = useState("");
+    const [status, setStatus] = useState("");
+    const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
 
+    const { _id } = useParams();
+    const [refresh, setRefresh] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
     function getFinancial() {
         axios.get("http://localhost:4000/financial/")
             .then((res) => {
@@ -29,42 +49,32 @@ const Financial = () => {
     }
     useEffect(() => {
         getFinancial();
-    }, [])
+    }, [refresh])
 
-    //delete fubction
-  function deleteCustomerbill(id) {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this Record!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        //true
-        //save.it
-      axios
-      .delete("http://localhost:4000/financial/" + id)
-      .then((result) => {
-        // alert("CustomerBill deleted successfully");
-        swal("Done! Record has been deleted!", {
-          icon: "success",
-        });
-        setTimeout(function () {
 
-          window.location.reload();
+    // const handleDelete = (_id) => {
+    //     setFinancial(financial => financial.filter(financial => financial._id !== _id));
+    //   };
+    const handleDelete = async (_id) => {
+        setIsDeleteModalOpen(true)
+        axios.delete("http://localhost:4000/financial/" + _id)
+            .then((result) => {
+                console.log("Deleted", result);
+            }).catch((err) => {
+                console.log(err);
+            })
+    };
 
-        }, 2000);
-      })
-        .catch((err)=>{
-           alert((err.message));
-        })  
-      } else {
-        swal("Your record is safe!");
-      }
-    });
-  }
+    const handleUpdate = async (_id) => {
+        setIsDeleteModalOpen(true)
+        axios.put("http://localhost:4000/financial/" + _id)
+            .then((result) => {
+                console.log("Deleted", result);
+            }).catch((err) => {
+                console.log(err);
+            })
+    };
+
 
     const onSearch = (value) => console.log(value);
 
@@ -79,9 +89,9 @@ const Financial = () => {
     //     key: 'address',
     // },
     // ];
-    
 
-    const Columns=[{
+
+    const Columns = [{
         title: 'Program Name',
         dataIndex: 'name',
         key: 'name',
@@ -111,42 +121,72 @@ const Financial = () => {
         title: 'Action',
         key: 'action',
         render: (text, record) => (
-            <span>
+            <Space size="middle">
+                <Button icon={<EditTwoTone />} onClick={() => {
+                    handleUpdate(record._id)
+                }}>
 
-                <Button icon={<EditTwoTone />}></Button>
-                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />} onClick={()=> deleteCustomerbill(financial.id)}></Button>
+                </Button>
+                <Button icon={<DeleteOutlined style={{ color: 'red' }} />}
+                    //  onClick={handleDelete}
+                    onClick={() => handleDelete(record._id)
+                    }
 
-                {/* <a href="#">Action 一 {record.name}</a>
-                <span className="ant-divider" />
-                <a href="#">Delete</a> */}
-            </span>
+                ></Button>
+            </Space>
         ),
     }];
     return (
-        <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
-            <Col span={50} />
-            <Col span={30}>
 
-                <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                        <h1 style={{ color: "White" }}>Financial Summmary</h1>
-                        <Col span={10} />
-                        <Search
-                            placeholder="input search text"
-                            onSearch={onSearch}
-                            style={{
-                                width: 200,
-                            }}
-                        />
-                        <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} />
-                    </CustomRow>
-                </WrapperCard>
-                <Table columns={Columns} dataSource={financial}
-                    bordered
-                // title={() => 'Financial Details'}
-                />
-            </Col>
-        </div>
+        //     
+        <>
+
+            <br></br>
+            <br></br>
+            <br></br>
+
+            <div style={{ paddingLeft: 150 }} >
+                <div style={{ paddingLeft: 800 }} >
+                    <Button onClick={() => { setIsModalOpen(true) }} type="primary">Create Report</Button>
+
+
+                </div>
+                <br></br>
+                <br></br>
+
+                <div style={{ padding: 1, alignItems: "center", width: 1000, height: 650, borderRadius: 5 }}>
+
+                    <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                        <CustomRow style={{ justifyContent: "space-between", padding: "10px" }} >
+                            <h1 style={{ color: "White", fontSize: 18 }}>Financial Summmary</h1>
+                            <Col span={12} />
+                            <Search
+                                placeholder="input search text"
+                                onSearch={onSearch}
+                                style={{
+                                    width: 250,
+                                }}
+                            />
+                            <Button icon={<FilePdfOutlined style={{ fontSize: '21px', color: 'red' }} />} />
+                        </CustomRow>
+                    </WrapperCard>
+                    <Table columns={Columns} dataSource={financial}
+                    />
+                    <AddFinancial
+                        isModalOpen={isModalOpen}
+                        handleCancel={handleCancel}
+                        handleOk={handleOk}
+
+                    />
+                    <AddFinancial
+                        isModalOpen={isModalOpen}
+                        handleCancel={handleCancel}
+                        handleOk={handleOk}
+                    />
+
+                </div>
+            </div>
+        </>
     )
 }
 

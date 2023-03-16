@@ -1,31 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
-    AutoComplete,
     Button,
-    Cascader,
-    Checkbox,
     Col,
     Form,
     Input,
-    InputNumber,
     Row,
     Select,
     DatePicker,
-    Layout,
-    message
+    Menu, Dropdown, Icon,
+    Modal
 } from 'antd';
 import { useState } from 'react';
 import Form_header from '../common/Form_header';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
 import WrapperContainer from '../common/Wrapper_container';
-import axios from "axios";
-import {} from "react-router-dom";
-
-
-const { Option } = Select;
-const { Header, Content, Footer } = Layout;
-
+import axios, { Axios } from 'axios';
+import { } from "react-router-dom";
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+dayjs.extend(customParseFormat);
 
 const config = {
     rules: [
@@ -37,54 +31,90 @@ const config = {
     ],
 };
 
-const AddFinancial = () => {
-    const [size, setSize] = useState('large'); // default is 'middle'
+const selection = {
+    rules: [
+        {
+            required: true,
+            message: "Select the type"
+        }
+    ]
+}
+const dateFormat = 'YYYY/MM/DD';
+
+
+const AddFinancial = props => {
+    const { isModalOpen, isEditModalOpen, showModal, handleCancel, handleOk } = props;
     const [name, setName] = useState("");
     const [type, setType] = useState("");
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState('');
     const [venue, setVenue] = useState("");
     const [total, setTotal] = useState("");
     const [status, setStatus] = useState("");
+
+
+
+    const onChange = (date, dateString) => {
+        console.log(date, dateString);
+        setDate(dateString)
+    };
+    const onStatus = (value) => {
+        console.log(`selected ${value}`);
+        setStatus(value)
+    };
+    const onType = (value) => {
+        console.log(`selected ${value}`);
+        setType(value)
+    };
 
     function sendData(e) {
         e.preventDefault();
 
         const financialSchema = {
-            name, type, date, venue, total, status,
+            name,
+            type,
+            date,
+            venue,
+            total,
+            status
         };
 
-        axios
-            .post("http://localhost/4000/financial/", financialSchema)
-            .then(() => {
-                message("inserted!", "Data Inserted!", "success");
-                window.location.reload(false);
+        axios.post("http://localhost:4000/financial/create", financialSchema)
+
+            .then(value => {
+                console.log(value);
             })
             .catch((err) => {
-                alert(err);
-            });
+                console.log(`Error: ${err?.response?.data}`);
+            })
+        //   .catch((err)=> console.log(err));
     }
-
 
     return (
         <>
-            <div style={{ padding: 1, alignItems: "center", backgroundColor: '#D3D3D3', width: 900, height: 650, borderRadius: 5 }}>
 
+            <Modal
+                open={isModalOpen}
+                onCancel={handleCancel}
+                onOk={handleOk}
+                width={1000}
+                footer={null}
+                
+            >
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                        <h1 style={{ color: "White" }}>Financial Summmary</h1>
-
+                    <CustomRow style={{ justifyContent: "space-between" }} >
+                        <h1 style={{ color: "White", paddingLeft: 30, fontSize: 22 }}>Financial Summmary</h1>
                     </CustomRow>
                 </WrapperCard>
                 <Form
-                    onSubmit={sendData}
-                    style={{ padding: 1, paddingLeft: 140 }}
+
+                    style={{ padding: 1, paddingLeft: 120 }}
                 >
                     <br></br>
 
                     <Col span={12}>
                         <Form.Item
                             name="name"
-                            label="Program_name"
+                            label="name"
                             rules={[
                                 {
                                     required: true,
@@ -95,8 +125,8 @@ const AddFinancial = () => {
                         >
                             <Input
                                 onChange={(val) => {
-                                        setName(val.target.value);
-                                    
+                                    setName(val.target.value);
+
                                 }}
                             />
                         </Form.Item>
@@ -104,47 +134,54 @@ const AddFinancial = () => {
                     <br></br>
 
                     <Row>
-
                         <Form.Item
-                            name="Type"
-                            label="Type"
+                            label="Select Program type"
+                            {...selection}
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please select Type!',
-                                },
+                                    message: "Please enter the place or venue"
+                                }
                             ]}
 
-                            onChange={(val) => {
-                                    setType(val.target.value);
-
-                                
-                            }}
-
                         >
-                            <Select placeholder="select your type">
-                                <Option value="male">Donation</Option>
-                                <Option value="female">Events</Option>
-                            </Select>
+                            <Select
+                                defaultValue="Type"
+                                style={{
+                                    width: 120,
+                                }}
+                                onChange={onType}
+                                options={[
+                                    {
+                                        value: 'Donation',
+                                        label: 'Donation',
+                                    },
+                                    {
+                                        value: 'Event',
+                                        label: 'Event',
+                                    },
 
+
+                                ]}
+                            />
                         </Form.Item>
                         <Col span={4} />
 
-                        {/* <Form.Item name="date-picker" label="DatePicker" {...config}>
-                            <DatePicker
-                                onChange={(val) => {
-                                        setDate(val.target.value);
+                        <Form.Item name="date-picker" label="DatePicker" {...config}>
 
-                                    
-                                }} />
-                        </Form.Item> */}
+                            <DatePicker defaultValue={dayjs('2015/01/01', dateFormat)} format={dateFormat}
+                                onChange={onChange}
+
+                            />
+
+                        </Form.Item>
                     </Row>
                     <br></br>
 
                     <Col span={18}>
                         <Form.Item
-                            name="Enter the venue"
-                            label="Venue"
+                            name="venue"
+                            label="venue"
 
                             rules={[
                                 {
@@ -154,9 +191,9 @@ const AddFinancial = () => {
                             ]}
                         >
                             <Input
-                               onChange={(e) => {
-                                setVenue(e.target.value);
-                              }}
+                                onChange={(e) => {
+                                    setVenue(e.target.value);
+                                }}
                             />
                         </Form.Item>
                     </Col>
@@ -166,8 +203,8 @@ const AddFinancial = () => {
                         <Col span={5} >
 
                             <Form.Item
-                                name="Total"
-                                label="Total"
+                                name="total"
+                                label="total"
 
                                 rules={[
                                     {
@@ -178,8 +215,8 @@ const AddFinancial = () => {
                             >
                                 <Input
                                     onChange={(val) => {
-                                            setTotal(val.target.value);
-                                        
+                                        setTotal(val.target.value);
+
                                     }}
                                 />
                             </Form.Item>
@@ -188,44 +225,56 @@ const AddFinancial = () => {
                         <Col span={5} />
 
                         <Form.Item
-                            name="Status"
                             label="Status"
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please select Status!',
-                                },
+                                    message: "Please select status"
+                                }
                             ]}
-
-                            onChange={(val) => {
-                                    setStatus(val.target.value);
-
-                                
-                            }}
                         >
-                            <Select placeholder="select your Status">
-                                <Option value="male">Completed</Option>
-                                <Option value="female">inCompleted</Option>
-                            </Select>
+                            <Select
+                                defaultValue="Status"
+                                style={{
+                                    width: 120,
+                                }}
+                                onChange={onStatus}
+                                options={[
+                                    {
+                                        value: 'Completed',
+                                        label: 'Completed',
+                                    },
+                                    {
+                                        value: 'INCompleted',
+                                        label: 'INCompleted',
+                                    },
+                                ]}
+                            />
                         </Form.Item>
                         {/* </Col> */}
                     </Row>
-                    {/* <br></br> */}
+                    <br></br>
 
 
                     <Row>
                         <Col span={13} />
                         <Form.Item label=" " colon={false} >
-                            <Button type="primary" color='red' htmlType="submit" style={{ backgroundColor: "#f44336", fontWeight: "bold" }}>
+                            <Button type="primary" color='red' htmlType="submit"
+                                style={{ backgroundColor: "#f44336", fontWeight: "bold" }}
+                                onClick={handleCancel}
+                            >
                                 Cancel
                             </Button>
                         </Form.Item>
                         <Col span={1} />
                         <Form.Item label=" " colon={false}>
-                            <Button type="primary" htmlType="submit"
-                                style={{ fontWeight: "bold" }} >
+
+                            <a href='/financial'><Button type="primary" htmlType="submit"
+                                style={{ fontWeight: "bold" }} onClick={sendData}
+                            >
                                 Submit
                             </Button>
+                            </a>
                         </Form.Item>
 
 
@@ -233,7 +282,11 @@ const AddFinancial = () => {
 
 
                 </Form >
-            </div>
+            </Modal>
+
+            {/* </div> */}
+
+
         </>
 
     )
