@@ -27,7 +27,17 @@ const getFinancialById = async (req, res) => {
 
 // create a new Financial
 const createFinancial = async (req, res) => {
+  
   const {name,type,date,venue,total,status} = req.body
+  console.log("name", name);
+  console.log("name", type);
+  console.log("name", date);
+  console.log("name", venue);
+  console.log("name", total);
+  console.log("name", status);
+
+
+
 
 //   let emptyFields = []
 
