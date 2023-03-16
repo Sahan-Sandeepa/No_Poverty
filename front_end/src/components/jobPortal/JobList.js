@@ -11,7 +11,18 @@ const { Search } = Input;
 
 const JobList = () => {
     const [jobList, setJobList] = useState([]);
-    const [column, setColumns] = useState([]);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     function getJobList() {
         axios.get("http://localhost:4000/jobHire/")
@@ -26,23 +37,18 @@ const JobList = () => {
         getJobList();
     }, [])
 
+    const handleDelete = async (_id) => {
+        axios.delete("http://localhost:4000/jobHire/delete/" + _id)
+            .then((result) => {
+                console.log("Deleted", result);
+            }).catch((err) => {
+                console.log(err);
+            })
+    };
 
     const onSearch = (value) => console.log(value);
 
-    // const columns = [{
-    //     title: 'Donation Name',
-    //     dataIndex: 'name',
-    //     key: 'name',
-    //     render: text => <a href="#">{text}</a>,
-    // }, {
-    //     title: 'Fund',
-    //     dataIndex: 'address',
-    //     key: 'address',
-    // },
-    // ];
-    
-
-    const Columns=[{
+    const Columns = [{
         title: 'Job Title',
         dataIndex: 'jobTitle',
         key: 'jobTitle',
@@ -70,39 +76,52 @@ const JobList = () => {
         render: (text, record) => (
             <span>
 
-                <Button icon={<EditTwoTone />}></Button>
-                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}></Button>
+                <Button icon={<EditTwoTone />}
+                    onClick={() => { setIsModalOpen(true) }} type="primary">
+                </Button>
+                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}
+                    onClick={() => handleDelete(record._id)
+                    }>
+                </Button>
 
-                {/* <a href="#">Action 一 {record.name}</a>
-                <span className="ant-divider" />
-                <a href="#">Delete</a> */}
             </span>
         ),
     }];
     return (
         <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
-            <Col span={50} />
-            <Col span={30}>
+            {/* <Col span={50} />
+            <Col span={30}> */}
+            <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
+                    <h1 style={{ color: "White" }}>Job Vacancies</h1>
+                    <Col span={12} />
+                    <Search
+                        placeholder="input search text"
+                        onSearch={onSearch}
+                        style={{
+                            width: 250,
+                        }}
+                    />
+                    <Button icon={<FilePdfOutlined style={{ fontSize: '21px', color: 'red' }} />} />
+                </CustomRow>
+            </WrapperCard>
+            <Table columns={Columns} dataSource={jobList}
+            // bordered
+            // title={() => 'Financial Details'}
+            />
+            {/* </Col> */}
 
-                <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                        <h1 style={{ color: "White" }}>Job Vacancies</h1>
-                        <Col span={10} />
-                        <Search
-                            placeholder="input search text"
-                            onSearch={onSearch}
-                            style={{
-                                width: 200,
-                            }}
-                        />
-                        <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} />
-                    </CustomRow>
-                </WrapperCard>
-                <Table columns={Columns} dataSource={jobList}
-                    bordered
-                // title={() => 'Financial Details'}
-                />
-            </Col>
+            {/* <AddFinancial
+                isModalOpen={isModalOpen}
+                handleCancel={handleCancel}
+                handleOk={handleOk}
+
+            />
+            <AddFinancial
+                isModalOpen={isModalOpen}
+                handleCancel={handleCancel}
+                handleOk={handleOk}
+            /> */}
         </div>
     )
 }
