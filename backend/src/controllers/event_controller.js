@@ -70,10 +70,23 @@ const getSpecific = async (req, res) => {
         });
 };
 
+const statusUpdate  = async (req, res) => {
+    Event.findByIdAndUpdate(req.params.id, {
+        $set: req.body,
+    })
+        .then((Event) => {
+            res.status(200).json({ Event });
+        })
+        .catch((error) => {
+            res.status(501).json(error.message);
+        });
+};
+
 module.exports = {
     addEvent,
     getAllEvent,
     updateEvent,
     deleteEvent,
     getSpecific,
+    statusUpdate,
 };
