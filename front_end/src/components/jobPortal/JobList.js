@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Table, Icon, Button, Space, Input, Col } from 'antd';
-import Header from '../header';
 import axios from "axios";
 import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
@@ -10,21 +9,21 @@ import WrapperCard from '../common/Wrapper_card';
 const { Search } = Input;
 
 
-const Donations = () => {
-    const [donate, setDonate] = useState([]);
+const JobList = () => {
+    const [jobList, setJobList] = useState([]);
     const [column, setColumns] = useState([]);
 
-    function getDonations() {
-        axios.get("http://localhost:4000/donation/")
+    function getJobList() {
+        axios.get("http://localhost:4000/jobHire/")
             .then((res) => {
-                setDonate(res.data);
+                setJobList(res.data);
             })
             .catch((err) => {
                 alert(err.message);
             });
     }
     useEffect(() => {
-        getDonations();
+        getJobList();
     }, [])
 
 
@@ -44,30 +43,26 @@ const Donations = () => {
     
 
     const Columns=[{
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
+        title: 'Job Title',
+        dataIndex: 'jobTitle',
+        key: 'jobTitle',
     }, {
-        title: 'Email',
-        dataIndex: 'email',
-        key: 'email',
+        title: 'Company',
+        dataIndex: 'company',
+        key: 'company',
     }, {
-        title: 'Contact Number',
-        dataIndex: 'contact',
-        key: 'contact',
+        title: 'Location',
+        dataIndex: 'location',
+        key: 'location',
     },
     {
-        title: 'Amount',
-        dataIndex: 'amount',
-        key: 'amount',
+        title: 'Opening Date',
+        dataIndex: 'openingDate',
+        key: 'openingDate',
     }, {
-        title: 'Status',
-        dataIndex: 'status',
-        key: 'status',
-    // }, {
-    //     title: 'Status',
-    //     dataIndex: 'status',
-    //     key: 'status',
+        title: 'Closing Date',
+        dataIndex: 'closingDate',
+        key: 'closingDate',
     },
     {
         title: 'Action',
@@ -91,7 +86,7 @@ const Donations = () => {
 
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
                     <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                        <h1 style={{ color: "White" }}>Donation History</h1>
+                        <h1 style={{ color: "White" }}>Job Vacancies</h1>
                         <Col span={10} />
                         <Search
                             placeholder="input search text"
@@ -103,7 +98,7 @@ const Donations = () => {
                         <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} />
                     </CustomRow>
                 </WrapperCard>
-                <Table columns={Columns} dataSource={donate}
+                <Table columns={Columns} dataSource={jobList}
                     bordered
                 // title={() => 'Financial Details'}
                 />
@@ -112,4 +107,4 @@ const Donations = () => {
     )
 }
 
-export default Donations
+export default JobList

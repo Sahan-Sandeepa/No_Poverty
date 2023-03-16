@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Table, Icon, Button, Space, Input, Col } from 'antd';
-import Header from '../header';
 import axios from "axios";
 import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
@@ -10,21 +9,21 @@ import WrapperCard from '../common/Wrapper_card';
 const { Search } = Input;
 
 
-const Ads = () => {
-    const [ads, setAds] = useState([]);
+const Donations = () => {
+    const [donate, setDonate] = useState([]);
     const [column, setColumns] = useState([]);
 
-    function getAds() {
-        axios.get("http://localhost:4000/adDonations/")
+    function getDonations() {
+        axios.get("http://localhost:4000/donation/")
             .then((res) => {
-                setAds(res.data);
+                setDonate(res.data);
             })
             .catch((err) => {
                 alert(err.message);
             });
     }
     useEffect(() => {
-        getAds();
+        getDonations();
     }, [])
 
 
@@ -48,22 +47,22 @@ const Ads = () => {
         dataIndex: 'name',
         key: 'name',
     }, {
-        title: 'Location',
-        dataIndex: 'location',
-        key: 'location',
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
     }, {
-        title: 'Small Description',
-        dataIndex: 'smallDes',
-        key: 'smallDes',
+        title: 'Contact Number',
+        dataIndex: 'contact',
+        key: 'contact',
     },
     {
-        title: 'Help Required',
-        dataIndex: 'help',
-        key: 'help',
+        title: 'Amount',
+        dataIndex: 'amount',
+        key: 'amount',
     }, {
-        title: 'Long Description',
-        dataIndex: 'longDes',
-        key: 'longDes',
+        title: 'Status',
+        dataIndex: 'status',
+        key: 'status',
     // }, {
     //     title: 'Status',
     //     dataIndex: 'status',
@@ -91,7 +90,7 @@ const Ads = () => {
 
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
                     <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                        <h1 style={{ color: "White" }}>Advertistment Summmary</h1>
+                        <h1 style={{ color: "White" }}>Donation History</h1>
                         <Col span={10} />
                         <Search
                             placeholder="input search text"
@@ -103,7 +102,7 @@ const Ads = () => {
                         <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} />
                     </CustomRow>
                 </WrapperCard>
-                <Table columns={Columns} dataSource={ads}
+                <Table columns={Columns} dataSource={donate}
                     bordered
                 // title={() => 'Financial Details'}
                 />
@@ -112,4 +111,4 @@ const Ads = () => {
     )
 }
 
-export default Ads
+export default Donations

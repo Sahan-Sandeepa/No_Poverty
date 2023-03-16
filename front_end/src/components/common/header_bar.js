@@ -1,7 +1,7 @@
 import { AutoComplete, Breadcrumb, Layout, Menu, theme } from 'antd';
-import logo from "../assets/images/logo2.png"
-import '../assets/styles/style.css'
-import user from "../assets/images/profile.png"
+import logo from "../../assets/images/logo2.png"
+import '../../assets/styles/style.css'
+import user from "../../assets/images/profile.png"
 
 
 

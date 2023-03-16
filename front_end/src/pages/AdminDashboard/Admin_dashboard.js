@@ -4,7 +4,6 @@ import { DualAxes } from '@ant-design/plots';
 import { Card, Col, Row, Typography,Table } from "antd"
 import { Pie } from '@ant-design/plots';
 import { AppstoreTwoTone } from "@ant-design/icons"
-import Header from "../../components/header"
 
 
 function Home() {
