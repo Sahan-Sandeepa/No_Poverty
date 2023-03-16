@@ -7,8 +7,6 @@ import {
     Row,
     Select,
     DatePicker,
-    Layout,
-    message,
     Menu, Dropdown, Icon,
     Modal
 } from 'antd';
@@ -21,7 +19,6 @@ import axios, { Axios } from 'axios';
 import { } from "react-router-dom";
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import Link from 'antd/es/typography/Link';
 dayjs.extend(customParseFormat);
 
 const config = {
@@ -34,11 +31,11 @@ const config = {
     ],
 };
 
-const selection={
-    rules:[
+const selection = {
+    rules: [
         {
-            required:true,
-            message:"Select the type"
+            required: true,
+            message: "Select the type"
         }
     ]
 }
@@ -46,9 +43,7 @@ const dateFormat = 'YYYY/MM/DD';
 
 
 const AddFinancial = props => {
-    const { isModalOpen, setIsModalOpen, showModal, handleCancel, handleOk } = props;
-    const [size, setSize] = useState('large'); // default is 'middle'
-    const [finid, setfinid] = useState("");
+    const { isModalOpen, isEditModalOpen, showModal, handleCancel, handleOk } = props;
     const [name, setName] = useState("");
     const [type, setType] = useState("");
     const [date, setDate] = useState('');
@@ -103,19 +98,13 @@ const AddFinancial = props => {
                 onOk={handleOk}
                 width={1000}
                 footer={null}
-
+                
             >
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
                     <CustomRow style={{ justifyContent: "space-between" }} >
-                        <h1 style={{ color: "White" , paddingLeft:30, fontSize:18 }}>Financial Summmary</h1>
-
+                        <h1 style={{ color: "White", paddingLeft: 30, fontSize: 22 }}>Financial Summmary</h1>
                     </CustomRow>
                 </WrapperCard>
-                {/* <div style={{ padding: 1, alignItems: "center", backgroundColor: '#D3D3D3', width: 900, height: 650, borderRadius: 5 }}> */}
-
-
-
-                {/* <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}> */}
                 <Form
 
                     style={{ padding: 1, paddingLeft: 120 }}
@@ -154,7 +143,7 @@ const AddFinancial = props => {
                                     message: "Please enter the place or venue"
                                 }
                             ]}
-                            
+
                         >
                             <Select
                                 defaultValue="Type"
