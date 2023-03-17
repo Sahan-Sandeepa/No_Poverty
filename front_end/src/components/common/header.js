@@ -26,6 +26,9 @@ import Ads from "../DonationAdmin/ShowAllAds"
 import Donations from "../DoDonations/ShowDonations"
 import JobList from "../jobPortal/JobList"
 import Register from "../Register/Register"
+import AllEvent from "../Event/Admin/AllEvent"
+import AddEvent from "../Event/Admin/AddEvent"
+import UpdateEvent from "../Event/Admin/UpdateEvent"
 
 
 const { Header, Content, Footer, Sider } = Layout
@@ -55,8 +58,9 @@ const Dashboard = props => {
         getItem("job Post krmutheee? ", 6, <LineChartOutlined />),
         getItem("job epa una krmutheee? ", 7, <LineChartOutlined />),
         getItem("helllo regiter? ", 8, <LineChartOutlined />),
-
-
+        getItem("EventAll ", 9, <MoneyCollectFilled />),
+        getItem("EventAdd ", 10, <MoneyCollectFilled />),
+        getItem("EventUpdate ", 11, <MoneyCollectFilled />),
 
 
     ]
@@ -70,26 +74,28 @@ const Dashboard = props => {
         <Financial />,
         <AddFinancial />,
         <PublishAd />,
-        <Ads/>,
-        <Donations/>,
-        <JobPost/>,
+        <Ads />,
+        <Donations />,
+        <JobPost />,
         <JobList />,
         <Register />,
-        // <StockOrder />
+        <AllEvent />,
+        <AddEvent/>,
+        <UpdateEvent />
     ]
 
     return (
         <>
-        <div>
-           <Header_bar />
-            <Layout style={{ minHeight: "100vh" }}>
-                <Sider
-                    collapsible
-                    collapsed={collapsed}
-                    onCollapse={value => setCollapsed(value)
-                    }
+            <div>
+                <Header_bar />
+                <Layout style={{ minHeight: "100vh" }}>
+                    <Sider
+                        collapsible
+                        collapsed={collapsed}
+                        onCollapse={value => setCollapsed(value)
+                        }
 
-                >              
+                    >
 
                         {/* <div className="flex">
                         <div >
@@ -132,16 +138,16 @@ const Dashboard = props => {
                             mode="inline"
                             items={items}
                         />
-                </Sider>
-                <Layout className="site-layout">
-                    <Content style={{ margin: "0 16px" }}>
-                        {bodyContainer[activeIndex]}
-                    </Content>
-                    <Footer style={{ textAlign: "center" }}>
-                        NoPoverty System ©2023
-                    </Footer>
+                    </Sider>
+                    <Layout className="site-layout">
+                        <Content style={{ margin: "0 16px" }}>
+                            {bodyContainer[activeIndex]}
+                        </Content>
+                        <Footer style={{ textAlign: "center" }}>
+                            NoPoverty System ©2023
+                        </Footer>
+                    </Layout>
                 </Layout>
-            </Layout>
             </div>
         </>
     )
