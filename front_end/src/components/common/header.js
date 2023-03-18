@@ -82,7 +82,7 @@ const Dashboard = props => {
         <>
         <div>
            <Header_bar />
-            <Layout style={{ minHeight: "100vh" }}>
+            <Layout style={{ minHeight: "200vh" }}>
                 <Sider
                     collapsible
                     collapsed={collapsed}

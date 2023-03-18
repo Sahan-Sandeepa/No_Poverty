@@ -68,6 +68,8 @@ const AddFinancial = props => {
         setType(value)
     };
 
+  
+
     function sendData(e) {
         e.preventDefault();
 

@@ -26,7 +26,7 @@ const JobList = () => {
         getJobList();
     }, [])
 
-
+   
     const onSearch = (value) => console.log(value);
 
     // const columns = [{
@@ -40,9 +40,9 @@ const JobList = () => {
     //     key: 'address',
     // },
     // ];
-    
 
-    const Columns=[{
+
+    const Columns = [{
         title: 'Job Title',
         dataIndex: 'jobTitle',
         key: 'jobTitle',
@@ -83,24 +83,24 @@ const JobList = () => {
         <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
             {/* <Col span={50} />
             <Col span={30}> */}
-                <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                        <h1 style={{ color: "White" }}>Job Vacancies</h1>
-                        <Col span={12} />
-                        <Search
-                            placeholder="input search text"
-                            onSearch={onSearch}
-                            style={{
-                                width: 250,
-                            }}
-                        />
-                        <Button icon={<FilePdfOutlined style={{ fontSize: '21px', color: 'red' }} />} />
-                    </CustomRow>
-                </WrapperCard>
-                <Table columns={Columns} dataSource={jobList}
-                    // bordered
-                // title={() => 'Financial Details'}
-                />
+            <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
+                    <h1 style={{ color: "White" }}>Job Vacancies</h1>
+                    <Col span={12} />
+                    <Search
+                        placeholder="input search text"
+                        onSearch={onSearch}
+                        style={{
+                            width: 250,
+                        }}
+                    />
+                    <Button icon={<FilePdfOutlined style={{ fontSize: '21px', color: 'red' }} />} />
+                </CustomRow>
+            </WrapperCard>
+            <Table columns={Columns} dataSource={jobList}
+            // bordered
+            // title={() => 'Financial Details'}
+            />
             {/* </Col> */}
         </div>
     )
