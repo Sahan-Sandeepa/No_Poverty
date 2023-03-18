@@ -38,30 +38,30 @@ const config = {
 
 const JobPost = () => {
     const [size, setSize] = useState('large'); // default is 'middle'
-    const [name, setJobTitle] = useState("");
+    const [jobTitle, setJobTitle] = useState("");
     const [location, setLocation] = useState("");
     const [openingDate, setOpeningDate] = useState("");
     const [closingDate, setClosingDate] = useState("");
     const [company, setCompany] = useState("");
 
 
-    // function sendData(e) {
-    //     e.preventDefault();
+    function sendData(e) {
+        e.preventDefault();
 
-    //     const jobPostSchema = {
-    //         name, location, openingDate, closingDate, company,
-    //     };
+        const jobPostSchema = {
+            jobTitle, location, openingDate, closingDate, company,
+        };
 
-    //     axios
-    //         .post("http://localhost:5000/jobHire/add", jobPostSchema)
-    //         .then(() => {
-    //             message("inserted!", "Data Inserted!", "success");
-    //             window.location.reload(false);
-    //         })
-    //         .catch((err) => {
-    //             alert(err);
-    //         });
-    // }
+        axios
+            .post("http://localhost:4000/jobHire/add", jobPostSchema)
+            .then(() => {
+                message("inserted!", "Data Inserted!", "success");
+                window.location.reload(false);
+            })
+            .catch((err) => {
+                alert(err);
+            });
+    }
 
 
     return (
@@ -74,7 +74,6 @@ const JobPost = () => {
                     </CustomRow>
                 </WrapperCard>
                 <Form
-                    // onSubmit={sendData}
                     style={{ padding: 1, paddingLeft: 140 }}
                 >
                     <br></br>
@@ -82,7 +81,7 @@ const JobPost = () => {
                     <Row>
                         {/* <Col span={12}> */}
                         <Form.Item
-                            name="name"
+                            name="jobTitle"
                             label="Job Title"
                             rules={[
                                 {
@@ -101,7 +100,7 @@ const JobPost = () => {
                         <Form.Item name="openingDate" label="Opening Date" {...config}>
                             <DatePicker
                                 onChange={(val) => {
-                                    setOpeningDate(val.target.value);
+                                    setOpeningDate(val);
                                 }} />
                         </Form.Item>
                         {/* </Col> */}
@@ -128,7 +127,7 @@ const JobPost = () => {
                         <Form.Item name="closingDate" label="Closing Date" {...config}>
                             <DatePicker
                                 onChange={(val) => {
-                                    setClosingDate(val.target.value);
+                                    setClosingDate(val);
                                 }} />
                         </Form.Item>
                     </Row>
@@ -163,7 +162,7 @@ const JobPost = () => {
                         <Col span={1} />
                         <Form.Item label=" " colon={false}>
                             <Button type="primary" htmlType="submit"
-                                style={{ fontWeight: "bold" }} >
+                                style={{ fontWeight: "bold" }} onClick={sendData}>
                                 Submit
                             </Button>
                         </Form.Item>

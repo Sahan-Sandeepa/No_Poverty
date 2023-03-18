@@ -29,7 +29,7 @@ import Register from "../Register/Register"
 import AllEvent from "../Event/Admin/AllEvent"
 import AddEvent from "../Event/Admin/AddEvent"
 import UpdateEvent from "../Event/Admin/UpdateEvent"
-
+import Donate from "../DoDonations/MakeDonations"
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -51,7 +51,7 @@ const Dashboard = props => {
     const items = [
         getItem("Dashboard", 0, <BankTwoTone />),
         getItem("Financial", 1, <UserOutlined />),
-        getItem("AddFinancial", 2, <CarFilled />),
+        getItem("Donate", 2, <CarFilled />),
         getItem("Add Donation Content", 3, <LineChartOutlined />),
         getItem("Show Ads", 4, <LineChartOutlined />),
         getItem("Show Donations", 5, <LineChartOutlined />),
@@ -72,7 +72,7 @@ const Dashboard = props => {
 
         <Home />,
         <Financial />,
-        <AddFinancial />,
+        <Donate />,
         <PublishAd />,
         <Ads />,
         <Donations />,
