@@ -12,7 +12,7 @@ const eventSchema = new Schema({eventNo: {type: String,required: true,unique: tr
 
     eventDate: {type: String,require: true,},
 
-    eventStatus: {type: String,require: true,},
+    eventStatus: { type: String, require: true, default: "OPEN"},
 });
 const event = mongoose.model("event", eventSchema);
 module.exports = event; //export...................
