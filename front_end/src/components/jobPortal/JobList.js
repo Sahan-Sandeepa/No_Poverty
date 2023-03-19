@@ -37,24 +37,6 @@ const JobList = () => {
         getJobList();
     }, [])
 
-<<<<<<< HEAD
-   
-    const onSearch = (value) => console.log(value);
-
-    // const columns = [{
-    //     title: 'Donation Name',
-    //     dataIndex: 'name',
-    //     key: 'name',
-    //     render: text => <a href="#">{text}</a>,
-    // }, {
-    //     title: 'Fund',
-    //     dataIndex: 'address',
-    //     key: 'address',
-    // },
-    // ];
-
-
-=======
     const handleDelete = async (_id) => {
         axios.delete("http://localhost:4000/jobHire/delete/" + _id)
             .then((result) => {
@@ -66,7 +48,6 @@ const JobList = () => {
 
     const onSearch = (value) => console.log(value);
 
->>>>>>> 4984371acead171c541687e70a1d499cbda9da26
     const Columns = [{
         title: 'Job Title',
         dataIndex: 'jobTitle',
