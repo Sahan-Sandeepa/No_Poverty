@@ -17,6 +17,8 @@ function App() {
       <body>
         <main>
           <Routes>
+            <Route path="/dashbaord" element={<Dashboard/>}/>
+
             <Route path="/add" element={<JobPost />} />
             <Route path="/joblist" element={<JobList />} />
 

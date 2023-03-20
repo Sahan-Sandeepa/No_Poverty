@@ -24,6 +24,7 @@ const Financial = () => {
     const [status, setStatus] = useState("");
     const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
+    const [searchResult, setSearchResult]=useState([])
 
     const { _id } = useParams();
     const [refresh, setRefresh] = useState(false);
@@ -48,9 +49,11 @@ const Financial = () => {
                 alert(err.message);
             });
     }
+
+   
     useEffect(() => {
-        getFinancial();
-    }, [refresh])
+        getFinancial()
+    }, [refresh]);
 
 
     // const handleDelete = (_id) => {
@@ -60,7 +63,8 @@ const Financial = () => {
         setIsDeleteModalOpen(true)
         axios.delete("http://localhost:4000/financial/" + _id)
             .then((result) => {
-                console.log("Deleted", result);
+                setRefresh("Deleted", result);
+                
             }).catch((err) => {
                 console.log(err);
             })
@@ -122,8 +126,8 @@ const Financial = () => {
         render: text => <a href="#">{text}</a>,
     }, {
         title: 'Fund',
-        dataIndex: 'address',
-        key: 'address',
+        dataIndex: 'total',
+        key: 'total',
     },
     ];
 

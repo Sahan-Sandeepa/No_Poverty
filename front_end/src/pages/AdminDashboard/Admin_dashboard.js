@@ -1,41 +1,58 @@
 import { useEffect, useState } from "react"
 import logo from "../../assets/images/logo.png"
 import { DualAxes } from '@ant-design/plots';
-import { Card, Col, Row, Typography, Table } from "antd"
-import { Pie } from '@ant-design/plots';
-import { AppstoreTwoTone } from "@ant-design/icons"
+import { Card, Col, Row, Typography, Table, AutoComplete } from "antd"
+import { AppstoreTwoTone,UserOutlined } from "@ant-design/icons"
+const url = "http://localhost:4000/financial/";
 
-function Home() {
+
+function Admin() {
     const { Title, Text } = Typography
-    //   const onChange = (e) => console.log(`radio checked:${e.target.value}`);
-    //   const [reverse, setReverse] = useState(false)
-    //   const [sales, setSales] = useState()
-      const [donation, setDonation] = useState(0)
-      const [users, setUser] = useState()
-      const [event, setEvent] = useState()
-    const [financial, setFinancial]=useState();
+    const [donation, setDonation] = useState(0)
+    const [users, setUser] = useState()
+    const [event, setEvent] = useState()
+    const [financial, setFinancial] = useState();
+    const [items, setItems] = useState([]);
+    const [totalSum, setTotalSum] = useState(0);
 
 
+    useEffect(() => {
+        const getData = async () => {
+            const response = await fetch(url);
+            const items = await response.json();
+            setItems(items);
+            console.timeLog(items);
+        };
+        getData()
+    }, []);
+
+    useEffect(() => {
+        const total = items.reduce((acc, row) => acc + row.amount, 0);
+
+        setTotalSum(items.total)
+    }, [items]);
 
     const count = [
         {
             today: "Total Users",
-              title: `${users}`,
-            icon: <AppstoreTwoTone />,
-            bnb: "bnb2"
+            title: `${users}`,
+            icon: <UserOutlined />,
+            bnb: "bnb2",
         },
         {
             today: "Total Donation",
-              title: `${donation}`,
+            title: `${donation}`,
             icon: <AppstoreTwoTone />,
             bnb: "bnb2",
 
         },
         {
             today: "Total Events",
-              title: `${event}`,
-            icon: <AppstoreTwoTone />,
-            bnb: "redtext"
+            title: `${event}`,
+            icon: <AppstoreTwoTone/>,
+            bnb: "redtext",
+            
+            
         },
 
     ]
@@ -83,27 +100,6 @@ function Home() {
             },
         ],
     };
-    //   useEffect(() => {
-    //     event.then(val => setEvent(val.length + 1))
-    //      ItemService.getDeliveryItems(1, 10).then(val => setItems(val.length + 1))
-    //      EmployeeService.getEmployees(1, 10).then(val =>
-    //       setEmployees(val.length + 1)
-    //     )
-    //     StockOrderService.getOrderQty(1, 10).then(val => setOrders(val.length + 1))
-    //   }, [])
-
-    const dataSource = [
-        {
-            key: '1',
-            name: 'Mike',
-            age: 32,
-        },
-        {
-            key: '2',
-            name: 'John',
-            age: 42,
-        },
-    ];
 
     const columns = [
         {
@@ -111,14 +107,23 @@ function Home() {
             dataIndex: 'name',
             key: 'name',
         },
+        {
+            title: 'Total',
+            dataIndex: 'total',
+            key: 'total',
+        },
+        {
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+        },
 
     ];
-
     return (
         <>
-        <Col span={10}/>
+            <Col span={5} />
 
-            <div className="layout-content" style={{ padding: "16px", paddingLeft: 25 }}>
+                <div className="layout-content" style={{ padding: "16px", paddingLeft: 25 }}>
                     <Row className="rowgap-vbox" gutter={[24, 0]}>
                         {count.map((c, index) => (
                             <Col
@@ -151,37 +156,26 @@ function Home() {
 
                     <br></br><br></br><br></br><br></br>
                     <Row >
-                        <DualAxes {...config} />
-                        {/* <Card>
-                        <Row>
                         <div>
-                            <h1>
-                                Financial History
-                            </h1>
-                            <Table dataSource={dataSource} columns={columns} />
-
+                            <DualAxes {...config} />
                         </div>
-                        </Row>
-                    </Card> */}
                         <Col span={4} />
-                        <Card style={{ paddingLeft: 250 }}>
+                        <Card>
                             <div>
-                                <Table dataSource={dataSource} columns={columns} />
+                                <Table dataSource={items} columns={columns} />
+                                <Row>
+                                    <Col span={12}>
+                                        {/* {totalSum === null ? 'Loading...' : `Count: ${totalSum}`} */}
+                                        <h3>Total Bill : {totalSum}</h3>
+                                    </Col>
+                                </Row>
 
                             </div>
                         </Card>
-
-
                     </Row>
-                    {/* <img
-          src={logo}
-          alt="Logo"
-          width={1000}
-          style={{ padding: "200px 0" }}
-        /> */}
-            </div>
+                </div>
         </>
     )
 }
 
-export default Home
+export default Admin
