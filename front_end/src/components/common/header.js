@@ -86,25 +86,14 @@ const Dashboard = props => {
 
     return (
         <>
-<<<<<<< HEAD
-        <div>
-           <Header_bar />
-            <Layout style={{ minHeight: "200vh" }}>
-                <Sider
-                    collapsible
-                    collapsed={collapsed}
-                    onCollapse={value => setCollapsed(value)
-                    }
-=======
             <div>
                 <Header_bar />
-                <Layout style={{ minHeight: "100vh" }}>
+                <Layout style={{ minHeight: "180vh" }}>
                     <Sider
                         collapsible
                         collapsed={collapsed}
                         onCollapse={value => setCollapsed(value)
                         }
->>>>>>> 4984371acead171c541687e70a1d499cbda9da26
 
                     >
 
