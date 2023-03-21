@@ -29,7 +29,7 @@ import Register from "../Register/Register"
 import AllEvent from "../Event/Admin/AllEvent"
 import AddEvent from "../Event/Admin/AddEvent"
 import UpdateEvent from "../Event/Admin/UpdateEvent"
-
+import Donate from "../DoDonations/MakeDonations"
 
 const { Header, Content, Footer, Sider } = Layout
 
