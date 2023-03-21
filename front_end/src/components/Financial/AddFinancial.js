@@ -50,7 +50,7 @@ const AddFinancial = props => {
     const [venue, setVenue] = useState("");
     const [total, setTotal] = useState("");
     const [status, setStatus] = useState("");
-    const [refresh, seRefresh] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
 
 
@@ -68,6 +68,8 @@ const AddFinancial = props => {
         setType(value)
     };
 
+  
+
     function sendData(e) {
         e.preventDefault();
 
@@ -84,12 +86,14 @@ const AddFinancial = props => {
 
             .then(value => {
                 console.log(value);
+                setRefresh(true)
             })
             .catch((err) => {
                 console.log(`Error: ${err?.response?.data}`);
             })
             handleOk();
-            
+            setRefresh(true)
+
 
         //   .catch((err)=> console.log(err));
     }
@@ -152,6 +156,13 @@ const AddFinancial = props => {
 
                         >
                             <Select
+                            rules={[
+                                {
+                                    required:true,
+                                    message:"select the type"
+                                }
+
+                            ]}
                                 defaultValue="Type"
                                 style={{
                                     width: 120,
