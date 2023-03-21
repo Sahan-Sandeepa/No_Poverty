@@ -8,10 +8,10 @@ import WrapperCard from '../common/Wrapper_card';
 
 const { Search } = Input;
 
-
 const Donations = () => {
     const [donate, setDonate] = useState([]);
     const [column, setColumns] = useState([]);
+    const [ran,setran] =useState([]);
 
     function getDonations() {
         axios.get("http://localhost:4000/donation/")
