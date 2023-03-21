@@ -63,10 +63,10 @@ const UpdateEvent = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    return (
-
-
+    return ( 
+        
         <><h1>This is from the update event</h1></>
+
     );
 }
 export default UpdateEvent;
