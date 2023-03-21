@@ -26,7 +26,11 @@ import Ads from "../DonationAdmin/ShowAllAds"
 import Donations from "../DoDonations/ShowDonations"
 import JobList from "../jobPortal/JobList"
 import Register from "../Register/Register"
+import AllEvent from "../Event/Admin/AllEvent"
+import AddEvent from "../Event/Admin/AddEvent"
+import UpdateEvent from "../Event/Admin/UpdateEvent"
 import Donate from "../DoDonations/MakeDonations"
+import Admin from "../../pages/AdminDashboard/Admin_dashboard"
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -47,16 +51,10 @@ const Dashboard = props => {
 
     const items = [
         getItem("Dashboard", 0, <BankTwoTone />),
-        getItem("Financial", 1, <UserOutlined />),
-        getItem("Donate", 2, <CarFilled />),
-        getItem("Add Donation Content", 3, <LineChartOutlined />),
-        getItem("Show Ads", 4, <LineChartOutlined />),
-        getItem("Show Donations", 5, <LineChartOutlined />),
-        getItem("job Post krmutheee? ", 6, <LineChartOutlined />),
-        getItem("job epa una krmutheee? ", 7, <LineChartOutlined />),
-        getItem("helllo regiter? ", 8, <LineChartOutlined />),
-        
-
+        getItem("Donation", 1, <UserOutlined />),
+        getItem("Job Portal", 2, <CarFilled />),
+        getItem("Events", 3, <LineChartOutlined />),
+        getItem("Financial", 4, <LineChartOutlined />),
 
 
     ]
@@ -66,30 +64,32 @@ const Dashboard = props => {
 
     const bodyContainer = [
 
-        <Home />,
-        <Financial />,
-        <Donate />,
-        <PublishAd />,
-        <Ads/>,
-        <Donations/>,
-        <JobPost/>,
+        <Admin />,
+        < Ads />,
         <JobList />,
-        <Register />,
-        // <StockOrder />
+        <AllEvent />,
+        <Financial />,
+        // <Donations />,
+        // <JobPost />,
+        // <JobList />,
+        // <Register />,
+        // <AllEvent />,
+        // <AddEvent/>,
+        // <UpdateEvent />
     ]
 
     return (
         <>
-        <div>
-           <Header_bar />
-            <Layout style={{ minHeight: "100vh" }}>
-                <Sider
-                    collapsible
-                    collapsed={collapsed}
-                    onCollapse={value => setCollapsed(value)
-                    }
+            <div>
+                <Header_bar />
+                <Layout style={{ minHeight: "180vh" }}>
+                    <Sider
+                        collapsible
+                        collapsed={collapsed}
+                        onCollapse={value => setCollapsed(value)
+                        }
 
-                >              
+                    >
 
                         {/* <div className="flex">
                         <div >
@@ -132,16 +132,16 @@ const Dashboard = props => {
                             mode="inline"
                             items={items}
                         />
-                </Sider>
-                <Layout className="site-layout">
-                    <Content style={{ margin: "0 16px" }}>
-                        {bodyContainer[activeIndex]}
-                    </Content>
-                    <Footer style={{ textAlign: "center" }}>
-                        NoPoverty System ©2023
-                    </Footer>
+                    </Sider>
+                    <Layout className="site-layout">
+                        <Content style={{ margin: "0 16px" }}>
+                            {bodyContainer[activeIndex]}
+                        </Content>
+                        <Footer style={{ textAlign: "center" }}>
+                            NoPoverty System ©2023
+                        </Footer>
+                    </Layout>
                 </Layout>
-            </Layout>
             </div>
         </>
     )
