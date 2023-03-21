@@ -2,6 +2,7 @@ import { AutoComplete, Breadcrumb, Layout, Menu, theme } from 'antd';
 import logo from "../../assets/images/logo2.png"
 import '../../assets/styles/style.css'
 import user from "../../assets/images/profile.png"
+import DropdownButton from 'antd/es/dropdown/dropdown-button';
 
 
 
@@ -35,7 +36,9 @@ const Header_bar = props => {
             <Header className="site-layout-background" style={{ justifyContent: "space-between" }}>
                 <img src={logo} alt="Logo" width={50} />
                 <h1 style={{color:"white"}}>Helping Hands</h1>
-                <img src={user } width={50}/>
+                <img src={user} width={50}
+                
+                />
             </Header>
             <div>
                 {/* <Header
