@@ -65,7 +65,7 @@ const Dashboard = props => {
     const bodyContainer = [
 
         <Admin />,
-        < Ads />,
+        < Donations />,
         <JobList />,
         <AllEvent />,
         <Financial />,
