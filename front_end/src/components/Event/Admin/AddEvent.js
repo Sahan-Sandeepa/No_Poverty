@@ -12,14 +12,25 @@ import {
 } from 'antd';
 import CustomRow from "../../common/Form_header";
 import '../Event-Main.css'
+import dayjs from 'dayjs';
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 
 const AddEvent = () => {
+
     const [eventNo, seteventNo] = useState("");
     const [eventName, seteventName] = useState("");
     const [eventPlace, seteventPlace] = useState("");
     const [eventDetails, seteventDetails] = useState("");
     const [eventDate, seteventDate] = useState("");
-    const [eventStatus, seteventStatus] = useState("");
+
+    const onFinish = (values) => {
+        console.log(values);
+    };
+
+    const onChange = (eventDate, dateString) => {
+        seteventDate(dateString);
+    };
 
     function sendData(e) {
         e.preventDefault();
@@ -30,13 +41,11 @@ const AddEvent = () => {
             eventPlace,
             eventDetails,
             eventDate,
-            eventStatus,
         };
 
         axios
             .post("http://localhost:4000/event/addevent", EventSchema)
             .then(() => {
-                handleShow()
             })
             .catch((err) => {
                 alert(err); console.log(EventSchema)
@@ -46,27 +55,9 @@ const AddEvent = () => {
     //Navigate to the privious page
     // const history = useNavigate();
 
-    //For get the current Date
-    let date = new Date().toISOString();
-    let isoDate = new Date(date);
-
-    function formatDate(thedate) {
-        return (
-            thedate.getFullYear() +
-            "/" +
-            (thedate.getMonth() + 1) +
-            "/" +
-            thedate.getDate()
-        );
-    }
     // const [componentDisabled, setComponentDisabled] = useState(true);
 
     // const location = useLocation();
-
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     const layout = {
         labelCol: {
@@ -78,26 +69,7 @@ const AddEvent = () => {
         },
     };
 
-    /* eslint-disable no-template-curly-in-string */
-    const validateMessages = {
-        required: '${label} is required!',
-        types: {
-            email: '${label} is not a valid email!',
-            number: '${label} is not a valid number!',
-        },
-        number: {
-            range: '${label} must be between ${min} and ${max}',
-        },
-    };
-    /* eslint-enable no-template-curly-in-string */
-
-    const onFinish = (values) => {
-        console.log(values);
-    };
-
-    const onChange = (date, dateString) => {
-        console.log(date, dateString);
-    };
+    const dateFormat = 'YYYY-MM-DD'  
 
     return (
 
@@ -118,57 +90,54 @@ const AddEvent = () => {
                         style={{
                             maxWidth: 600,
                         }}
-                        validateMessages={validateMessages}
                         labelAlign="left"
                     >
 
                         <Form.Item
-                            name={['user', 'name']}
+                            name="eventNo"
                             label="Event No"
                             rules={[
-                                {
-                                    required: true,
-                                },
+                                { required: true, message: '${label} is required!' },
                             ]}
                         >
-                            <Input />
+                            <Input onChange={(e) => {
+                                seteventNo(e.target.value);
+                            }} />
                         </Form.Item>
 
                         <Form.Item
-                            name={['user', 'name']}
+                            name="eventName"
                             label="Event Name"
                             rules={[
-                                {
-                                    required: true,
-                                },
+                                { required: true, message: '${label} is required!' },
                             ]}
                         >
-                            <Input />
+                            <Input onChange={(e) => {
+                                seteventName(e.target.value)
+                            }} />
                         </Form.Item>
 
                         <Form.Item
-                            name={['user', 'name']}
+                            name="eventPlace"
                             label="Event Location"
                             rules={[
-                                {
-                                    required: true,
-                                },
+                                { required: true, message: '${label} is required!' },
                             ]}
                         >
-                            <Input />
+                            <Input onChange={(e) => {
+                                seteventPlace(e.target.value)
+                            }} />
                         </Form.Item>
 
                         <Form.Item
-                            name={['user', 'name']}
+                            name="eventDate"
                             label="Event Date"
                             rules={[
-                                {required: true,},
+                                { required: true, message: '${label} is required!' },
                             ]}
                         >
-                            <Space direction="vertical">
-                                <DatePicker onChange={onChange} />
-
-                            </Space>
+                                <DatePicker format={dateFormat}
+                                    onChange={onChange} />
 
                         </Form.Item>
 
@@ -178,13 +147,15 @@ const AddEvent = () => {
 
                         <Form.Item
 
-                            name={['user', 'introduction']}
+                            name="eventDetails"
                             label="Event Description"
                             rules={[
-                                {required: true,},
+                                { required: true, message: '${label} is required!' },
                             ]}
-                            >
-                            <Input.TextArea />
+                        >
+                            <Input.TextArea onChange={(e) => {
+                                seteventDetails(e.target.value)
+                            }} />
                         </Form.Item>
 
 
@@ -194,11 +165,11 @@ const AddEvent = () => {
                                 offset: 10,
                             }}
                         >
-                            <Button htmlType="submit" className="add-btn btn">
+                            <Button htmlType="submit" className="add-btn btn" onClick={sendData}>
                                 submit
                             </Button>
 
-                            <Button  htmlType="reset" className="reset-btn btn">
+                            <Button htmlType="reset" className="reset-btn btn">
                                 Reset
                             </Button>
                         </Form.Item>
