@@ -1,8 +1,10 @@
-import { AutoComplete, Breadcrumb, Layout, Menu, theme } from 'antd';
+import { AutoComplete, Breadcrumb, Layout, Menu, theme,Dropdown ,Col } from 'antd';
 import logo from "../../assets/images/logo2.png"
 import '../../assets/styles/style.css'
 import user from "../../assets/images/profile.png"
 import DropdownButton from 'antd/es/dropdown/dropdown-button';
+import {AlignCenterOutlined, DownOutlined,UserOutlined  } from '@ant-design/icons'
+import '../../assets/styles/header.css'
 
 
 
@@ -14,44 +16,46 @@ const Header_bar = props => {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+
+    const userMenu = (
+        <Menu>
+          <Menu.Item key="1">Profile</Menu.Item>
+          <Menu.Item key="2">Setting</Menu.Item>
+          <Menu.Divider />
+          <Menu.Item key="3">Logout</Menu.Item>
+        </Menu>
+      );
     return (
 
         <Layout>
-            {/* <Header className="site-layout-background" style={{ justifyContent: "space-between" }}>
-            <div
-                    style={{flexDirection:'row',display:'flex', margin:1, padding:5}} >
-                        <img src={logo}  style={{width:80,height:80,color:"white"}} />
-                        <div style={{paddingLeft:25}}>
-                    <h1 className="flex gap-x-4 items-center" style={{color:"white"}}>Helping Hands</h1>
-                    </div>
-                    <div style={{alignItems:"center", alignSelf:"center"}}>
-                    <img src={user} style={{ width: 60, height: 60, color: "white" }}  />
-
-                    </div>
-
-                    </div>
-
-            </Header> */}
-
             <Header className="site-layout-background" style={{ justifyContent: "space-between" }}>
                 <img src={logo} alt="Logo" width={50} />
-                <h1 style={{color:"white"}}>Helping Hands</h1>
-                <img src={user} width={50}
-                
-                />
+                <Col span={10}/>
+
+                <h1 style={{ color: "white" }}>HelpingHands</h1>
+                <Col span={10}/>
+                <Dropdown.Button
+                    style={{ float: 'right' }}
+                    className="dropdown-btn"
+                    overlay={userMenu}
+                    icon={
+                        <UserOutlined
+                            style={{
+                                fontSize: '26px',
+                                backgroundColor: '#f0f0f0',
+                                borderRadius: '50%',
+                                color:"Red"
+                                
+                            }}
+                        />
+                    }
+                ></Dropdown.Button>
+                {/* <img src={user} width={50} >
+                        
+                    </img> */}
+
             </Header>
             <div>
-                {/* <Header
-                    style={{
-                        position: 'sticky',
-                        top: 0,
-                        zIndex: 1,
-                        width: '100%',
-
-
-                    }}
-                > */}
-
                 <Menu
                     theme="dark"
                     mode="horizontal"

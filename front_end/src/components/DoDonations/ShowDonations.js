@@ -91,7 +91,7 @@ const Donations = () => {
             <br></br>
 
             <div style={{ paddingLeft: 150 }} >
-                <div style={{ paddingLeft: 70 }} >
+                <div style={{ paddingLeft: 50 }} >
                     <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
                         <Col span={50} />
                         <Col span={30}>
