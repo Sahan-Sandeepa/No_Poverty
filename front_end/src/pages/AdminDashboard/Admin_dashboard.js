@@ -137,7 +137,7 @@ function Admin() {
                                 xl={6}
                                 className="mb-24"
                             >
-                                <Card bordered={false} className="criclebox ">
+                                <Card bordered={false} className="criclebox " style={{backgroundColor:"#d9e2f5"}}>
                                     <div className="number">
                                         <Row align="middle" gutter={[35, 7]}>
                                             <Col xs={18}>
@@ -162,7 +162,7 @@ function Admin() {
                             <DualAxes {...config} />
                         </div>
                         <Col span={4} />
-                        <Card>
+                        <Card style={{backgroundColor:'#dfa5ec'}}>
                             <div>
                                 <Table dataSource={items} columns={columns} />
                                 <Row>
