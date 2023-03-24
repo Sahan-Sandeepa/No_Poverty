@@ -97,6 +97,14 @@ const Ads = () => {
         ),
     }];
     return (
+        <>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+
+        <div style={{ paddingLeft: 150 }} >
+            <div style={{ paddingLeft: 70 }} >
         <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
             <Col span={50} />
             <Col span={30}>
@@ -121,6 +129,9 @@ const Ads = () => {
                 />
             </Col>
         </div>
+        </div>
+        </div>
+        </>
     )
 }
 
