@@ -1,26 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import {
-    AutoComplete,
     Button,
-    Cascader,
-    Checkbox,
     Col,
     Form,
     Input,
-    InputNumber,
     Row,
     Select,
-    DatePicker,
-    Layout,
-    message,
-    Menu, Dropdown, Icon,
 } from 'antd';
 
 import WrapperCard from '../common/Wrapper_card';
-import WrapperContainer from '../common/Wrapper_container';
 import CustomRow from '../common/Form_header';
 import axios from "axios";
-
 
 const Register = () => {
     const [name, setName] = useState("");
@@ -179,78 +169,78 @@ const Register = () => {
 
                                     }}
                                 />
-                    </Form.Item>
-                    </Col>
+                            </Form.Item>
+                        </Col>
 
-                    <Col span={1} />
-                    <Col span={9}>
+                        <Col span={1} />
+                        <Col span={9}>
+                            <Form.Item
+                                label="Password"
+                                name="password"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your password!',
+                                    },
+                                ]}
+                            >
+                                <Input.Password
+                                    onChange={(val) => {
+                                        setPassword(val.target.value);
+                                    }} />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <br></br>
+                    <Col span={11}>
                         <Form.Item
-                            label="Password"
-                            name="password"
+                            name="total"
+                            label="Contact Number"
+
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please input your password!',
-                                },
+                                    message: "Please enter the Contact No"
+                                }
                             ]}
                         >
-                            <Input.Password
+                            <Input
                                 onChange={(val) => {
-                                    setPassword(val.target.value);
-                                }} />
+                                    setCno(val.target.value);
+
+                                }}
+                            />
                         </Form.Item>
                     </Col>
-                </Row>
-                <br></br>
-                <Col span={11}>
-                <Form.Item
-                    name="total"
-                    label="Contact Number"
-
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please enter the Contact No"
-                        }
-                    ]}
-                >
-                    <Input
-                        onChange={(val) => {
-                            setCno(val.target.value);
-
-                        }}
-                    />
-                </Form.Item>
-                </Col>
 
 
-                <br></br>
-                <br></br>
+                    <br></br>
+                    <br></br>
 
-                <Row>
-                    <Col span={13} />
-                    <Form.Item label=" " colon={false} >
-                        <Button type="primary" color='red' htmlType="submit" style={{ backgroundColor: "#f44336", fontWeight: "bold" }}>
-                            Cancel
-                        </Button>
-                    </Form.Item>
-                    <Col span={1} />
-                    <Form.Item label=" " colon={false}>
+                    <Row>
+                        <Col span={13} />
+                        <Form.Item label=" " colon={false} >
+                            <Button type="primary" color='red' htmlType="submit" style={{ backgroundColor: "#f44336", fontWeight: "bold" }}>
+                                Cancel
+                            </Button>
+                        </Form.Item>
+                        <Col span={1} />
+                        <Form.Item label=" " colon={false}>
 
-                        <a href='/financial'><Button type="primary" htmlType="submit"
-                            style={{ fontWeight: "bold" }} onClick={sendData}
-                        >
-                            Register
-                        </Button>
-                        </a>
-                    </Form.Item>
-
-
-                </Row>
+                            <a href='/financial'><Button type="primary" htmlType="submit"
+                                style={{ fontWeight: "bold" }} onClick={sendData}
+                            >
+                                Register
+                            </Button>
+                            </a>
+                        </Form.Item>
 
 
-            </Form >
-        </div>
+                    </Row>
+
+
+                </Form >
+            </div>
         </>
     )
 
