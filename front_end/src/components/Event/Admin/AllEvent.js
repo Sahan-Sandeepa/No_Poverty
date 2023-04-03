@@ -1,8 +1,10 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { ClockCircleOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from "react";
 import WrapperCard from "../../common/Wrapper_card";
 import CustomRow from "../../common/Form_header";
+import { Badge, Card, Collapse, Space, Switch } from "antd";
 
 // import "../../Event/eventMain.css";
 
@@ -90,6 +92,17 @@ const AllEvent = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const { Panel } = Collapse;
+
+    const text = `
+  A dog is a type of domesticated animal.
+  Known for its loyalty and faithfulness,
+  it can be found as a welcome guest in many households across the world.`;
+
+    const onChange = (key) => {
+        console.log(key);
+    };
+
     return (
         <div className="main-container">
 
@@ -102,13 +115,152 @@ const AllEvent = () => {
                         </CustomRow>
                     </div>
                 </WrapperCard>
-                <div className="form">
-                    
-                </div>
+                {eventDetails
+                    // ?.filter((val) => {
+                    //     if (searchDetail === " ") {
+                    //         return val;
+                    //     } else if (
+                    //         val.customerName
+                    //             .toLowerCase()
+                    //             .includes(searchDetail.toLowerCase()) ||
+                    //         val.serialNo
+                    //             .toLowerCase()
+                    //             .includes(searchDetail.toLowerCase()) ||
+                    //         val.status
+                    //             .toLowerCase()
+                    //             .includes(searchDetail.toLowerCase())
+                    //     ) {
+                    //         return val;
+                    //     }
+                    // })
+                    ?.map((eventDetailsVal) => (
+                        <div className="form">
+
+                            <Collapse accordion>
+                                <Panel header={
+                                    <Space>
+                                        <Badge
+                                            className="site-badge-count-109"
+                                            count={eventDetailsVal.eventNo}
+                                            style={{
+                                                backgroundColor: 'volcano',
+                                            }}
+                                        />
+                                    </Space>
+                                } extra={
+                                    <Space>
+                                        <Badge
+                                            className="site-badge-count-109"
+                                            count={eventDetailsVal.eventDate}
+                                            style={{
+                                                backgroundColor: 'purple',
+                                            }}
+                                        />
+                                    </Space>
+                                } key="1">
+
+                                    <Card title="Card title">
+                                        <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
+                                            Inner Card content
+                                        </Card>
+                                        <Card
+                                            style={{
+                                                marginTop: 16,
+                                            }}
+                                            type="inner"
+                                            title="Inner Card title"
+                                            extra={<a href="#">More</a>}
+                                        >
+                                            Inner Card content
+                                        </Card>
+                                    </Card>
+
+                                    <p>{text}</p>
+                                </Panel>
+
+                            </Collapse>
+
+                            {/* ========================================================================================================================================================== */}
+
+                            <Collapse accordion>
+                                <Panel header="This is panel header with arrow icon" key="2">
+
+                                    <Card title="Card title">
+                                        <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
+                                            Inner Card content
+                                        </Card>
+                                        <Card
+                                            style={{
+                                                marginTop: 16,
+                                            }}
+                                            type="inner"
+                                            title="Inner Card title"
+                                            extra={<a href="#">More</a>}
+                                        >
+                                            Inner Card content
+                                        </Card>
+                                    </Card>
+
+                                    <p>{text}</p>
+                                </Panel>
+
+                            </Collapse>
+
+
+
+                            <Collapse accordion>
+                                <Panel header="This is panel header with arrow icon" key="3">
+
+                                    <Card title="Card title">
+                                        <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
+                                            Inner Card content
+                                        </Card>
+                                        <Card
+                                            style={{
+                                                marginTop: 16,
+                                            }}
+                                            type="inner"
+                                            title="Inner Card title"
+                                            extra={<a href="#">More</a>}
+                                        >
+                                            Inner Card content
+                                        </Card>
+                                    </Card>
+
+                                    <p>{text}</p>
+                                </Panel>
+
+                            </Collapse>
+
+
+                            <Collapse accordion>
+                                <Panel header="This is panel header with arrow icon" key="4">
+
+                                    <Card title="Card title">
+                                        <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
+                                            Inner Card content
+                                        </Card>
+                                        <Card
+                                            style={{
+                                                marginTop: 16,
+                                            }}
+                                            type="inner"
+                                            title="Inner Card title"
+                                            extra={<a href="#">More</a>}
+                                        >
+                                            Inner Card content
+                                        </Card>
+                                    </Card>
+
+                                    <p>{text}</p>
+                                </Panel>
+
+                            </Collapse>
+                        </div>
+                    ))}
             </div>
         </div>
     );
 
 };
-
 export default AllEvent;
