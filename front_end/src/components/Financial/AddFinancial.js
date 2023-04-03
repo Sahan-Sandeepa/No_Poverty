@@ -71,7 +71,7 @@ const AddFinancial = props => {
 
 
 
-    const sendData=async(_id) =>{
+    const sendData=async() =>{
 
         const financialSchema = {
             name,
@@ -82,7 +82,7 @@ const AddFinancial = props => {
             status
         };
 
-        axios.post("http://localhost:4000/financial/" +_id , financialSchema)
+        axios.post("http://localhost:4000/financial/create", financialSchema)
 
             .then(value => {
                 console.log(value);
@@ -204,7 +204,7 @@ const AddFinancial = props => {
 
                             <DatePicker defaultValue={dayjs('2015/01/01', dateFormat)} format={dateFormat}
                                 onChange={onChange}
-                                initialValue={selectedItem?.date}
+                                // initialValue={selectedItem?.date}
 
 
 
