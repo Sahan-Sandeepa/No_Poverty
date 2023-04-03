@@ -4,9 +4,20 @@ import { ClockCircleOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from "react";
 import WrapperCard from "../../common/Wrapper_card";
 import CustomRow from "../../common/Form_header";
-import { Badge, Card, Collapse, Space, Switch } from "antd";
+import { Badge, Button, Card, Col, Collapse, Row, Space, Switch, Table } from "antd";
 
 // import "../../Event/eventMain.css";
+
+const tabList = [
+    {
+        key: 'Place',
+        tab: 'Place',
+    },
+    {
+        key: 'Description',
+        tab: 'Description',
+    },
+];
 
 const AllEvent = () => {
 
@@ -62,24 +73,24 @@ const AllEvent = () => {
             });
         // }
     }
-    const ColoredLine = () => (
-        <hr
-            style={{
-                color: "#F0FFFF",
-                backgroundColor: "#7FFFD4",
-                height: 105,
-                width: 190,
-            }}
-        />
-    );
+    // const ColoredLine = () => (
+    //     <hr
+    //         style={{
+    //             color: "#F0FFFF",
+    //             backgroundColor: "#7FFFD4",
+    //             height: 105,
+    //             width: 190,
+    //         }}
+    //     />
+    // );
 
     const layout = {
         labelCol: {
-            span: 8,
+            span: 7,
 
         },
         wrapperCol: {
-            span: 90,
+            span: 100,
         },
     };
 
@@ -94,13 +105,13 @@ const AllEvent = () => {
 
     const { Panel } = Collapse;
 
-    const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.`;
-
-    const onChange = (key) => {
-        console.log(key);
+    const [activeTabKey1, setActiveTabKey1] = useState('tab1');
+    const [activeTabKey2, setActiveTabKey2] = useState('app');
+    const onTab1Change = (key) => {
+        setActiveTabKey1(key);
+    };
+    const onTab2Change = (key) => {
+        setActiveTabKey2(key);
     };
 
     return (
@@ -115,6 +126,12 @@ const AllEvent = () => {
                         </CustomRow>
                     </div>
                 </WrapperCard>
+
+                <section className="main_addbtn-controller">
+                    <Button htmlType="submit" className="" >
+                        Add
+                    </Button>
+                </section>
                 {eventDetails
                     // ?.filter((val) => {
                     //     if (searchDetail === " ") {
@@ -159,23 +176,36 @@ const AllEvent = () => {
                                     </Space>
                                 } key="1">
 
-                                    <Card title="Card title">
-                                        <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
-                                            Inner Card content
-                                        </Card>
-                                        <Card
-                                            style={{
-                                                marginTop: 16,
-                                            }}
-                                            type="inner"
-                                            title="Inner Card title"
-                                            extra={<a href="#">More</a>}
-                                        >
-                                            Inner Card content
-                                        </Card>
-                                    </Card>
+                                    <Card title={eventDetailsVal.eventName} extra={
+                                        <section className="main_btn-controller">
+                                            <Button htmlType="submit" className="" >
+                                                Edit
+                                            </Button>
 
-                                    <p>{text}</p>
+                                            <Button htmlType="reset" className="">
+                                                Print
+                                            </Button>
+
+                                            <Button htmlType="reset" className="">
+                                                Delete
+                                            </Button>
+                                        </section>
+                                    }>
+                                        {/* <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
+                                            Inner Card content
+                                        </Card> */}
+
+                                        <Card style={{
+                                            width: '100%',
+                                        }}
+                                            tabList={tabList}
+                                            activeTabKey={activeTabKey1}
+                                            onTabChange={onTab1Change}
+                                        >
+                                            {eventDetailsVal.eventDetails[activeTabKey1]}
+                                        </Card>
+
+                                    </Card>
                                 </Panel>
 
                             </Collapse>
@@ -200,8 +230,6 @@ const AllEvent = () => {
                                             Inner Card content
                                         </Card>
                                     </Card>
-
-                                    <p>{text}</p>
                                 </Panel>
 
                             </Collapse>
@@ -226,8 +254,6 @@ const AllEvent = () => {
                                             Inner Card content
                                         </Card>
                                     </Card>
-
-                                    <p>{text}</p>
                                 </Panel>
 
                             </Collapse>
@@ -251,8 +277,6 @@ const AllEvent = () => {
                                             Inner Card content
                                         </Card>
                                     </Card>
-
-                                    <p>{text}</p>
                                 </Panel>
 
                             </Collapse>
