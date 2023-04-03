@@ -61,34 +61,35 @@ const AddEvent = () => {
 
     const layout = {
         labelCol: {
-            span: 7,
+            span: 8,
 
         },
         wrapperCol: {
-            span: 16,
+            span: 90,
         },
     };
 
-    const dateFormat = 'YYYY-MM-DD'  
+    const dateFormat = 'YYYY-MM-DD'
 
     return (
+        <div className="main-container">
 
-        <>
-            <div style={{ paddingLeft: 150 }} >
+            <div className="sub-container">
 
-                <div style={{ padding: 1, alignItems: "center", width: 1000, height: 650, borderRadius: 5, backgroundColor: "#D3D3D3" }}>
-
-                    <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                        <CustomRow style={{ justifyContent: "space-between", padding: "10px" }} has context menu>
+                <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                    <div className="cus_row">
+                        <CustomRow has context menu >
                             <h1>Add  a event</h1>
                         </CustomRow>
-                    </WrapperCard>
+                    </div>
+                </WrapperCard>
+                <div className="form">
                     <Form
                         {...layout}
                         name="nest-messages"
                         onFinish={onFinish}
                         style={{
-                            maxWidth: 600,
+                            maxWidth: 700,
                         }}
                         labelAlign="left"
                     >
@@ -111,6 +112,7 @@ const AddEvent = () => {
                             rules={[
                                 { required: true, message: '${label} is required!' },
                             ]}
+                            style={{ paddingTop: "5%" }}
                         >
                             <Input onChange={(e) => {
                                 seteventName(e.target.value)
@@ -123,6 +125,7 @@ const AddEvent = () => {
                             rules={[
                                 { required: true, message: '${label} is required!' },
                             ]}
+                            style={{ paddingTop: "5%" }}
                         >
                             <Input onChange={(e) => {
                                 seteventPlace(e.target.value)
@@ -135,15 +138,14 @@ const AddEvent = () => {
                             rules={[
                                 { required: true, message: '${label} is required!' },
                             ]}
+                            style={{ paddingTop: "5%" }}
                         >
-                                <DatePicker format={dateFormat}
-                                    onChange={onChange} />
+                            <DatePicker format={dateFormat}
+                                onChange={onChange} />
 
                         </Form.Item>
 
-                        {/* <Form.Item name={['user', 'website']} label="Website">
-        <Input />
-    </Form.Item> */}
+                        {/* <Form.Item name={['user', 'website']} label="Website"><Input /></Form.Item> */}
 
                         <Form.Item
 
@@ -152,12 +154,12 @@ const AddEvent = () => {
                             rules={[
                                 { required: true, message: '${label} is required!' },
                             ]}
+                            style={{ paddingTop: "5%" }}
                         >
                             <Input.TextArea onChange={(e) => {
                                 seteventDetails(e.target.value)
                             }} />
                         </Form.Item>
-
 
                         <Form.Item
                             wrapperCol={{
@@ -165,13 +167,15 @@ const AddEvent = () => {
                                 offset: 10,
                             }}
                         >
-                            <Button htmlType="submit" className="add-btn btn" onClick={sendData}>
-                                submit
-                            </Button>
+                            <section className="btn-controller">
+                                <Button htmlType="submit" className="add-btn btn" onClick={sendData} >
+                                    submit
+                                </Button>
 
-                            <Button htmlType="reset" className="reset-btn btn">
-                                Reset
-                            </Button>
+                                <Button htmlType="reset" className="reset-btn btn">
+                                    Reset
+                                </Button>
+                            </section>
                         </Form.Item>
 
                         {/* <Form.Item
@@ -185,10 +189,10 @@ const AddEvent = () => {
                             </Button>
                         </Form.Item> */}
 
-                    </Form></div>
+                    </Form>
+                </div>
             </div>
-        </>
-
+        </div>
     );
 };
 
