@@ -67,7 +67,7 @@ const UpdateFinancial = () => {
                     rules={[
                         {
                             required: true,
-                            message: "Please enter the place or venue"
+                            message: "Please enter type"
                         }
                     ]}
                     initialValue={selectedItem?.type}
