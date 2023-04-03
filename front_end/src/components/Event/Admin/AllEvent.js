@@ -6,22 +6,11 @@ import WrapperCard from "../../common/Wrapper_card";
 import CustomRow from "../../common/Form_header";
 import { Badge, Button, Card, Col, Collapse, Row, Space, Switch, Table } from "antd";
 
-// import "../../Event/eventMain.css";
-
-const tabList = [
-    {
-        key: 'Place',
-        tab: 'Place',
-    },
-    {
-        key: 'Description',
-        tab: 'Description',
-    },
-];
-
 const AllEvent = () => {
 
     const [dropdown, setDropdown] = useState("OPEN");
+    const [eventDetails, setAllEventDetails] = useState([]);
+    const [searchDetail, setsearchDetail] = useState("");
 
     async function handleUpdateStatus(id, value) {
         // console.log(id, value);
@@ -42,9 +31,6 @@ const AllEvent = () => {
                 alert(err.message);
             });
     }
-
-    const [eventDetails, setAllEventDetails] = useState([]);
-    const [searchDetail, setsearchDetail] = useState("");
 
     function getAllEventDetails() {
         axios
@@ -128,7 +114,7 @@ const AllEvent = () => {
                 </WrapperCard>
 
                 <section className="main_addbtn-controller">
-                    <Button htmlType="submit" className="" >
+                    <Button htmlType="submit" className="main_addbtn" >
                         Add
                     </Button>
                 </section>
@@ -151,7 +137,7 @@ const AllEvent = () => {
                     //     }
                     // })
                     ?.map((eventDetailsVal) => (
-                        <div className="form">
+                        <div className="event_main">
 
                             <Collapse accordion>
                                 <Panel header={
@@ -161,6 +147,7 @@ const AllEvent = () => {
                                             count={eventDetailsVal.eventNo}
                                             style={{
                                                 backgroundColor: 'volcano',
+                                                fontSize: "16px",
                                             }}
                                         />
                                     </Space>
@@ -171,25 +158,32 @@ const AllEvent = () => {
                                             count={eventDetailsVal.eventDate}
                                             style={{
                                                 backgroundColor: 'purple',
+                                                fontSize: "14px"
                                             }}
                                         />
                                     </Space>
                                 } key="1">
 
                                     <Card title={eventDetailsVal.eventName} extra={
-                                        <section className="main_btn-controller">
-                                            <Button htmlType="submit" className="" >
-                                                Edit
-                                            </Button>
-
-                                            <Button htmlType="reset" className="">
+                                        <div className="main_btn-controller">
+                                            <Link
+                                                to={
+                                                    "/updateEvent/" +
+                                                    eventDetailsVal._id
+                                                }
+                                            >
+                                                <Button htmlType="submit" className="delete_btn" >
+                                                    Edit
+                                                </Button>
+                                            </Link>
+                                            <Button htmlType="reset" className="print_btn">
                                                 Print
                                             </Button>
 
-                                            <Button htmlType="reset" className="">
+                                            <Button htmlType="reset" className="edit_btn">
                                                 Delete
                                             </Button>
-                                        </section>
+                                        </div>
                                     }>
                                         {/* <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
                                             Inner Card content
@@ -198,88 +192,27 @@ const AllEvent = () => {
                                         <Card style={{
                                             width: '100%',
                                         }}
-                                            tabList={tabList}
-                                            activeTabKey={activeTabKey1}
-                                            onTabChange={onTab1Change}
+                                            title="Location"
+
                                         >
-                                            {eventDetailsVal.eventDetails[activeTabKey1]}
+                                            {eventDetailsVal.eventPlace}
                                         </Card>
 
-                                    </Card>
-                                </Panel>
-
-                            </Collapse>
-
-                            {/* ========================================================================================================================================================== */}
-
-                            <Collapse accordion>
-                                <Panel header="This is panel header with arrow icon" key="2">
-
-                                    <Card title="Card title">
-                                        <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
-                                            Inner Card content
-                                        </Card>
+                                        <br />
                                         <Card
                                             style={{
-                                                marginTop: 16,
+                                                width: '100%',
                                             }}
-                                            type="inner"
-                                            title="Inner Card title"
-                                            extra={<a href="#">More</a>}
+                                            title="Description"
+
                                         >
-                                            Inner Card content
+                                            {eventDetailsVal.eventDetails}
                                         </Card>
+
                                     </Card>
                                 </Panel>
 
-                            </Collapse>
-
-
-
-                            <Collapse accordion>
-                                <Panel header="This is panel header with arrow icon" key="3">
-
-                                    <Card title="Card title">
-                                        <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
-                                            Inner Card content
-                                        </Card>
-                                        <Card
-                                            style={{
-                                                marginTop: 16,
-                                            }}
-                                            type="inner"
-                                            title="Inner Card title"
-                                            extra={<a href="#">More</a>}
-                                        >
-                                            Inner Card content
-                                        </Card>
-                                    </Card>
-                                </Panel>
-
-                            </Collapse>
-
-
-                            <Collapse accordion>
-                                <Panel header="This is panel header with arrow icon" key="4">
-
-                                    <Card title="Card title">
-                                        <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
-                                            Inner Card content
-                                        </Card>
-                                        <Card
-                                            style={{
-                                                marginTop: 16,
-                                            }}
-                                            type="inner"
-                                            title="Inner Card title"
-                                            extra={<a href="#">More</a>}
-                                        >
-                                            Inner Card content
-                                        </Card>
-                                    </Card>
-                                </Panel>
-
-                            </Collapse>
+                            </Collapse><br />
                         </div>
                     ))}
             </div>
