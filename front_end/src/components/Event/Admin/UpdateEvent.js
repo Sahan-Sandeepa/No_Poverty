@@ -101,147 +101,154 @@ const UpdateEvent = () => {
         seteventDate(dateString);
     };
 
-    const dateFormat = 'YYYY-MM-DD'  
+    const dateFormat = 'YYYY-MM-DD'
 
-    return ( 
-        
-        <><div style={{ paddingLeft: 150 }} >
+    return (
 
-            <div style={{ padding: 1, alignItems: "center", width: 1000, height: 650, borderRadius: 5, backgroundColor: "#D3D3D3" }}>
+        <div className="main-container">
+
+            <div className="sub-container">
 
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
                     <CustomRow style={{ justifyContent: "space-between", padding: "10px" }} has context menu>
-                        <h1>update event</h1>
+                        <div className="cus_row">
+                            <CustomRow has context menu >
+                                <h1>update event</h1>
+                            </CustomRow>
+                        </div>
                     </CustomRow>
                 </WrapperCard>
-                <Form
-                    {...layout}
-                    name="nest-messages"
-                    onFinish={onFinish}
-                    style={{
-                        maxWidth: 600,
-                    }}
-                    labelAlign="left"
-                >
-
-                    <Form.Item
-                        name="eventNo"
-                        label="Event No"
-                        rules={[
-                            { required: true, message: '${label} is required!', },
-                        ]}
-                    >
-                        <Input style={{backgroundColor: "white"}} placeholder={eventNo} disabled onChange={(e) => {
-                            seteventNo(e.target.value);
-                        }} />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="eventName"
-                        label="Event Name"
-                        rules={[
-                            { required: true, message: '${label} is required!' },
-                        ]}
-                    >
-                        <Typography>
-                        <Input value={eventName} onChange={(e) => {
-                            seteventName(e.target.value)
-                        }} />
-                        </Typography>
-                    </Form.Item>
-
-                    <Form.Item
-                        name="eventPlace"
-                        label="Event Location"
-                        rules={[
-                            { required: true, message: '${label} is required!' },
-                        ]}
-                    >
-                        <Typography>
-                            <Input value={eventPlace} onChange={(e) => {
-                            seteventPlace(e.target.value)
-                        }} />
-                        </Typography>
-                    </Form.Item>
-
-                    <Form.Item
-                        name="eventDate"
-                        label="Event Date"
-                        rules={[
-                            { required: true, message: '${label} is required!' },
-                        ]}
-                    >
-                        <Typography>
-                        <DatePicker defaultValue={dayjs(eventDate, dateFormat)} format={dateFormat}
-                            onChange={onChange} />
-                         </Typography>
-
-                    </Form.Item>
-
-                    {/* <Form.Item name={['user', 'website']} label="Website">
-        <Input />
-    </Form.Item> */}
-
-                    <Form.Item
-
-                        name="eventDetails"
-                        label="Event Description"
-                        rules={[
-                            { required: true, message: '${label} is required!' },
-                        ]}
-                    >
-                        <Typography>
-                        <Input.TextArea value={eventDetails} onChange={(e) => {
-                            seteventDetails(e.target.value)
-                        }} />
-                        </Typography>
-                    </Form.Item>
-
-
-                    <Form.Item
-                        wrapperCol={{
-                            ...layout.wrapperCol,
-                            offset: 10,
+                <div className="form">
+                    <Form
+                        {...layout}
+                        name="nest-messages"
+                        onFinish={onFinish}
+                        style={{
+                            maxWidth: 700,
                         }}
+                        labelAlign="left"
                     >
-                        <Button htmlType="submit" className="add-btn btn"
-                        
-                            onClick={(e) => {
-                                e.preventDefault();
 
-                                const newEvent = {
-                                    eventNo,
-                                    eventName,
-                                    eventPlace,
-                                    eventDetails,
-                                    eventDate,
-                                };
-
-                                axios
-                                    .put(
-                                        "http://localhost:4000/event/update/" + id,
-                                        newEvent
-                                    )
-                                    .then(() => {
-                                        // alert("Details Successfully Updated!");
-
-                                        //navigate("/MainClaimPage");
-                                    })
-                                    .catch((err) => {
-                                        alert(err.message);
-                                    });
-                            }}
-
+                        <Form.Item
+                            name="eventNo"
+                            label="Event No"
+                            rules={[
+                                { required: true, message: '${label} is required!', },
+                            ]}
                         >
-                            submit
-                        </Button>
+                            <Input style={{ backgroundColor: "white" }} placeholder={eventNo} disabled onChange={(e) => {
+                                seteventNo(e.target.value);
+                            }} />
+                        </Form.Item>
 
-                        <Button htmlType="reset" className="reset-btn btn">
-                            cancel
-                        </Button>
-                    </Form.Item>
+                        <Form.Item
+                            name="eventName"
+                            label="Event Name"
+                            rules={[
+                                { required: true, message: '${label} is required!' },
+                            ]}
+                            style={{ paddingTop: "5%" }}
+                        >
+                            <Typography>
+                                <Input value={eventName} onChange={(e) => {
+                                    seteventName(e.target.value)
+                                }} />
+                            </Typography>
+                        </Form.Item>
 
-                    {/* <Form.Item
+                        <Form.Item
+                            name="eventPlace"
+                            label="Event Location"
+                            rules={[
+                                { required: true, message: '${label} is required!' },
+                            ]}
+                            style={{ paddingTop: "5%" }}
+                        >
+                            <Typography>
+                                <Input value={eventPlace} onChange={(e) => {
+                                    seteventPlace(e.target.value)
+                                }} />
+                            </Typography>
+                        </Form.Item>
+
+                        <Form.Item
+                            name="eventDate"
+                            label="Event Date"
+                            rules={[
+                                { required: true, message: '${label} is required!' },
+                            ]}
+                            style={{ paddingTop: "5%" }}
+                        >
+                            <Typography>
+                                <DatePicker defaultValue={dayjs(eventDate, dateFormat)} format={dateFormat}
+                                    onChange={onChange} />
+                            </Typography>
+
+                        </Form.Item>
+
+                        <Form.Item
+
+                            name="eventDetails"
+                            label="Event Description"
+                            rules={[
+                                { required: true, message: '${label} is required!' },
+                            ]}
+                            style={{ paddingTop: "5%" }}
+                        >
+                            <Typography>
+                                <Input.TextArea value={eventDetails} onChange={(e) => {
+                                    seteventDetails(e.target.value)
+                                }} />
+                            </Typography>
+                        </Form.Item>
+
+
+                        <Form.Item
+                            wrapperCol={{
+                                ...layout.wrapperCol,
+                                offset: 10,
+                            }}
+                        >
+                            <section className="btn-controller">
+                                <Button htmlType="submit" className="add-btn btn"
+
+                                    onClick={(e) => {
+                                        e.preventDefault();
+
+                                        const newEvent = {
+                                            eventNo,
+                                            eventName,
+                                            eventPlace,
+                                            eventDetails,
+                                            eventDate,
+                                        };
+
+                                        axios
+                                            .put(
+                                                "http://localhost:4000/event/update/" + id,
+                                                newEvent
+                                            )
+                                            .then(() => {
+                                                // alert("Details Successfully Updated!");
+
+                                                //navigate("/MainClaimPage");
+                                            })
+                                            .catch((err) => {
+                                                alert(err.message);
+                                            });
+                                    }}
+
+                                >
+                                    submit
+                                </Button>
+
+                                <Button htmlType="reset" className="reset-btn btn">
+                                    cancel
+                                </Button>
+                            </section>
+                        </Form.Item>
+
+                        {/* <Form.Item
                             wrapperCol={{
                                 ...layout.wrapperCol,
                                 offset: 18,
@@ -251,10 +258,10 @@ const UpdateEvent = () => {
                                 Reset
                             </Button>
                         </Form.Item> */}
-
-                </Form></div>
-        </div></>
-
+                    </Form>
+                </div>
+            </div>
+        </div>
     );
 }
 export default UpdateEvent;
