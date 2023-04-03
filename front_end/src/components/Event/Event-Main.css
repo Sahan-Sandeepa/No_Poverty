@@ -8,11 +8,13 @@
     align-content: center;
     background-color: rgb(169, 231, 172);
     width: 1000px;
+    height: auto;
 }
 
 .form {
     padding: 5% 0% 5% 10%;
     background-color: rgb(231, 169, 220);
+    font-size: medium;
 }
 
 .btn {
@@ -20,33 +22,54 @@
     width: 40%;
     height: 250%;
     text-transform: capitalize;
+    font-size: medium;
 }
 
-.add-btn {
+.add-btn,
+.delete_btn {
     background-color: rgb(147, 208, 55);
+    font-size: medium;
 }
 
-.add-btn:hover {
-    background-color: aliceblue;
+.print_btn {
+    background-color: rgb(237, 180, 74);
+    font-size: medium;
 }
 
-.reset-btn {
+.reset-btn,
+.edit_btn {
     background-color: rgb(217, 4, 4);
+    font-size: medium;
 }
 
-.reset-btn:hover {
+.reset-btn:hover,
+.edit_btn:hover,
+.print_btn:hover,
+.add-btn:hover,
+.delete_btn:hover {
     background-color: aliceblue;
+}
+
+.edit_btn,
+.print_btn,
+.delete_btn {
+    margin-left: 4%;
+    width: 70%;
+    text-transform: capitalize;
+    font-size: medium;
 }
 
 .btn-controller {
     display: flex;
     justify-content: space-between;
     height: 20px;
+    font-size: medium;
 }
 
 .main_btn-controller {
     display: flex;
     justify-content: right;
+    font-size: medium;
 }
 
 .main_addbtn-controller {
@@ -55,13 +78,23 @@
     padding: 2% 0% 0% 10%;
 }
 
-/* 
-.main-container {
-    background-color: aquamarine;
-    display: flex;
-    align-content: center;
-    flex-direction: column;
-} */
+.main_addbtn {
+    width: 15%;
+    height: 300%;
+    background-color: rgb(147, 208, 55);
+    font-size: medium;
+}
+
+.main_addbtn:hover {
+    background-color: aliceblue;
+}
+
+.event_main {
+    padding: 2% 10% 0% 10%;
+    font-size: medium;
+}
+
 .cus_row {
     align-content: center;
+    font-size: medium;
 }
