@@ -72,11 +72,11 @@ const UpdateEvent = () => {
 
     const layout = {
         labelCol: {
-            span: 7,
+            span: 8,
 
         },
         wrapperCol: {
-            span: 16,
+            span: 90,
         },
     };
 
@@ -112,7 +112,7 @@ const UpdateEvent = () => {
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
                     <div className="cus_row">
                         <CustomRow has context menu >
-                            <h1>update  a event</h1>
+                            <h1>update event</h1>
                         </CustomRow>
                     </div>
                 </WrapperCard>
