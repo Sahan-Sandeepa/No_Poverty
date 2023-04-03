@@ -48,7 +48,8 @@ const AddEvent = () => {
             .then(() => {
             })
             .catch((err) => {
-                alert(err); console.log(EventSchema)
+                alert(err);
+                console.log(EventSchema)
             });
     }
 
@@ -70,6 +71,19 @@ const AddEvent = () => {
     };
 
     const dateFormat = 'YYYY-MM-DD'
+
+    //  /* eslint-disable no-template-curly-in-string */
+    // const validateMessages = {
+    //     required: '${label} is required!',
+    //     types: {
+    //         email: '${label} is not a valid email!',
+    //         number: '${label} is not a valid number!',
+    //     },
+    //     number: {
+    //         range: '${label} must be between ${min} and ${max}',
+    //     },
+    // };
+    // /* eslint-enable no-template-curly-in-string */
 
     return (
         <div className="main-container">
