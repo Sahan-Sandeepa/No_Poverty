@@ -1,5 +1,24 @@
+.main-container {
+    display: flex;
+    text-transform: capitalize;
+    justify-content: center;
+}
+
+.sub-container {
+    align-content: center;
+    background-color: rgb(169, 231, 172);
+    width: 1000px;
+}
+
+.form {
+    padding: 5% 0% 5% 10%;
+    background-color: rgb(231, 169, 220);
+}
+
 .btn {
     color: white;
+    width: 40%;
+    height: 250%;
     text-transform: capitalize;
 }
 
@@ -17,4 +36,21 @@
 
 .reset-btn:hover {
     background-color: aliceblue;
+}
+
+.btn-controller {
+    display: flex;
+    justify-content: space-between;
+    height: 20px;
+}
+
+/* 
+.main-container {
+    background-color: aquamarine;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+} */
+.cus_row {
+    align-content: center;
 }
