@@ -33,7 +33,7 @@ const UpdateEvent = () => {
 
     // const { id } = useParams();
 
-    const id = "641ae7d13112e2d1f246f333"
+    const {id} = useParams();
 
     const getEventDetails = () => {
         axios
