@@ -44,6 +44,17 @@
     height: 20px;
 }
 
+.main_btn-controller {
+    display: flex;
+    justify-content: right;
+}
+
+.main_addbtn-controller {
+    display: flex;
+    justify-content: left;
+    padding: 2% 0% 0% 10%;
+}
+
 /* 
 .main-container {
     background-color: aquamarine;
