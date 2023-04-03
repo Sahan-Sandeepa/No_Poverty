@@ -57,6 +57,25 @@ const UpdateFinancial = () => {
                         }}
                     />
                 </Form.Item>
+                <Form.Item
+                    name="name"
+                    label="name"
+                    initialValue={selectedItem?.name}
+                    rules={[
+                        {
+                            required: true,
+                            message: "Enter the Program name"
+                        }
+
+                    ]}
+                >
+                    <Input
+                        onChange={(val) => {
+                            setName(val.target.value);
+
+                        }}
+                    />
+                </Form.Item>
             </Col>
             <br></br>
 
