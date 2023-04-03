@@ -1,6 +1,8 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import WrapperCard from "../../common/Wrapper_card";
+import CustomRow from "../../common/Form_header";
 
 // import "../../Event/eventMain.css";
 
@@ -69,6 +71,16 @@ const AllEvent = () => {
         />
     );
 
+    const layout = {
+        labelCol: {
+            span: 8,
+
+        },
+        wrapperCol: {
+            span: 90,
+        },
+    };
+
     const [showA, setShowA] = useState(false);
 
     const toggleShowA = () => setShowA(!showA);
@@ -79,7 +91,22 @@ const AllEvent = () => {
     const handleShow = () => setShow(true);
 
     return (
-        <h1>This is from the All event</h1>
+        <div className="main-container">
+
+            <div className="sub-container">
+
+                <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                    <div className="cus_row">
+                        <CustomRow has context menu >
+                            <h1>main event</h1>
+                        </CustomRow>
+                    </div>
+                </WrapperCard>
+                <div className="form">
+                    
+                </div>
+            </div>
+        </div>
     );
 
 };
