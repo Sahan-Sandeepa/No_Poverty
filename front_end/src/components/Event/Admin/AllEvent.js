@@ -114,9 +114,11 @@ const AllEvent = () => {
                 </WrapperCard>
 
                 <section className="main_addbtn-controller">
-                    <Button htmlType="submit" className="main_addbtn" >
-                        Add
-                    </Button>
+                    <Link to={'/addevent'}>
+                        <Button htmlType="submit" className="main_addbtn" >
+                            Add
+                        </Button>
+                    </Link>
                 </section>
                 {eventDetails
                     // ?.filter((val) => {
@@ -176,13 +178,18 @@ const AllEvent = () => {
                                                     Edit
                                                 </Button>
                                             </Link>
-                                            <Button htmlType="reset" className="print_btn">
-                                                Print
-                                            </Button>
 
-                                            <Button htmlType="reset" className="edit_btn">
-                                                Delete
-                                            </Button>
+                                            <Link to={'/dashbaord'}>
+                                                <Button htmlType="reset" className="print_btn">
+                                                    Print
+                                                </Button>
+                                            </Link>
+
+                                            <Link to={'/allEvent'}>
+                                                <Button htmlType="reset" className="edit_btn" onClick={() => deleteEventDetail(eventDetailsVal._id)}>
+                                                    Delete
+                                                </Button>
+                                            </Link>
                                         </div>
                                     }>
                                         {/* <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
