@@ -1,10 +1,9 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { ClockCircleOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from "react";
 import WrapperCard from "../../common/Wrapper_card";
 import CustomRow from "../../common/Form_header";
-import { Badge, Button, Card, Col, Collapse, Row, Space, Switch, Table } from "antd";
+import { Badge, Button, Card, Collapse, Space } from "antd";
 
 const AllEvent = () => {
 
