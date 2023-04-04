@@ -91,11 +91,9 @@ const AddEvent = () => {
             <div className="sub-container">
 
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                    <div className="cus_row">
-                        <CustomRow has context menu >
-                            <h1>Add  a event</h1>
+                            <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
+                        <h1 style={{ color: "White" }}>Add  a event</h1>
                         </CustomRow>
-                    </div>
                 </WrapperCard>
                 <div className="form">
                     <Form
