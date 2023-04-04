@@ -106,11 +106,9 @@ const AllEvent = () => {
             <div className="sub-container">
 
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                    <div className="cus_row">
-                        <CustomRow has context menu >
-                            <h1>main event</h1>
-                        </CustomRow>
-                    </div>
+                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
+                        <h1 style={{ color: "White" }}>Event Main</h1>
+                    </CustomRow>
                 </WrapperCard>
 
                 <section className="main_addbtn-controller">
@@ -185,7 +183,7 @@ const AllEvent = () => {
                                                 </Button>
                                             </Link>
 
-                                            <Link to={'/allEvent'}>
+                                            <Link>
                                                 <Button htmlType="reset" className="edit_btn" onClick={() => deleteEventDetail(eventDetailsVal._id)}>
                                                     Delete
                                                 </Button>
