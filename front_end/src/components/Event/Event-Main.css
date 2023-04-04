@@ -1,4 +1,5 @@
 .main-container {
+    padding: 5% 0% 5% 10%;
     display: flex;
     text-transform: capitalize;
     justify-content: center;
@@ -6,14 +7,14 @@
 
 .sub-container {
     align-content: center;
-    background-color: rgb(231, 207, 169);
+    background-color: rgb(250 250 250);
     width: 1000px;
     height: auto;
 }
 
 .form {
     padding: 5% 0% 5% 10%;
-    background-color: rgb(231, 169, 220);
+    background-color: rgb(250 250 250);
     font-size: medium;
 }
 
