@@ -6,7 +6,7 @@
 
 .sub-container {
     align-content: center;
-    background-color: rgb(169, 231, 172);
+    background-color: rgb(231, 207, 169);
     width: 1000px;
     height: auto;
 }
@@ -54,7 +54,8 @@
 .print_btn,
 .delete_btn {
     margin-left: 4%;
-    width: 70%;
+    width: 95%;
+    height: max-content;
     text-transform: capitalize;
     font-size: medium;
 }
@@ -79,8 +80,8 @@
 }
 
 .main_addbtn {
-    width: 15%;
-    height: 300%;
+    width: 180%;
+    height: 130%;
     background-color: rgb(147, 208, 55);
     font-size: medium;
 }
