@@ -33,7 +33,7 @@ const UpdateEvent = () => {
 
     // const { id } = useParams();
 
-    const {id} = useParams();
+    const { id } = useParams();
 
     const getEventDetails = () => {
         axios
@@ -110,11 +110,9 @@ const UpdateEvent = () => {
             <div className="sub-container">
 
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                    <div className="cus_row">
-                        <CustomRow has context menu >
-                            <h1>update event</h1>
-                        </CustomRow>
-                    </div>
+                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
+                        <h1 style={{ color: "White" }}>update event</h1>
+                    </CustomRow>
                 </WrapperCard>
                 <div className="form">
                     <Form
