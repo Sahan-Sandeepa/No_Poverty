@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import logo from "../../assets/images/logo.png"
 import { DualAxes } from '@ant-design/plots';
 import { Card, Col, Row, Typography, Table, AutoComplete } from "antd"
-import { AppstoreTwoTone,UserOutlined } from "@ant-design/icons"
+import { AppstoreTwoTone, UserOutlined } from "@ant-design/icons"
 const url = "http://localhost:4000/financial/";
 
 
@@ -49,10 +49,10 @@ function Admin() {
         {
             today: "Total Events",
             title: `${event}`,
-            icon: <AppstoreTwoTone/>,
+            icon: <AppstoreTwoTone />,
             bnb: "redtext",
-            
-            
+
+
         },
 
     ]
@@ -121,7 +121,9 @@ function Admin() {
     ];
     return (
         <>
-            <Col span={5} />
+            <div style={{ paddingLeft: 150 }} >
+                <div style={{ paddingLeft: 70 }} ></div>
+                <Col span={5} />
 
                 <div className="layout-content" style={{ padding: "16px", paddingLeft: 25 }}>
                     <Row className="rowgap-vbox" gutter={[24, 0]}>
@@ -135,7 +137,7 @@ function Admin() {
                                 xl={6}
                                 className="mb-24"
                             >
-                                <Card bordered={false} className="criclebox ">
+                                <Card bordered={false} className="criclebox " style={{backgroundColor:"#d9e2f5"}}>
                                     <div className="number">
                                         <Row align="middle" gutter={[35, 7]}>
                                             <Col xs={18}>
@@ -160,7 +162,7 @@ function Admin() {
                             <DualAxes {...config} />
                         </div>
                         <Col span={4} />
-                        <Card>
+                        <Card style={{backgroundColor:'#dfa5ec'}}>
                             <div>
                                 <Table dataSource={items} columns={columns} />
                                 <Row>
@@ -174,6 +176,7 @@ function Admin() {
                         </Card>
                     </Row>
                 </div>
+            </div>               
         </>
     )
 }

@@ -10,6 +10,8 @@ import Financial from './components/Financial/Financial';
 import JobList from './components/jobPortal/JobList';
 import JobPost from './components/jobPortal/JobPost';
 import Home from './pages/Home/Home';
+import MakeDonations from './components/DoDonations/MakeDonations';
+import Register from './components/Register/Register';
 
 function App() {
   return (
@@ -17,14 +19,20 @@ function App() {
       <body>
         <main>
           <Routes>
-            <Route path="/dashbaord" element={<Dashboard/>}/>
+            <Route path="/dashboard" element={<Dashboard/>}/>
+            <Route path="/Register" element={<Register/>}/>
+
 
             <Route path="/add" element={<JobPost />} />
             <Route path="/joblist" element={<JobList />} />
 
-
+            {/* Leo's Routes Begin here */}
             <Route  path="/pdonation" element={<PublishAd/>}/>
             <Route path="/showdonation" element={<Ads/>} />
+
+            <Route path="/donate" element={<MakeDonations/>} />
+
+            {/*Leo's Routes Ends here*/}
 
 
             
