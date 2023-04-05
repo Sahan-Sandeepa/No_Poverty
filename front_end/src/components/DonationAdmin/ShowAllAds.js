@@ -30,10 +30,10 @@ const Ads = () => {
         axios.delete("http://localhost:4000/adDonations/" + _id)
             .then((result) => {
                 console.log("Deleted", result);
-            }).catch((err) => { 
-                console.log(err); 
+            }).catch((err) => {
+                console.log(err);
             })
-         };
+    };
 
     const onSearch = (value) => console.log(value);
 
@@ -48,13 +48,9 @@ const Ads = () => {
     //     key: 'address',
     // },
     // ];
-    
 
-    const Columns=[{
-        title: '_id',
-        dataIndex:'_id',
-        key:'_id',
-    },{
+
+    const Columns = [{
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
@@ -75,10 +71,10 @@ const Ads = () => {
         title: 'Long Description',
         dataIndex: 'longDes',
         key: 'longDes',
-    // }, {
-    //     title: 'Status',
-    //     dataIndex: 'status',
-    //     key: 'status',
+        // }, {
+        //     title: 'Status',
+        //     dataIndex: 'status',
+        //     key: 'status',
     },
     {
         title: 'Action',
@@ -87,8 +83,8 @@ const Ads = () => {
             <span>
 
                 <Button icon={<EditTwoTone />}></Button>
-                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} 
-                onClick={()=>handleDelete(record._id)} />}></Button>
+                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }}
+                    onClick={() => handleDelete(record._id)} />}></Button>
 
                 {/* <a href="#">Action 一 {record.name}</a>
                 <span className="ant-divider" />
@@ -97,30 +93,41 @@ const Ads = () => {
         ),
     }];
     return (
-        <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
-            <Col span={50} />
-            <Col span={30}>
+        <>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
 
-                <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                        <h1 style={{ color: "White" }}>Advertistment Summmary</h1>
-                        <Col span={10} />
-                        <Search
-                            placeholder="input search text"
-                            onSearch={onSearch}
-                            style={{
-                                width: 200,
-                            }}
-                        />
-                        <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} />
-                    </CustomRow>
-                </WrapperCard>
-                <Table columns={Columns} dataSource={ads}
-                    bordered
-                // title={() => 'Financial Details'}
-                />
-            </Col>
-        </div>
+            <div style={{ paddingLeft: 150 }} >
+                <div style={{ paddingLeft: 70 }} >
+                    <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
+                        <Col span={50} />
+                        <Col span={30}>
+
+                            <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                                <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
+                                    <h1 style={{ color: "White" }}>Advertistment Summmary</h1>
+                                    <Col span={10} />
+                                    <Search
+                                        placeholder="input search text"
+                                        onSearch={onSearch}
+                                        style={{
+                                            width: 200,
+                                        }}
+                                    />
+                                    <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} />
+                                </CustomRow>
+                            </WrapperCard>
+                            <Table columns={Columns} dataSource={ads}
+                                bordered
+                            // title={() => 'Financial Details'}
+                            />
+                        </Col>
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }
 

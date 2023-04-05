@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 
 // get all Financial
 const getFinancials = async (req, res) => {
-  const financial = await Financial.find({}).sort({createdAt: -1})
-
+  const financial = await Financial.find();
+  console.log("===> "+financial)
   res.status(200).json(financial)
 }
 
