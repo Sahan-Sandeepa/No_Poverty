@@ -235,7 +235,7 @@ const Financial = () => {
                     />
                     <AddFinancial
                         isOpen={isEditModalOpen}
-                        handleCancel={() => { setOpenEditOrderModal(false) }}
+                        handleCancel={handleCancel}
                         handleOk={addOrder}
                         selectedItem = {selectedItem}
                     />
