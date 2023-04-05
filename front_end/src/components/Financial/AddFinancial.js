@@ -55,20 +55,6 @@ const AddFinancial = props => {
 
 
 
-    const onChange = (date, dateString) => {
-        console.log(date, dateString);
-        setDate(dateString);
-        
-    };
-    const onStatus = (value) => {
-        console.log(`selected ${value}`);
-        setStatus(value)
-    };
-    const onType = (value) => {
-        console.log(`selected ${value}`);
-        setType(value)
-    };
-
 
 
     const handleSubmit=async(event)=>{
@@ -114,6 +100,22 @@ const AddFinancial = props => {
             setStatus(selectedItem.status);
         }
     }, [])
+
+    const onChange = (date, dateString) => {
+        console.log(date, dateString);
+        setDate(dateString);
+        
+    };
+    const onStatus = (value) => {
+        console.log(`selected ${value}`);
+        setStatus(value)
+    };
+    const onType = (value) => {
+        console.log(`selected ${value}`);
+        setType(value)
+    };
+
+
     return (
         <>
 

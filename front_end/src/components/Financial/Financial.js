@@ -31,7 +31,7 @@ const Financial = () => {
     const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [selectedItem,setSelectedItem] = useState(null)
+    const [selectedItem, setSelectedItem] = useState(null)
     const addOrder = async () => {
         setIsModalOpen(false);
         // setOpenEditOrderModal(false);
@@ -48,7 +48,7 @@ const Financial = () => {
         setIsEditModalOpen(false);
 
     };
-    
+
     async function getFinancial() {
         await axios.get("http://localhost:4000/financial/")
             .then((res) => {
@@ -182,10 +182,10 @@ const Financial = () => {
                 }}>
 
                 </Button>
-                <Button icon={<DeleteOutlined  style={{ color: 'red' }} />}
+                <Button icon={<DeleteOutlined style={{ color: 'red' }} />}
                     //  onClick={handleDelete}
                     onClick={() =>
-                      handleDelete(record._id)
+                        handleDelete(record._id)
                     }
 
                 ></Button>
@@ -237,8 +237,8 @@ const Financial = () => {
                     <AddFinancial
                         isOpen={isEditModalOpen}
                         handleCancel={() => { setOpenEditOrderModal(false) }}
-                        handleOk={addOrder}
-                        selectedItem = {selectedItem}
+                        handleOk={() => { setOpenEditOrderModal(false) }} 
+                        selectedItem={selectedItem}
                     />
 
                     <br></br>
