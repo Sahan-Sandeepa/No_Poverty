@@ -4,7 +4,8 @@ import axios from "axios";
 import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
-
+import { Link, useParams } from 'react-router-dom'
+import PublishAd from './PublishAd';
 
 const { Search } = Input;
 
@@ -12,6 +13,33 @@ const { Search } = Input;
 const Ads = () => {
     const [ads, setAds] = useState([]);
     const [column, setColumns] = useState([]);
+
+    const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
+    const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
+
+    const { _id } = useParams();
+    const [refresh, setRefresh] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null)
+    const addOrder = async () => {
+        setIsModalOpen(false);
+        // setOpenEditOrderModal(false);
+    }
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+        setIsEditModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+        setIsEditModalOpen(false);
+
+    };
+
+
 
     function getAds() {
         axios.get("http://localhost:4000/adDonations/")
@@ -100,33 +128,48 @@ const Ads = () => {
             <br></br>
 
             <div style={{ paddingLeft: 150 }} >
-                <div style={{ paddingLeft: 70 }} >
-                    <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
-                        <Col span={50} />
-                        <Col span={30}>
+                <div style={{ paddingLeft: 870 }} >
+                    <Button onClick={() => { setIsModalOpen(true) }} type="primary">Create Advertistment</Button>
+                </div>
+                <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
+                    <Col span={50} />
+                    <Col span={30}>
 
-                            <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                                <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                                    <h1 style={{ color: "White" }}>Advertistment Summmary</h1>
-                                    <Col span={10} />
-                                    <Search
-                                        placeholder="input search text"
-                                        onSearch={onSearch}
-                                        style={{
-                                            width: 200,
-                                        }}
-                                    />
-                                    <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} />
-                                </CustomRow>
-                            </WrapperCard>
-                            <Table columns={Columns} dataSource={ads}
-                                bordered
-                            // title={() => 'Financial Details'}
-                            />
-                        </Col>
-                    </div>
+                        <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                            <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
+                                <h1 style={{ color: "White" }}>Advertistment Summmary</h1>
+                                <Col span={10} />
+                                <Search
+                                    placeholder="input search text"
+                                    onSearch={onSearch}
+                                    style={{
+                                        width: 200,
+                                    }}
+                                />
+                                <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} />
+                            </CustomRow>
+                        </WrapperCard>
+                        <Table columns={Columns} dataSource={ads}
+                            bordered
+                        // title={() => 'Financial Details'}
+                        />
+
+                        <PublishAd
+                            isOpen={isModalOpen}
+                            handleCancel={handleCancel}
+                            handleOk={addOrder}
+
+                        />
+                        <PublishAd
+                            isOpen={isEditModalOpen}
+                            handleCancel={() => { setOpenEditOrderModal(false) }}
+                            handleOk={addOrder}
+                            selectedItem={selectedItem}
+                        />
+                    </Col>
                 </div>
             </div>
+
         </>
     )
 }
