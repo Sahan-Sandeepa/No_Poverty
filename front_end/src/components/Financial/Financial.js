@@ -23,26 +23,35 @@ const Financial = () => {
     const [total, setTotal] = useState("");
     const [status, setStatus] = useState("");
     const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
+    const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
 
-    const [searchResult, setSearchResult]=useState([])
+    const [searchResult, setSearchResult] = useState([])
 
     const { _id } = useParams();
     const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
+    const [selectedItem,setSelectedItem] = useState(null)
+    const addOrder = async () => {
+        setIsModalOpen(false);
+        // setOpenEditOrderModal(false);
+    }
     const showModal = () => {
         setIsModalOpen(true);
     };
     const handleOk = () => {
         setIsModalOpen(false);
+        setIsEditModalOpen(false);
     };
     const handleCancel = () => {
         setIsModalOpen(false);
+        setIsEditModalOpen(false);
+
     };
-    function getFinancial() {
-        axios.get("http://localhost:4000/financial/")
+    async function getFinancial() {
+        await axios.get("http://localhost:4000/financial/")
             .then((res) => {
+                console.log(res.data)
                 setFinancial(res.data);
             })
             .catch((err) => {
@@ -50,10 +59,12 @@ const Financial = () => {
             });
     }
 
-   
+
     useEffect(() => {
-        getFinancial()
-    }, [refresh]);
+        getFinancial().then((va) => {
+            console.log(`===> ${financial}`)
+        })
+    }, []);
 
 
     // const handleDelete = (_id) => {
@@ -64,14 +75,14 @@ const Financial = () => {
         axios.delete("http://localhost:4000/financial/" + _id)
             .then((result) => {
                 setRefresh("Deleted", result);
-                
+
             }).catch((err) => {
                 console.log(err);
             })
     };
 
     const handleUpdate = async (_id) => {
-        setIsDeleteModalOpen(true)
+        setIsEditModalOpen(true)
         axios.put("http://localhost:4000/financial/" + _id)
             .then((result) => {
                 console.log("Deleted", result);
@@ -80,6 +91,7 @@ const Financial = () => {
             })
     };
 
+
     const generatePdf = () => {
         var doc = new jsPDF()
         doc.setFontSize(40)
@@ -87,7 +99,7 @@ const Financial = () => {
 
         autoTable(doc,
             {
-                columns:[
+                columns: [
                     doc.setFontSize(40),
                     doc.text(35, 25, 'Financial Summary')
                 ],
@@ -103,7 +115,7 @@ const Financial = () => {
                 ],
                 body: financial.map(financial => {
                     return {
-                        Row:Row,
+                        Row: Row,
                         name: financial.name,
                         type: financial.type,
                         date: financial.date,
@@ -163,14 +175,16 @@ const Financial = () => {
         key: 'action',
         render: (text, record) => (
             <Space size="middle">
-                <Button icon={<EditTwoTone />} onClick={() => {
-                    handleUpdate(record._id)
+                <Button icon={<EditTwoTone key={record._id} />} onClick={() => {
+                    setIsEditModalOpen(true);
+                    setSelectedItem(record)
                 }}>
 
                 </Button>
-                <Button icon={<DeleteOutlined style={{ color: 'red' }} />}
+                <Button icon={<DeleteOutlined  style={{ color: 'red' }} />}
                     //  onClick={handleDelete}
-                    onClick={() => handleDelete(record._id)
+                    onClick={() =>
+                      handleDelete(record._id)
                     }
 
                 ></Button>
@@ -214,15 +228,16 @@ const Financial = () => {
                     <Table columns={Columns} dataSource={financial}
                     />
                     <AddFinancial
-                        isModalOpen={isModalOpen}
+                        isOpen={isModalOpen}
                         handleCancel={handleCancel}
-                        handleOk={handleOk}
+                        handleOk={addOrder}
 
                     />
                     <AddFinancial
-                        isModalOpen={isModalOpen}
-                        handleCancel={handleCancel}
-                        handleOk={handleOk}
+                        isOpen={isEditModalOpen}
+                        handleCancel={() => { setOpenEditOrderModal(false) }}
+                        handleOk={addOrder}
+                        selectedItem = {selectedItem}
                     />
 
                     <br></br>

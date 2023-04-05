@@ -43,7 +43,7 @@ const dateFormat = 'YYYY/MM/DD';
 
 
 const AddFinancial = props => {
-    const { isModalOpen, isEditModalOpen, showModal, handleCancel, handleOk } = props;
+    const { isModalOpen, isEditModalOpen, isOpen, showModal, handleCancel, handleOk, selectedItem } = props;
     const [name, setName] = useState("");
     const [type, setType] = useState("");
     const [date, setDate] = useState('');
@@ -57,7 +57,8 @@ const AddFinancial = props => {
 
     const onChange = (date, dateString) => {
         console.log(date, dateString);
-        setDate(dateString)
+        setDate(dateString);
+        
     };
     const onStatus = (value) => {
         console.log(`selected ${value}`);
@@ -68,10 +69,9 @@ const AddFinancial = props => {
         setType(value)
     };
 
-  
 
-    function sendData(e) {
-        e.preventDefault();
+
+    const sendData=async(_id) =>{
 
         const financialSchema = {
             name,
@@ -82,7 +82,7 @@ const AddFinancial = props => {
             status
         };
 
-        axios.post("http://localhost:4000/financial/create", financialSchema)
+        axios.post("http://localhost:4000/financial/" +_id , financialSchema)
 
             .then(value => {
                 console.log(value);
@@ -91,24 +91,33 @@ const AddFinancial = props => {
             .catch((err) => {
                 console.log(`Error: ${err?.response?.data}`);
             })
-            handleOk();
-            setRefresh(true)
-
-
+        handleOk();
+        setRefresh(true)
         //   .catch((err)=> console.log(err));
     }
 
-    
+
+
+    useEffect(() => {
+        if (selectedItem) {
+            setName(selectedItem.name);
+            setType(selectedItem.type);
+            setDate(selectedItem.data);
+            setVenue(selectedItem.venue);
+            setTotal(selectedItem.total);
+            setStatus(selectedItem.status);
+        }
+    }, [])
     return (
         <>
 
             <Modal
-                open={isModalOpen}
+                open={isOpen}
                 onCancel={handleCancel}
                 onOk={handleOk}
                 width={1000}
                 footer={null}
-                
+
             >
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
                     <CustomRow style={{ justifyContent: "space-between" }} >
@@ -125,6 +134,7 @@ const AddFinancial = props => {
                         <Form.Item
                             name="name"
                             label="name"
+                            initialValue={selectedItem?.name}
                             rules={[
                                 {
                                     required: true,
@@ -153,16 +163,18 @@ const AddFinancial = props => {
                                     message: "Please enter the place or venue"
                                 }
                             ]}
+                            initialValue={selectedItem?.type}
+
 
                         >
                             <Select
-                            rules={[
-                                {
-                                    required:true,
-                                    message:"select the type"
-                                }
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "select the type"
+                                    }
 
-                            ]}
+                                ]}
                                 defaultValue="Type"
                                 style={{
                                     width: 120,
@@ -184,10 +196,17 @@ const AddFinancial = props => {
                         </Form.Item>
                         <Col span={4} />
 
-                        <Form.Item name="date-picker" label="DatePicker" {...config}>
+                        <Form.Item name="date-picker" label="DatePicker" {...config}
+                                                        // initialValue={selectedItem?.date}
+
+
+                        >
 
                             <DatePicker defaultValue={dayjs('2015/01/01', dateFormat)} format={dateFormat}
                                 onChange={onChange}
+                                initialValue={selectedItem?.date}
+
+
 
                             />
 
@@ -199,6 +218,7 @@ const AddFinancial = props => {
                         <Form.Item
                             name="venue"
                             label="venue"
+                            initialValue={selectedItem?.venue}
 
                             rules={[
                                 {
@@ -222,6 +242,7 @@ const AddFinancial = props => {
                             <Form.Item
                                 name="total"
                                 label="total"
+                                initialValue={selectedItem?.total}
 
                                 rules={[
                                     {
@@ -243,6 +264,8 @@ const AddFinancial = props => {
 
                         <Form.Item
                             label="Status"
+                            initialValue={selectedItem?.status}
+
                             rules={[
                                 {
                                     required: true,
@@ -289,7 +312,7 @@ const AddFinancial = props => {
                             <a href='/financial'><Button type="primary" htmlType="submit"
                                 style={{ fontWeight: "bold" }} onClick={sendData}
                             >
-                                Submit
+                                {selectedItem ? "Edit" : "Submit"}
                             </Button>
                             </a>
                         </Form.Item>
