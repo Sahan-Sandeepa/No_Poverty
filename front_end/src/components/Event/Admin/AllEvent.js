@@ -176,7 +176,8 @@ const AllEvent = () => {
                                                 </Button>
                                             </Link>
 
-                                            <Link to={'/dashbaord'}>
+                                            <Link to={"/printDetails/" +
+                                                eventDetailsVal._id}>
                                                 <Button htmlType="reset" className="print_btn">
                                                     Print
                                                 </Button>
