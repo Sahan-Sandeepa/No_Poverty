@@ -54,17 +54,12 @@ const Financial = () => {
             });
     }
 
-
     useEffect(() => {
         getFinancial().then((va) => {
             console.log(`===> ${financial}`)
         })
     }, []);
 
-
-    // const handleDelete = (_id) => {
-    //     setFinancial(financial => financial.filter(financial => financial._id !== _id));
-    //   };
     const handleDelete = async (_id) => {
         setIsDeleteModalOpen(true)
         axios.delete("http://localhost:4000/financial/" + _id)
@@ -75,17 +70,6 @@ const Financial = () => {
                 console.log(err);
             })
     };
-
-    // const handleUpdate = async (_id) => {
-    //     setIsEditModalOpen(true)
-    //     axios.put("http://localhost:4000/financial/" + _id)
-    //         .then((result) => {
-    //             console.log("Deleted", result);
-    //         }).catch((err) => {
-    //             console.log(err);
-    //         })
-    // };
-
 
     const generatePdf = () => {
         var doc = new jsPDF()
@@ -177,7 +161,6 @@ const Financial = () => {
 
                 </Button>
                 <Button icon={<DeleteOutlined style={{ color: 'red' }} />}
-                    //  onClick={handleDelete}
                     onClick={() =>
                         handleDelete(record._id)
                     }

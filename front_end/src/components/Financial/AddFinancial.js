@@ -42,7 +42,7 @@ const selection = {
 const dateFormat = 'YYYY/MM/DD';
 
 const AddFinancial = props => {
-    const { isModalOpen, isEditModalOpen, isOpen, showModal, handleCancel, handleOk, selectedItem } = props;
+    const { isOpen, handleCancel, handleOk, selectedItem } = props;
     const [name, setName] = useState("");
     const [type, setType] = useState("");
     const [date, setDate] = useState('');
@@ -318,17 +318,11 @@ const AddFinancial = props => {
                             </Button>
                             </a>
                         </Form.Item>
-
-
                     </Row>
-
-
                 </Form >
             </Modal>
-
             {/* </div> */}
         </>
-
     )
 }
 
