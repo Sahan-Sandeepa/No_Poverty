@@ -71,32 +71,38 @@ const AddFinancial = props => {
 
 
 
-    const sendData=async() =>{
+    const handleSubmit=async(event)=>{
+        event.preventDefault();
+        if(name !=='' && type !==''  ){
+            const i=   
+            {
+                name:name,
+                type:type,
+                date:date,
+                venue:venue,
+                total:total,
+                status:status,
 
-        const financialSchema = {
-            name,
-            type,
-            date,
-            venue,
-            total,
-            status
-        };
+            };
+            try{
+                if(selectedItem){
+                    await axios.put('http://localhost:4000/financial/${selectedItem._id}',i);
 
-        axios.post("http://localhost:4000/financial/create", financialSchema)
+                }else{
+                    await axios .post('http://localhost:4000/financial/create',i);
 
-            .then(value => {
-                console.log(value);
-                setRefresh(true)
-            })
-            .catch((err) => {
-                console.log(`Error: ${err?.response?.data}`);
-            })
-        handleOk();
-        setRefresh(true)
-        //   .catch((err)=> console.log(err));
-    }
+                }
+                handleOk();
 
+            }catch(error){
+                console.log('create item failes ${error}');
 
+            }
+        }else{
+            console.log("else called ${name}");
+
+        }
+    };
 
     useEffect(() => {
         if (selectedItem) {
@@ -310,7 +316,7 @@ const AddFinancial = props => {
                         <Form.Item label=" " colon={false}>
 
                             <a href='/financial'><Button type="primary" htmlType="submit"
-                                style={{ fontWeight: "bold" }} onClick={sendData}
+                                style={{ fontWeight: "bold" }} onClick={handleSubmit}
                             >
                                 {selectedItem ? "Edit" : "Submit"}
                             </Button>

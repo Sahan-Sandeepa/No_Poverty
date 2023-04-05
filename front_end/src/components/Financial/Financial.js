@@ -16,12 +16,12 @@ const { Search } = Input;
 
 const Financial = () => {
     const [financial, setFinancial] = useState([]);
-    const [name, setName] = useState("");
-    const [type, setType] = useState("");
-    const [date, setDate] = useState('');
-    const [venue, setVenue] = useState("");
-    const [total, setTotal] = useState("");
-    const [status, setStatus] = useState("");
+    // const [name, setName] = useState("");
+    // const [type, setType] = useState("");
+    // const [date, setDate] = useState('');
+    // const [venue, setVenue] = useState("");
+    // const [total, setTotal] = useState("");
+    // const [status, setStatus] = useState("");
     const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
     const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
 
@@ -48,6 +48,7 @@ const Financial = () => {
         setIsEditModalOpen(false);
 
     };
+    
     async function getFinancial() {
         await axios.get("http://localhost:4000/financial/")
             .then((res) => {
@@ -81,15 +82,15 @@ const Financial = () => {
             })
     };
 
-    const handleUpdate = async (_id) => {
-        setIsEditModalOpen(true)
-        axios.put("http://localhost:4000/financial/" + _id)
-            .then((result) => {
-                console.log("Deleted", result);
-            }).catch((err) => {
-                console.log(err);
-            })
-    };
+    // const handleUpdate = async (_id) => {
+    //     setIsEditModalOpen(true)
+    //     axios.put("http://localhost:4000/financial/" + _id)
+    //         .then((result) => {
+    //             console.log("Deleted", result);
+    //         }).catch((err) => {
+    //             console.log(err);
+    //         })
+    // };
 
 
     const generatePdf = () => {
