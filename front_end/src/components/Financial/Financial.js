@@ -16,25 +16,19 @@ const { Search } = Input;
 
 const Financial = () => {
     const [financial, setFinancial] = useState([]);
-    // const [name, setName] = useState("");
-    // const [type, setType] = useState("");
-    // const [date, setDate] = useState('');
-    // const [venue, setVenue] = useState("");
-    // const [total, setTotal] = useState("");
-    // const [status, setStatus] = useState("");
     const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
     const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
-
     const [searchResult, setSearchResult] = useState([])
-
     const { _id } = useParams();
     const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null)
+    const [selectedItem, setSelectedItem] = useState(null);
+
+
     const addOrder = async () => {
         setIsModalOpen(false);
-        // setOpenEditOrderModal(false);
+        setOpenEditOrderModal(false);
     }
     const showModal = () => {
         setIsModalOpen(true);
@@ -236,15 +230,9 @@ const Financial = () => {
                     />
                     <AddFinancial
                         isOpen={isEditModalOpen}
-
                         handleCancel={handleCancel}
                         handleOk={addOrder}
-                        selectedItem = {selectedItem}
-
-                        handleCancel={() => { setOpenEditOrderModal(false) }}
-                        handleOk={() => { setOpenEditOrderModal(false) }} 
                         selectedItem={selectedItem}
-
                     />
 
                     <br></br>

@@ -19,7 +19,6 @@ import axios, { Axios } from 'axios';
 import { } from "react-router-dom";
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import moment from 'moment';
 dayjs.extend(customParseFormat);
 
 const config = {
@@ -46,18 +45,11 @@ const AddFinancial = props => {
     const { isModalOpen, isEditModalOpen, isOpen, showModal, handleCancel, handleOk, selectedItem } = props;
     const [name, setName] = useState("");
     const [type, setType] = useState("");
-    const [date, setDate] = useState(moment());
+    const [date, setDate] = useState('');
     const [venue, setVenue] = useState("");
     const [total, setTotal] = useState("");
     const [status, setStatus] = useState("");
     const [refresh, setRefresh] = useState(false);
-
-
-
-
-
-
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (name !== '' && type !== '') {
@@ -78,43 +70,14 @@ const AddFinancial = props => {
                 } else {
                     await axios.post('http://localhost:4000/financial/create', i);
 
-    const handleSubmit=async(event)=>{
-        event.preventDefault();
-        if(name !=='' && type !==''  ){
-            const i=   
-            {
-                name:name,
-                type:type,
-                date:date,
-                venue:venue,
-                total:total,
-                status:status,
-
-            };
-            try{
-                if(selectedItem){
-                    await axios.put('http://localhost:4000/financial/${selectedItem._id}',i);
-
-                }else{
-                    await axios .post('http://localhost:4000/financial/create',i);
-
-
                 }
                 handleOk();
-
 
             } catch (error) {
                 console.log('create item failes ${error}');
 
             }
         } else {
-
-            }catch(error){
-                console.log('create item failes ${error}');
-
-            }
-        }else{
-
             console.log("else called ${name}");
 
         }
@@ -134,17 +97,11 @@ const AddFinancial = props => {
     const onChange = (date, dateString) => {
         console.log(date, dateString);
         setDate(dateString);
-        
 
 
     };
     const onStatus = (value) => {
         // console.log(`selected ${value}`);
-
-    };
-    const onStatus = (value) => {
-        console.log(`selected ${value}`);
-
         setStatus(value)
     };
     const onType = (value) => {
@@ -241,28 +198,19 @@ const AddFinancial = props => {
                         </Form.Item>
                         <Col span={4} />
 
-                        <Form.Item name="date-picker" label="DatePicker" {...config}
-                        // initialValue={selectedItem?.date}
-
+                        <Form.Item
+                            name="date-picker"
+                            label="DatePicker" {...config}
 
                         >
 
-                            <DatePicker 
-                            initialValues={{ 
-                                date: selectedItem ? dayjs(selectedItem.date, dateFormat) : null 
-                            }}
-                            // defaultValue={moment(selectedItem?.date, dateFormat)}
+                            <DatePicker
+                                value={date}
+                                // defaultValue={String(dayjs(selectedItem?.date, dateFormat))}
+                                initialValues={{
+                                    date: selectedItem ? dayjs(selectedItem.date, dateFormat) : null
+                                }}
                                 onChange={onChange}
-
-                                // onChange={(val) => {
-                                //     setDate(val);
-                                // }}
-
-                                // initialValue={selectedItem?.date}
-
-
-
-
                             />
 
                         </Form.Item>
@@ -331,7 +279,7 @@ const AddFinancial = props => {
                             <Select
                                 defaultValue={selectedItem?.status}
                                 style={{
-                                    width: 120,
+                                    width: 140,
                                 }}
                                 onChange={onStatus}
                                 options={[
@@ -349,7 +297,6 @@ const AddFinancial = props => {
                         {/* </Col> */}
                     </Row>
                     <br></br>
-
 
                     <Row>
                         <Col span={13} />
