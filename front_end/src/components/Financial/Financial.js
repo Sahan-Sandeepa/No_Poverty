@@ -16,12 +16,12 @@ const { Search } = Input;
 
 const Financial = () => {
     const [financial, setFinancial] = useState([]);
-    const [name, setName] = useState("");
-    const [type, setType] = useState("");
-    const [date, setDate] = useState('');
-    const [venue, setVenue] = useState("");
-    const [total, setTotal] = useState("");
-    const [status, setStatus] = useState("");
+    // const [name, setName] = useState("");
+    // const [type, setType] = useState("");
+    // const [date, setDate] = useState('');
+    // const [venue, setVenue] = useState("");
+    // const [total, setTotal] = useState("");
+    // const [status, setStatus] = useState("");
     const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
     const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
 
@@ -31,7 +31,7 @@ const Financial = () => {
     const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [selectedItem,setSelectedItem] = useState(null)
+    const [selectedItem, setSelectedItem] = useState(null)
     const addOrder = async () => {
         setIsModalOpen(false);
         // setOpenEditOrderModal(false);
@@ -48,6 +48,7 @@ const Financial = () => {
         setIsEditModalOpen(false);
 
     };
+
     async function getFinancial() {
         await axios.get("http://localhost:4000/financial/")
             .then((res) => {
@@ -81,15 +82,15 @@ const Financial = () => {
             })
     };
 
-    const handleUpdate = async (_id) => {
-        setIsEditModalOpen(true)
-        axios.put("http://localhost:4000/financial/" + _id)
-            .then((result) => {
-                console.log("Deleted", result);
-            }).catch((err) => {
-                console.log(err);
-            })
-    };
+    // const handleUpdate = async (_id) => {
+    //     setIsEditModalOpen(true)
+    //     axios.put("http://localhost:4000/financial/" + _id)
+    //         .then((result) => {
+    //             console.log("Deleted", result);
+    //         }).catch((err) => {
+    //             console.log(err);
+    //         })
+    // };
 
 
     const generatePdf = () => {
@@ -181,10 +182,10 @@ const Financial = () => {
                 }}>
 
                 </Button>
-                <Button icon={<DeleteOutlined  style={{ color: 'red' }} />}
+                <Button icon={<DeleteOutlined style={{ color: 'red' }} />}
                     //  onClick={handleDelete}
                     onClick={() =>
-                      handleDelete(record._id)
+                        handleDelete(record._id)
                     }
 
                 ></Button>
@@ -235,9 +236,15 @@ const Financial = () => {
                     />
                     <AddFinancial
                         isOpen={isEditModalOpen}
+
                         handleCancel={handleCancel}
                         handleOk={addOrder}
                         selectedItem = {selectedItem}
+
+                        handleCancel={() => { setOpenEditOrderModal(false) }}
+                        handleOk={() => { setOpenEditOrderModal(false) }} 
+                        selectedItem={selectedItem}
+
                     />
 
                     <br></br>

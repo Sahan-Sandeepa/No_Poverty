@@ -57,6 +57,7 @@ const AddFinancial = props => {
 
 
 
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (name !== '' && type !== '') {
@@ -77,14 +78,43 @@ const AddFinancial = props => {
                 } else {
                     await axios.post('http://localhost:4000/financial/create', i);
 
+    const handleSubmit=async(event)=>{
+        event.preventDefault();
+        if(name !=='' && type !==''  ){
+            const i=   
+            {
+                name:name,
+                type:type,
+                date:date,
+                venue:venue,
+                total:total,
+                status:status,
+
+            };
+            try{
+                if(selectedItem){
+                    await axios.put('http://localhost:4000/financial/${selectedItem._id}',i);
+
+                }else{
+                    await axios .post('http://localhost:4000/financial/create',i);
+
+
                 }
                 handleOk();
+
 
             } catch (error) {
                 console.log('create item failes ${error}');
 
             }
         } else {
+
+            }catch(error){
+                console.log('create item failes ${error}');
+
+            }
+        }else{
+
             console.log("else called ${name}");
 
         }
@@ -106,9 +136,15 @@ const AddFinancial = props => {
         setDate(dateString);
         
 
+
     };
     const onStatus = (value) => {
         // console.log(`selected ${value}`);
+
+    };
+    const onStatus = (value) => {
+        console.log(`selected ${value}`);
+
         setStatus(value)
     };
     const onType = (value) => {
@@ -217,9 +253,16 @@ const AddFinancial = props => {
                             }}
                             // defaultValue={moment(selectedItem?.date, dateFormat)}
                                 onChange={onChange}
+
                                 // onChange={(val) => {
                                 //     setDate(val);
                                 // }}
+
+                                // initialValue={selectedItem?.date}
+
+
+
+
                             />
 
                         </Form.Item>
