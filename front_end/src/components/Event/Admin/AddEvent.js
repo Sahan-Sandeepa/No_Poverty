@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-// import "../../Event/eventMain.css";
 import axios from "axios";
 import WrapperCard from "../../common/Wrapper_card";
 import {
     Button,
-    Col,
     DatePicker,
     Form,
     Input,
-    Space,
+    Modal,
 } from 'antd';
+import { ExclamationCircleFilled } from '@ant-design/icons';
 import CustomRow from "../../common/Form_header";
 import '../Event-Main.css'
 import dayjs from 'dayjs';
@@ -32,34 +31,6 @@ const AddEvent = () => {
         seteventDate(dateString);
     };
 
-    function sendData(e) {
-        e.preventDefault();
-
-        const EventSchema = {
-            eventNo,
-            eventName,
-            eventPlace,
-            eventDetails,
-            eventDate,
-        };
-
-        axios
-            .post("http://localhost:4000/event/addevent", EventSchema)
-            .then(() => {
-            })
-            .catch((err) => {
-                alert(err);
-                console.log(EventSchema)
-            });
-    }
-
-    //Navigate to the privious page
-    // const history = useNavigate();
-
-    // const [componentDisabled, setComponentDisabled] = useState(true);
-
-    // const location = useLocation();
-
     const layout = {
         labelCol: {
             span: 8,
@@ -71,19 +42,42 @@ const AddEvent = () => {
     };
 
     const dateFormat = 'YYYY-MM-DD'
-
-    //  /* eslint-disable no-template-curly-in-string */
-    // const validateMessages = {
-    //     required: '${label} is required!',
-    //     types: {
-    //         email: '${label} is not a valid email!',
-    //         number: '${label} is not a valid number!',
-    //     },
-    //     number: {
-    //         range: '${label} must be between ${min} and ${max}',
-    //     },
-    // };
-    // /* eslint-enable no-template-curly-in-string */
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // get the form data from state or refs
+        const EventSchema = {
+            eventNo,
+            eventName,
+            eventPlace,
+            eventDetails,
+            eventDate,
+        };
+        // show a confirmation dialog
+        Modal.confirm({
+            title: 'Do you want to add this event?',
+            icon: <ExclamationCircleFilled />,
+            content: 'When clicked the OK button, this details will be added to the list after 1 second',
+            async onOk() {
+                // send the data to the backend API
+                return await new Promise((resolve, reject) => {
+                    setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+                    axios
+                        .post("http://localhost:4000/event/addevent", EventSchema)
+                        .then(() => {
+                            window.location.reload(false);
+                        })
+                        .catch((err) => {
+                            alert(err);
+                            console.log(EventSchema)
+                        });
+                })
+            },
+            onCancel() {
+                // handle cancel action
+                console.log("Cancel");
+            }
+        });
+    };
 
     return (
         <div className="main-container">
@@ -91,15 +85,15 @@ const AddEvent = () => {
             <div className="sub-container">
 
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                            <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
+                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
                         <h1 style={{ color: "White" }}>Add  a event</h1>
-                        </CustomRow>
+                    </CustomRow>
                 </WrapperCard>
                 <div className="form">
                     <Form
                         {...layout}
                         name="nest-messages"
-                        onFinish={onFinish}
+                        onSubmitCapture={handleSubmit}
                         style={{
                             maxWidth: 700,
                         }}
@@ -180,7 +174,7 @@ const AddEvent = () => {
                             }}
                         >
                             <section className="btn-controller">
-                                <Button htmlType="submit" className="add-btn btn" onClick={sendData} >
+                                <Button htmlType="submit" className="add-btn btn">
                                     submit
                                 </Button>
 
