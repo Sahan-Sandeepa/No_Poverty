@@ -7,7 +7,7 @@ import {
     Col,
     Form,
     Input,
-    InputNumber,
+    Modal,
     Row,
     Select,
     DatePicker,
@@ -36,7 +36,9 @@ const config = {
     ],
 };
 
-const JobPost = () => {
+const JobPost = props => {
+    const { isModalOpen, isEditModalOpen, isOpen, showModal, handleCancel, handleOk, selectedItem } = props;
+
     const [size, setSize] = useState('large'); // default is 'middle'
     const [name, setJobTitle] = useState("");
     const [location, setLocation] = useState("");
@@ -66,6 +68,14 @@ const JobPost = () => {
 
     return (
         <>
+         <Modal
+                open={isOpen}
+                onCancel={handleCancel}
+                onOk={handleOk}
+                width={1000}
+                footer={null}
+
+            >
             <div style={{ padding: 1, alignItems: "center", backgroundColor: '#D3D3D3', width: 900, height: 650, borderRadius: 5 }}>
 
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
@@ -174,6 +184,7 @@ const JobPost = () => {
 
                 </Form >
             </div>
+            </Modal>
         </>
 
     )

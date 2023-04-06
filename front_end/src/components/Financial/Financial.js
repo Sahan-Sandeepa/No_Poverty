@@ -16,25 +16,19 @@ const { Search } = Input;
 
 const Financial = () => {
     const [financial, setFinancial] = useState([]);
-    const [name, setName] = useState("");
-    const [type, setType] = useState("");
-    const [date, setDate] = useState('');
-    const [venue, setVenue] = useState("");
-    const [total, setTotal] = useState("");
-    const [status, setStatus] = useState("");
     const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
     const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
-
     const [searchResult, setSearchResult] = useState([])
-
     const { _id } = useParams();
     const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [selectedItem,setSelectedItem] = useState(null)
+    const [selectedItem, setSelectedItem] = useState(null);
+
+
     const addOrder = async () => {
         setIsModalOpen(false);
-        // setOpenEditOrderModal(false);
+        setOpenEditOrderModal(false);
     }
     const showModal = () => {
         setIsModalOpen(true);
@@ -48,6 +42,7 @@ const Financial = () => {
         setIsEditModalOpen(false);
 
     };
+
     async function getFinancial() {
         await axios.get("http://localhost:4000/financial/")
             .then((res) => {
@@ -59,17 +54,12 @@ const Financial = () => {
             });
     }
 
-
     useEffect(() => {
         getFinancial().then((va) => {
             console.log(`===> ${financial}`)
         })
     }, []);
 
-
-    // const handleDelete = (_id) => {
-    //     setFinancial(financial => financial.filter(financial => financial._id !== _id));
-    //   };
     const handleDelete = async (_id) => {
         setIsDeleteModalOpen(true)
         axios.delete("http://localhost:4000/financial/" + _id)
@@ -80,17 +70,6 @@ const Financial = () => {
                 console.log(err);
             })
     };
-
-    const handleUpdate = async (_id) => {
-        setIsEditModalOpen(true)
-        axios.put("http://localhost:4000/financial/" + _id)
-            .then((result) => {
-                console.log("Deleted", result);
-            }).catch((err) => {
-                console.log(err);
-            })
-    };
-
 
     const generatePdf = () => {
         var doc = new jsPDF()
@@ -181,10 +160,9 @@ const Financial = () => {
                 }}>
 
                 </Button>
-                <Button icon={<DeleteOutlined  style={{ color: 'red' }} />}
-                    //  onClick={handleDelete}
+                <Button icon={<DeleteOutlined style={{ color: 'red' }} />}
                     onClick={() =>
-                      handleDelete(record._id)
+                        handleDelete(record._id)
                     }
 
                 ></Button>
@@ -235,9 +213,9 @@ const Financial = () => {
                     />
                     <AddFinancial
                         isOpen={isEditModalOpen}
-                        handleCancel={() => { setOpenEditOrderModal(false) }}
+                        handleCancel={handleCancel}
                         handleOk={addOrder}
-                        selectedItem = {selectedItem}
+                        selectedItem={selectedItem}
                     />
 
                     <br></br>
