@@ -37,7 +37,7 @@ const AddEvent = () => {
         Modal.confirm({
             title: 'Do you want to add this event?',
             icon: <ExclamationCircleFilled />,
-            content: 'When clicked the OK button, this details will be added to the list after 1 second',
+            content: 'When clicked the OK button, this details will be added to the list.',
             async onOk() {
                 // send the data to the backend API
                 return await new Promise((resolve, reject) => {

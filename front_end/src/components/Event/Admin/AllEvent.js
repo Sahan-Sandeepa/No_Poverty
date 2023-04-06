@@ -70,12 +70,12 @@ const AllEvent = () => {
     //         }}
     //     />
     // );
-    
+
     const showPromiseConfirm = (val) => {
         confirm({
             title: 'Do you want to delete these items?',
             icon: <ExclamationCircleFilled />,
-            content: 'When clicked the OK button, this dialog will be closed after 1 second',
+            content: 'When clicked the OK button, this details will be deleted from the list.',
             async onOk() {
                 try {
                     return await new Promise((resolve, reject) => {
