@@ -110,7 +110,12 @@ const Ads = () => {
         render: (text, record) => (
             <span>
 
-                <Button icon={<EditTwoTone />}></Button>
+                <Button icon={<EditTwoTone key={record._id} />}onClick={()=>{
+                    setIsEditModalOpen(true);
+                    setSelectedItem(record)
+                }}>
+
+                </Button>
                 <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }}
                     onClick={() => handleDelete(record._id)} />}></Button>
 
@@ -162,7 +167,7 @@ const Ads = () => {
                         />
                         <PublishAd
                             isOpen={isEditModalOpen}
-                            handleCancel={() => { setOpenEditOrderModal(false) }}
+                            handleCancel={handleCancel}
                             handleOk={addOrder}
                             selectedItem={selectedItem}
                         />

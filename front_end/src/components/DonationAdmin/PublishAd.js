@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import {
     AutoComplete,
     Button,
@@ -40,6 +40,48 @@ const PublishAd = props => {
     const [smallDes, setSmallDes] = useState('');
     const [longDes, setLongDes] = useState("");
     const [help, setHelp] = useState("");
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (name !== '' && location !== '') {
+            const i =
+            {
+                name: name,
+                location: location,
+                smallDes: smallDes,
+                longDes: longDes,
+                help: help,
+
+            };
+            try {
+                if (selectedItem) {
+                    await axios.put(`http://localhost:4000/adDonations/${selectedItem._id}`, i);
+
+                } else {
+                    await axios.post('http://localhost:4000/adDonations/create', i);
+
+                }
+                handleOk();
+
+            } catch (error) {
+                console.log('create item failes ${error}');
+
+            }
+        } else {
+            console.log("else called ${name}");
+
+        }
+    };
+
+    useEffect(() => {
+        if (selectedItem) {
+            setName(selectedItem.name);
+            setLocation(selectedItem.location);
+            setSmallDes(selectedItem.smallDes);
+            setLongDes(selectedItem.longDes);
+            setHelp(selectedItem.help);
+        }
+    }, [])
 
     function sendAdData(e) {
         e.preventDefault();
@@ -93,6 +135,7 @@ const PublishAd = props => {
                                 <Form.Item
                                     name="name"
                                     label="Name"
+                                    initialValue={selectedItem?.name}
                                     rules={[
                                         {
                                             required: true,
@@ -115,6 +158,7 @@ const PublishAd = props => {
                             <Form.Item
                                 name="location"
                                 label="Location"
+                                initialValue={selectedItem?.location}
                                 rules={[
                                     {
                                         required: true,
@@ -135,7 +179,7 @@ const PublishAd = props => {
                             <Form.Item
                                 name="smallDes"
                                 label="Enter Small Description"
-
+                                initialValue={selectedItem?.smallDes}
                                 rules={[
                                     {
                                         required: true,
@@ -151,7 +195,7 @@ const PublishAd = props => {
                             <Form.Item
                                 name="help"
                                 label="Help Required"
-
+                                initialValue={selectedItem?.help}
                                 rules={[
                                     {
                                         required: true,
@@ -172,7 +216,7 @@ const PublishAd = props => {
                                 <Form.Item
                                     name="longDes"
                                     label="Enter Long Description"
-
+                                    initialValue={selectedItem?.longDes}
                                     rules={[
 
                                         {
@@ -194,14 +238,16 @@ const PublishAd = props => {
                         <Row>
                             <Col span={13} />
                             <Form.Item label=" " colon={false} >
-                                <Button type="primary" color='red' htmlType="submit" style={{ backgroundColor: "#f44336", fontWeight: "bold" }}>
+                                <Button type="primary" color='red' htmlType="submit" style={{ backgroundColor: "#f44336", fontWeight: "bold" }}
+                                    onClick={handleCancel}
+                                >
                                     Cancel
                                 </Button>
                             </Form.Item>
                             <Col span={1} />
                             <Form.Item label=" " colon={false}>
-                                <Button type="primary" htmlType="submit" style={{ fontWeight: "bold" }} onClick={sendAdData} >
-                                    Submit
+                                <Button type="primary" htmlType="submit" style={{ fontWeight: "bold" }} onClick={handleSubmit} >
+                                    {selectedItem ? "Edit" : "Submit"}
                                 </Button>
                             </Form.Item>
 
