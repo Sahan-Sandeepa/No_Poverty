@@ -29,9 +29,6 @@ const getDonationById = async (req, res) => {
 const makeDonation = async (req, res) => {
   const {name,email,contact,amount,total,status} = req.body
 
-  console.log(name);
-  console.log(email);
-  console.log(contact);
 //   let emptyFields = []
 
 //   if (!title) {

@@ -1,4 +1,4 @@
-import React,{ createContext } from 'react'
+import React from 'react'
 import {
     AutoComplete,
     Button,
@@ -7,7 +7,7 @@ import {
     Col,
     Form,
     Input,
-    Modal,
+    InputNumber,
     Row,
     Select,
     DatePicker,
@@ -15,6 +15,7 @@ import {
     message
 } from 'antd';
 import { useState } from 'react';
+import Form_header from '../common/Form_header';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
 import WrapperContainer from '../common/Wrapper_container';
@@ -36,9 +37,7 @@ const config = {
     ],
 };
 
-const JobPost = props => {
-    const { isModalOpen, isEditModalOpen, isOpen, showModal, handleCancel, handleOk, selectedItem } = props;
-
+const JobPost = () => {
     const [size, setSize] = useState('large'); // default is 'middle'
     const [name, setJobTitle] = useState("");
     const [location, setLocation] = useState("");
@@ -68,14 +67,6 @@ const JobPost = props => {
 
     return (
         <>
-         <Modal
-                open={isOpen}
-                onCancel={handleCancel}
-                onOk={handleOk}
-                width={1000}
-                footer={null}
-
-            >
             <div style={{ padding: 1, alignItems: "center", backgroundColor: '#D3D3D3', width: 900, height: 650, borderRadius: 5 }}>
 
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
@@ -184,7 +175,6 @@ const JobPost = props => {
 
                 </Form >
             </div>
-            </Modal>
         </>
 
     )

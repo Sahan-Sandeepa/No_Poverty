@@ -6,6 +6,7 @@ import Ads from './components/DonationAdmin/ShowAllAds';
 import AddEvent from './components/Event/Admin/AddEvent';
 import AllEvent from './components/Event/Admin/AllEvent';
 import UpdateEvent from './components/Event/Admin/UpdateEvent';
+import DetailsPrint from './components/Event/Admin/DetailsPrint'
 import Financial from './components/Financial/Financial';
 import JobList from './components/jobPortal/JobList';
 import JobPost from './components/jobPortal/JobPost';
@@ -40,7 +41,8 @@ function App() {
             
             <Route  path="/addevent" element={<AddEvent/>}/>
             <Route  path="/allEvent" element={<AllEvent/>}/>
-            <Route  path="/updateEvent" element={<UpdateEvent/>}/>
+            <Route  path="/updateEvent/:id" element={<UpdateEvent/>}/>
+            <Route path="/printDetails/:id" element={<DetailsPrint />}/>
 
 
             <Route />
