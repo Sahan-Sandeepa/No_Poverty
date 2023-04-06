@@ -52,18 +52,23 @@ const JobList = () => {
         getJobList();
     }, [])
 
-    const handleDelete = async (_id) => {
-        axios.delete("http://localhost:4000/jobHire/delete/" + _id)
-            .then((result) => {
-                console.log("Deleted", result);
-            }).catch((err) => {
-                console.log(err);
-            })
-    };
 
     const onSearch = (value) => console.log(value);
 
-    const Columns = [{
+    // const columns = [{
+    //     title: 'Donation Name',
+    //     dataIndex: 'name',
+    //     key: 'name',
+    //     render: text => <a href="#">{text}</a>,
+    // }, {
+    //     title: 'Fund',
+    //     dataIndex: 'address',
+    //     key: 'address',
+    // },
+    // ];
+    
+
+    const Columns=[{
         title: 'Job Title',
         dataIndex: 'jobTitle',
         key: 'jobTitle',
@@ -91,14 +96,12 @@ const JobList = () => {
         render: (text, record) => (
             <span>
 
-                <Button icon={<EditTwoTone />}
-                    onClick={() => { setIsModalOpen(true) }} type="primary">
-                </Button>
-                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}
-                    onClick={() => handleDelete(record._id)
-                    }>
-                </Button>
+                <Button icon={<EditTwoTone />}></Button>
+                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}></Button>
 
+                {/* <a href="#">Action 一 {record.name}</a>
+                <span className="ant-divider" />
+                <a href="#">Delete</a> */}
             </span>
         ),
     }];
