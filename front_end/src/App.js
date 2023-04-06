@@ -12,6 +12,7 @@ import JobPost from './components/jobPortal/JobPost';
 import Home from './pages/Home/Home';
 import MakeDonations from './components/DoDonations/MakeDonations';
 import Register from './components/Register/Register';
+import ShowDonations from './components/DoDonations/ShowDonations';
 
 function App() {
   return (
@@ -27,10 +28,11 @@ function App() {
             <Route path="/joblist" element={<JobList />} />
 
             {/* Leo's Routes Begin here */}
-            <Route  path="/pdonation" element={<PublishAd/>}/>
-            <Route path="/showdonation" element={<Ads/>} />
+            <Route  path="/pdonation" element={<PublishAd/>}/> {/*Ad creation form*/}
+            <Route path="/showAds" element={<Ads/>} /> {/*Ad display*/}
 
-            <Route path="/donate" element={<MakeDonations/>} />
+            <Route path="/donate" element={<MakeDonations/>} /> {/*Donating form*/}
+            <Route path="/showDonation" element={<ShowDonations/>}/> {/*Donation display*/}
 
             {/*Leo's Routes Ends here*/}
 
