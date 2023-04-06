@@ -92,7 +92,8 @@ const JobList = () => {
             <span>
 
                 <Button icon={<EditTwoTone />}
-                    onClick={() => { setIsModalOpen(true) }} type="primary">
+                    onClick={() => { setIsModalOpen(true);
+                    setSelectedItem(record) }} type="primary">
                 </Button>
                 <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}
                     onClick={() => handleDelete(record._id)
