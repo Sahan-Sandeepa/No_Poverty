@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import WrapperCard from "../../common/Wrapper_card";
 import CustomRow from "../../common/Form_header";
-import { Badge, Button, Card, Collapse, Space } from "antd";
+import { Badge, Button, Card, Collapse, Modal, Space } from "antd";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 
 const AllEvent = () => {
 
     const [dropdown, setDropdown] = useState("OPEN");
     const [eventDetails, setAllEventDetails] = useState([]);
     const [searchDetail, setsearchDetail] = useState("");
+    const { confirm } = Modal;
 
     async function handleUpdateStatus(id, value) {
         // console.log(id, value);
@@ -68,6 +70,25 @@ const AllEvent = () => {
     //         }}
     //     />
     // );
+    
+    const showPromiseConfirm = (val) => {
+        confirm({
+            title: 'Do you want to delete these items?',
+            icon: <ExclamationCircleFilled />,
+            content: 'When clicked the OK button, this dialog will be closed after 1 second',
+            async onOk() {
+                try {
+                    return await new Promise((resolve, reject) => {
+                        setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+                        deleteEventDetail(val._id)
+                    });
+                } catch {
+                    return console.log('Oops errors!');
+                }
+            },
+            onCancel() { },
+        });
+    };
 
     const layout = {
         labelCol: {
@@ -184,7 +205,7 @@ const AllEvent = () => {
                                             </Link>
 
                                             <Link>
-                                                <Button htmlType="reset" className="edit_btn" onClick={() => deleteEventDetail(eventDetailsVal._id)}>
+                                                <Button htmlType="reset" className="edit_btn" onClick={() => showPromiseConfirm(eventDetailsVal)}>
                                                     Delete
                                                 </Button>
                                             </Link>
