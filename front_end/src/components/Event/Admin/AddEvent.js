@@ -23,25 +23,6 @@ const AddEvent = () => {
     const [eventDetails, seteventDetails] = useState("");
     const [eventDate, seteventDate] = useState("");
 
-    const onFinish = (values) => {
-        console.log(values);
-    };
-
-    const onChange = (eventDate, dateString) => {
-        seteventDate(dateString);
-    };
-
-    const layout = {
-        labelCol: {
-            span: 8,
-
-        },
-        wrapperCol: {
-            span: 90,
-        },
-    };
-
-    const dateFormat = 'YYYY-MM-DD'
     const handleSubmit = (e) => {
         e.preventDefault();
         // get the form data from state or refs
@@ -79,6 +60,26 @@ const AddEvent = () => {
         });
     };
 
+    const onFinish = (values) => {
+        console.log(values);
+    };
+
+    const onChange = (eventDate, dateString) => {
+        seteventDate(dateString);
+    };
+
+    const layout = {
+        labelCol: {
+            span: 8,
+
+        },
+        wrapperCol: {
+            span: 90,
+        },
+    };
+
+    const dateFormat = 'YYYY-MM-DD'
+
     return (
         <div className="main-container">
 
@@ -93,6 +94,7 @@ const AddEvent = () => {
                     <Form
                         {...layout}
                         name="nest-messages"
+                        onFinish={onFinish}
                         onSubmitCapture={handleSubmit}
                         style={{
                             maxWidth: 700,
