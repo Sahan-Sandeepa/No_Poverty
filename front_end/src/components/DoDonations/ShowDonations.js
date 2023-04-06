@@ -11,7 +11,7 @@ const { Search } = Input;
 const Donations = () => {
     const [donate, setDonate] = useState([]);
     const [column, setColumns] = useState([]);
-    const [ran,setran] =useState([]);
+    const [ran, setran] = useState([]);
 
     function getDonations() {
         axios.get("http://localhost:4000/donation/")
@@ -40,9 +40,9 @@ const Donations = () => {
     //     key: 'address',
     // },
     // ];
-    
 
-    const Columns=[{
+
+    const Columns = [{
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
@@ -63,10 +63,10 @@ const Donations = () => {
         title: 'Status',
         dataIndex: 'status',
         key: 'status',
-    // }, {
-    //     title: 'Status',
-    //     dataIndex: 'status',
-    //     key: 'status',
+        // }, {
+        //     title: 'Status',
+        //     dataIndex: 'status',
+        //     key: 'status',
     },
     {
         title: 'Action',
@@ -84,30 +84,40 @@ const Donations = () => {
         ),
     }];
     return (
-        <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
-            <Col span={50} />
-            <Col span={30}>
+        <>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
 
-                <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                        <h1 style={{ color: "White" }}>Donation History</h1>
-                        <Col span={10} />
-                        <Search
-                            placeholder="input search text"
-                            onSearch={onSearch}
-                            style={{
-                                width: 200,
-                            }}
-                        />
-                        <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} />
-                    </CustomRow>
-                </WrapperCard>
-                <Table columns={Columns} dataSource={donate}
-                    bordered
-                // title={() => 'Financial Details'}
-                />
-            </Col>
-        </div>
+            <div style={{ paddingLeft: 150 }} >
+                <div style={{ paddingLeft: 50 }} >
+                    <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
+                        <Col span={50} />
+                        <Col span={30}>
+
+                            <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                                <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
+                                    <h1 style={{ color: "White" }}>Donation History</h1>
+                                    <Col span={10} />
+                                    <Search
+                                        placeholder="input search text"
+                                        onSearch={onSearch}
+                                        style={{
+                                            width: 200,
+                                        }}
+                                    />
+                                    <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} />
+                                </CustomRow>
+                            </WrapperCard>
+                            <Table columns={Columns} dataSource={donate}
+                                bordered
+                            // title={() => 'Financial Details'}
+                            />
+                        </Col>
+                    </div>
+                </div></div>
+        </>
     )
 }
 

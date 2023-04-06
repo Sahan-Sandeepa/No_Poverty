@@ -4,6 +4,8 @@ import axios from "axios";
 import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
+import JobPost from './JobPost';
+import { Link, useParams } from 'react-router-dom'
 
 
 const { Search } = Input;
@@ -11,19 +13,32 @@ const { Search } = Input;
 
 const JobList = () => {
     const [jobList, setJobList] = useState([]);
-
+    const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
+    const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
+    const [searchResult, setSearchResult] = useState([])
+    const { _id } = useParams();
+    const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
 
+
+    const addOrder = async () => {
+        setIsModalOpen(false);
+        setOpenEditOrderModal(false);
+    }
     const showModal = () => {
         setIsModalOpen(true);
     };
     const handleOk = () => {
         setIsModalOpen(false);
+        setIsEditModalOpen(false);
     };
     const handleCancel = () => {
         setIsModalOpen(false);
-    };
+        setIsEditModalOpen(false);
 
+    };
     function getJobList() {
         axios.get("http://localhost:4000/jobHire/")
             .then((res) => {
@@ -88,41 +103,61 @@ const JobList = () => {
         ),
     }];
     return (
-        <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
-            {/* <Col span={50} />
+        <>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+
+            <div style={{ paddingLeft: 150 }} >
+            <div style={{ paddingLeft: 870 }} >
+                    <Button onClick={() => { setIsModalOpen(true) }} type="primary">Create Report</Button>
+
+
+                </div>
+                <br></br>
+                <br></br>
+                <div style={{ paddingLeft: 50 }} >
+                    <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
+                        {/* <Col span={50} />
             <Col span={30}> */}
-            <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                    <h1 style={{ color: "White" }}>Job Vacancies</h1>
-                    <Col span={12} />
-                    <Search
-                        placeholder="input search text"
-                        onSearch={onSearch}
-                        style={{
-                            width: 250,
-                        }}
-                    />
-                    <Button icon={<FilePdfOutlined style={{ fontSize: '21px', color: 'red' }} />} />
-                </CustomRow>
-            </WrapperCard>
-            <Table columns={Columns} dataSource={jobList}
-            // bordered
-            // title={() => 'Financial Details'}
-            />
-            {/* </Col> */}
+                        <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                            <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
+                                <h1 style={{ color: "White" }}>Job Vacancies</h1>
+                                <Col span={12} />
+                                <Search
+                                    placeholder="input search text"
+                                    onSearch={onSearch}
+                                    style={{
+                                        width: 250,
+                                    }}
+                                />
+                                <Button icon={<FilePdfOutlined style={{ fontSize: '21px', color: 'red' }} />} />
+                            </CustomRow>
+                        </WrapperCard>
+                        <Table columns={Columns} dataSource={jobList}
+                        // bordered
+                        // title={() => 'Financial Details'}
+                        />
+                        {/* </Col> */}
 
-            {/* <AddFinancial
-                isModalOpen={isModalOpen}
-                handleCancel={handleCancel}
-                handleOk={handleOk}
+                        <JobPost
+                            isOpen={isModalOpen}
+                            handleCancel={handleCancel}
+                            handleOk={addOrder}
 
-            />
-            <AddFinancial
-                isModalOpen={isModalOpen}
-                handleCancel={handleCancel}
-                handleOk={handleOk}
-            /> */}
-        </div>
+                        />
+                        <JobPost
+                            isOpen={isEditModalOpen}
+                            handleCancel={handleCancel}
+                            handleOk={addOrder}
+                            selectedItem={selectedItem}
+                        />
+                    </div>
+                </div>
+
+            </div>
+        </>
     )
 }
 
