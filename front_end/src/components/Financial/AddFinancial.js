@@ -207,9 +207,7 @@ const AddFinancial = props => {
                             <DatePicker
                                 value={date}
                                 // defaultValue={String(dayjs(selectedItem?.date, dateFormat))}
-                                initialValues={{
-                                    date: selectedItem ? dayjs(selectedItem.date, dateFormat) : null
-                                }}
+                                defaultValue={selectedItem ? dayjs(selectedItem.date, dateFormat) : null}
                                 onChange={onChange}
                             />
 
