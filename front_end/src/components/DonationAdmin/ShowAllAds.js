@@ -117,7 +117,9 @@ const Ads = () => {
 
                 </Button>
                 <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }}
-                    onClick={() => handleDelete(record._id)} />}></Button>
+                    onClick={() => handleDelete(record._id)} />}>
+                        
+                    </Button>
 
                 {/* <a href="#">Action 一 {record.name}</a>
                 <span className="ant-divider" />
