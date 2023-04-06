@@ -135,7 +135,7 @@ const AddFinancial = props => {
                     <Col span={12}>
                         <Form.Item
                             name="name"
-                            label="name"
+                            label="Name"
                             initialValue={selectedItem?.name}
                             rules={[
                                 {
@@ -218,7 +218,7 @@ const AddFinancial = props => {
                     <Col span={18}>
                         <Form.Item
                             name="venue"
-                            label="venue"
+                            label="Venue"
                             initialValue={selectedItem?.venue}
 
                             rules={[
@@ -242,7 +242,7 @@ const AddFinancial = props => {
 
                             <Form.Item
                                 name="total"
-                                label="total"
+                                label="Total"
                                 initialValue={selectedItem?.total}
 
                                 rules={[
