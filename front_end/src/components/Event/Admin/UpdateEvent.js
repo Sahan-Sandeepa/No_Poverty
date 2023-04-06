@@ -1,4 +1,4 @@
-import { Button, DatePicker, Form, Input, Space, Typography } from "antd";
+import { Button, DatePicker, Form, Input, Modal, Space, Typography } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import CustomRow from "../../common/Form_header";
 import WrapperCard from "../../common/Wrapper_card";
 import dayjs from 'dayjs';
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 dayjs.extend(customParseFormat);
 
 const UpdateEvent = () => {
@@ -13,15 +14,15 @@ const UpdateEvent = () => {
 
     const [validated, setValidated] = useState(false);
 
-    const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
+    // const handleSubmit = (event) => {
+    //     const form = event.currentTarget;
+    //     if (form.checkValidity() === false) {
+    //         event.preventDefault();
+    //         event.stopPropagation();
+    //     }
 
-        setValidated(true);
-    };
+    //     setValidated(true);
+    // };
 
     // const history = useNavigate();
 
@@ -57,6 +58,47 @@ const UpdateEvent = () => {
             .catch((err) => {
                 alert(err.message);
             });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // get the form data from state or refs
+        const newEvent = {
+            eventNo,
+            eventName,
+            eventPlace,
+            eventDetails,
+            eventDate,
+        };
+        // show a confirmation dialog
+        Modal.confirm({
+            title: 'Do you want to add this event?',
+            icon: <ExclamationCircleFilled />,
+            content: 'When clicked the OK button, this details will be added to the list after 1 second',
+            async onOk() {
+                // send the data to the backend API
+                return await new Promise((resolve, reject) => {
+                    setTimeout(Math.random() > 0.1 ? resolve : reject, 1000);
+                    axios
+                        .put(
+                            "http://localhost:4000/event/update/" + id,
+                            newEvent
+                        )
+                        .then(() => {
+                            // alert("Details Successfully Updated!");
+
+                            //navigate("/MainClaimPage");
+                        })
+                        .catch((err) => {
+                            alert(err.message);
+                        });
+                })
+            },
+            onCancel() {
+                // handle cancel action
+                console.log("Cancel");
+            }
+        });
     };
 
     useEffect(() => getEventDetails(), []);
@@ -119,6 +161,7 @@ const UpdateEvent = () => {
                         {...layout}
                         name="nest-messages"
                         onFinish={onFinish}
+                        onSubmitCapture={handleSubmit}
                         style={{
                             maxWidth: 700,
                         }}
@@ -128,9 +171,7 @@ const UpdateEvent = () => {
                         <Form.Item
                             name="eventNo"
                             label="Event No"
-                            rules={[
-                                { required: true, message: '${label} is required!', },
-                            ]}
+
                         >
                             <Input style={{ backgroundColor: "white" }} placeholder={eventNo} disabled onChange={(e) => {
                                 seteventNo(e.target.value);
@@ -140,9 +181,7 @@ const UpdateEvent = () => {
                         <Form.Item
                             name="eventName"
                             label="Event Name"
-                            rules={[
-                                { required: true, message: '${label} is required!' },
-                            ]}
+
                             style={{ paddingTop: "5%" }}
                         >
                             <Typography>
@@ -155,9 +194,7 @@ const UpdateEvent = () => {
                         <Form.Item
                             name="eventPlace"
                             label="Event Location"
-                            rules={[
-                                { required: true, message: '${label} is required!' },
-                            ]}
+
                             style={{ paddingTop: "5%" }}
                         >
                             <Typography>
@@ -170,9 +207,7 @@ const UpdateEvent = () => {
                         <Form.Item
                             name="eventDate"
                             label="Event Date"
-                            rules={[
-                                { required: true, message: '${label} is required!' },
-                            ]}
+
                             style={{ paddingTop: "5%" }}
                         >
                             <Typography>
@@ -186,9 +221,7 @@ const UpdateEvent = () => {
 
                             name="eventDetails"
                             label="Event Description"
-                            rules={[
-                                { required: true, message: '${label} is required!' },
-                            ]}
+
                             style={{ paddingTop: "5%" }}
                         >
                             <Typography>
@@ -207,33 +240,8 @@ const UpdateEvent = () => {
                         >
                             <section className="btn-controller">
                                 <Button htmlType="submit" className="add-btn btn"
-
-                                    onClick={(e) => {
-                                        e.preventDefault();
-
-                                        const newEvent = {
-                                            eventNo,
-                                            eventName,
-                                            eventPlace,
-                                            eventDetails,
-                                            eventDate,
-                                        };
-
-                                        axios
-                                            .put(
-                                                "http://localhost:4000/event/update/" + id,
-                                                newEvent
-                                            )
-                                            .then(() => {
-                                                // alert("Details Successfully Updated!");
-
-                                                //navigate("/MainClaimPage");
-                                            })
-                                            .catch((err) => {
-                                                alert(err.message);
-                                            });
-                                    }}
-
+                                // onSubmit={(e) => {
+                                //     e.preventDefault();}}
                                 >
                                     submit
                                 </Button>
