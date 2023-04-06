@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+ import React, { useEffect } from 'react'
 import {
     Button,
     Col,
@@ -7,7 +7,6 @@ import {
     Row,
     Select,
     DatePicker,
-    Menu, Dropdown, Icon,
     Modal
 } from 'antd';
 import { useState } from 'react';
@@ -49,6 +48,7 @@ const AddFinancial = props => {
     const [venue, setVenue] = useState("");
     const [total, setTotal] = useState("");
     const [status, setStatus] = useState("");
+
     const [refresh, setRefresh] = useState(false);
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -203,7 +203,6 @@ const AddFinancial = props => {
                             label="DatePicker" {...config}
 
                         >
-
                             <DatePicker
                                 value={date}
                                 // defaultValue={String(dayjs(selectedItem?.date, dateFormat))}

@@ -10,7 +10,7 @@ import DeleteModal from '../common/DeleteModal';
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import autoTable from 'jspdf-autotable'
-
+import logo from '../../assets/images/logo2.png'
 const { Search } = Input;
 
 
@@ -72,16 +72,18 @@ const Financial = () => {
     };
 
     const generatePdf = () => {
-        var doc = new jsPDF()
-        doc.setFontSize(40)
-        doc.text(35, 25, 'Financial Summary')
+        const watermarkTitle = 'Financial Report';
+        // Create the PDF document
+        const watermarkImg = new Image();
+        watermarkImg.src = {logo};
+        var doc = new jsPDF();
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'bold');
+        doc.text(10, 10, 'Financial Summary');
 
-        autoTable(doc,
+
+        doc.autoTable(
             {
-                columns: [
-                    doc.setFontSize(40),
-                    doc.text(35, 25, 'Financial Summary')
-                ],
                 columns: [
                     { header: 'Name', dataKey: 'name' },
                     { header: ' Type', dataKey: 'type' },
@@ -102,7 +104,17 @@ const Financial = () => {
                         total: financial.total,
                         status: financial.status,
                     };
-                })
+                }),
+                didDrawPage: function (data) {
+                    const pageSize = doc.internal.pageSize;
+                    const pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+                    const pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth();
+                    const x = pageWidth / 2;
+                    const y = pageHeight / 2;
+                    doc.setFontSize(70);
+                    doc.setTextColor(128, 128, 128);
+                    doc.text(watermarkTitle, x, y, null, null, 'center');
+                }
             })
         doc.save('Financial Report.pdf')
 
@@ -170,10 +182,8 @@ const Financial = () => {
         ),
     }];
     return (
-
         //     
         <>
-
             <br></br>
             <br></br>
             <br></br>
@@ -181,14 +191,10 @@ const Financial = () => {
             <div style={{ paddingLeft: 150 }} >
                 <div style={{ paddingLeft: 870 }} >
                     <Button onClick={() => { setIsModalOpen(true) }} type="primary">Create Report</Button>
-
-
                 </div>
                 <br></br>
                 <br></br>
-
                 <div style={{ padding: 1, alignItems: "center", width: 1000, height: 650, borderRadius: 5 }}>
-
                     <WrapperCard style={{ backgroundColor: "#37475E" }}>
                         <CustomRow style={{ justifyContent: "space-between", padding: "10px" }} >
                             <h1 style={{ color: "White", fontSize: 18 }}>Financial Summmary</h1>
@@ -217,14 +223,10 @@ const Financial = () => {
                         handleOk={addOrder}
                         selectedItem={selectedItem}
                     />
-
                     <br></br>
                     <br></br>
                     <br></br>
-
-
                     <Table columns={columns} dataSource={financial} />
-
 
                 </div>
             </div>
