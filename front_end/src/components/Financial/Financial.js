@@ -251,7 +251,8 @@ const Financial = () => {
                         isModalOpen={isDeleteModalOpen}
                         handleCancel={handleDeleteCancel}
                         handleOk={handleDeleteConfirm}
-                        text="Do you want to delete purchase order?"
+                        text="Do you want to delete the report details?"
+                        
                     />
                     <br></br>
                     <br></br>
