@@ -113,16 +113,20 @@ const JobPost = props => {
             >
 
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                        <h1 style={{ color: "White", paddingLeft: 30, fontSize: 22 }}>Add New Vacancy</h1>
+                    <CustomRow style={{ justifyContent: "space-between", padding: "1px" }} >
+                        <h1 style={{ color: "White", paddingLeft: 20, fontSize: 20 }}>Add New Vacancy</h1>
                     </CustomRow>
                 </WrapperCard>
                 <Form
                     // onSubmit={sendData}
-                    style={{ padding: 1, paddingLeft: 120 }}
+                    style={{ padding: 1, paddingLeft: 110 }}
                 >
                     <br></br>
-                    <h1 style={{ color: "Black" }}>Add New Vacancy</h1><br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+
+                    
                     <Row>
                         {/* <Col span={12}> */}
                         <Form.Item
