@@ -6,12 +6,14 @@ import Ads from './components/DonationAdmin/ShowAllAds';
 import AddEvent from './components/Event/Admin/AddEvent';
 import AllEvent from './components/Event/Admin/AllEvent';
 import UpdateEvent from './components/Event/Admin/UpdateEvent';
+import DetailsPrint from './components/Event/Admin/DetailsPrint'
 import Financial from './components/Financial/Financial';
 import JobList from './components/jobPortal/JobList';
 import JobPost from './components/jobPortal/JobPost';
 import Home from './pages/Home/Home';
 import MakeDonations from './components/DoDonations/MakeDonations';
 import Register from './components/Register/Register';
+import ShowDonations from './components/DoDonations/ShowDonations';
 
 function App() {
   return (
@@ -27,10 +29,11 @@ function App() {
             <Route path="/joblist" element={<JobList />} />
 
             {/* Leo's Routes Begin here */}
-            <Route  path="/pdonation" element={<PublishAd/>}/>
-            <Route path="/showdonation" element={<Ads/>} />
+            <Route  path="/pdonation" element={<PublishAd/>}/> {/*Ad creation form*/}
+            <Route path="/showAds" element={<Ads/>} /> {/*Ad display*/}
 
-            <Route path="/donate" element={<MakeDonations/>} />
+            <Route path="/donate" element={<MakeDonations/>} /> {/*Donating form*/}
+            <Route path="/showDonation" element={<ShowDonations/>}/> {/*Donation display*/}
 
             {/*Leo's Routes Ends here*/}
 
@@ -38,7 +41,8 @@ function App() {
             
             <Route  path="/addevent" element={<AddEvent/>}/>
             <Route  path="/allEvent" element={<AllEvent/>}/>
-            <Route  path="/updateEvent" element={<UpdateEvent/>}/>
+            <Route  path="/updateEvent/:id" element={<UpdateEvent/>}/>
+            <Route path="/printDetails/:id" element={<DetailsPrint />}/>
 
 
             <Route />

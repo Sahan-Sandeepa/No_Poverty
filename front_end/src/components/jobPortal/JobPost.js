@@ -1,4 +1,4 @@
-import React,{ createContext } from 'react'
+import React, { createContext } from 'react'
 import {
     AutoComplete,
     Button,
@@ -14,13 +14,16 @@ import {
     Layout,
     message
 } from 'antd';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
 import WrapperContainer from '../common/Wrapper_container';
 import axios from "axios";
 import { } from "react-router-dom";
-
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+dayjs.extend(customParseFormat);
+const dateFormat = 'YYYY/MM/DD';
 
 const { Option } = Select;
 const { Header, Content, Footer } = Layout;
@@ -46,29 +49,61 @@ const JobPost = props => {
     const [closingDate, setClosingDate] = useState("");
     const [company, setCompany] = useState("");
 
+    //create and edit method
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (jobTitle !== '' && location !== '') {
+            const i =
+            {
+                jobTitle: jobTitle,
+                location: location,
+                openingDate: openingDate,
+                closingDate: closingDate,
+                company: company,
+            };
+            try {
+                if (selectedItem) {
+                    await axios.put(`http://localhost:4000/jobHire/update/${selectedItem._id}`, i);
 
-    function sendData(e) {
-        e.preventDefault();
+                } else {
+                    await axios.post('http://localhost:4000/jobHire/add', i);
 
-        const jobPostSchema = {
-            jobTitle, location, openingDate, closingDate, company,
-        };
+                }
+                handleOk();
 
-        axios
-            .post("http://localhost:4000/jobHire/add", jobPostSchema)
-            .then(() => {
-                message("inserted!", "Data Inserted!", "success");
-                window.location.reload(false);
-            })
-            .catch((err) => {
-                alert(err);
-            });
-    }
+            } catch (error) {
+                console.log('create item failes ${error}');
+
+            }
+        } else {
+            console.log("else called ${name}");
+
+        }
+    };
+
+    useEffect(() => {
+        if (selectedItem) {
+            setJobTitle(selectedItem.jobTitle);
+            setLocation(selectedItem.location);
+            setOpeningDate(selectedItem.openingDate);
+            setClosingDate(selectedItem.closingDate);
+            setCompany(selectedItem.company);
+        }
+    }, [])
+
+    const onChangeOP = (openingDate, dateString) => {
+        console.log(openingDate, dateString);
+        setOpeningDate(dateString);
+    };
+    const onChangeCD = (closingDate, dateString) => {
+        console.log(closingDate, dateString);
+        setClosingDate(dateString);
+    };
 
 
     return (
         <>
-         <Modal
+            <Modal
                 open={isOpen}
                 onCancel={handleCancel}
                 onOk={handleOk}
@@ -76,23 +111,28 @@ const JobPost = props => {
                 footer={null}
 
             >
-            <div style={{ padding: 1, alignItems: "center", backgroundColor: '#D3D3D3', width: 900, height: 650, borderRadius: 5 }}>
 
                 <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                    <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                        <h1 style={{ color: "White" }}>Add New Vacancy</h1>
+                    <CustomRow style={{ justifyContent: "space-between", padding: "1px" }} >
+                        <h1 style={{ color: "White", paddingLeft: 20, fontSize: 20 }}>Add New Vacancy</h1>
                     </CustomRow>
                 </WrapperCard>
                 <Form
-                    style={{ padding: 1, paddingLeft: 140 }}
+                    // onSubmit={sendData}
+                    style={{ padding: 1, paddingLeft: 110 }}
                 >
                     <br></br>
-                    <h1 style={{ color: "Black" }}>Add New Vacancy</h1><br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+
+                    
                     <Row>
                         {/* <Col span={12}> */}
                         <Form.Item
-                            name="jobTitle"
+                            name="name"
                             label="Job Title"
+                            initialValue={selectedItem?.jobTitle}
                             rules={[
                                 {
                                     required: true,
@@ -107,19 +147,23 @@ const JobPost = props => {
                                 }}
                             />
                         </Form.Item>
+                        <Col span={3}/>
                         <Form.Item name="openingDate" label="Opening Date" {...config}>
                             <DatePicker
-                                onChange={(val) => {
-                                    setOpeningDate(val);
-                                }} />
+                                defaultValue={selectedItem ? dayjs(selectedItem.openingDate, dateFormat) : null}
+
+                                onChange={onChangeOP} />
                         </Form.Item>
                         {/* </Col> */}
                     </Row>
+                    <br></br>
 
                     <Row>
                         <Form.Item
                             name="location"
                             label="Location"
+                            initialValue={selectedItem?.location}
+
                             rules={[
                                 {
                                     required: true,
@@ -134,18 +178,24 @@ const JobPost = props => {
                                 }}
                             />
                         </Form.Item>
+                        <br></br>
+                        <Col span={3}/>
+
                         <Form.Item name="closingDate" label="Closing Date" {...config}>
                             <DatePicker
-                                onChange={(val) => {
-                                    setClosingDate(val);
-                                }} />
+                                defaultValue={selectedItem ? dayjs(selectedItem.closingDate, dateFormat) : null}
+
+                                onChange={onChangeCD} />
                         </Form.Item>
                     </Row>
+                    <br></br>
 
                     <Row>
                         <Form.Item
                             name="company"
                             label="Company"
+                            initialValue={selectedItem?.company}
+
                             rules={[
                                 {
                                     required: true,
@@ -161,28 +211,32 @@ const JobPost = props => {
                             />
                         </Form.Item>
                     </Row>
+                    <br></br>
 
                     <Row>
                         <Col span={13} />
                         <Form.Item label=" " colon={false} >
-                            <Button type="primary" color='red' htmlType="submit" style={{ backgroundColor: "#f44336", fontWeight: "bold" }}>
+                            <Button type="primary" color='red' htmlType="submit"
+                                style={{ backgroundColor: "#f44336", fontWeight: "bold" }}
+                                onClick={handleCancel}
+                            >
                                 Cancel
                             </Button>
                         </Form.Item>
                         <Col span={1} />
                         <Form.Item label=" " colon={false}>
-                            <Button type="primary" htmlType="submit"
-                                style={{ fontWeight: "bold" }} onClick={sendData}>
-                                Submit
+
+                            <a href='/financial'><Button type="primary" htmlType="submit"
+                                style={{ fontWeight: "bold" }} onClick={handleSubmit}
+                            >
+                                {selectedItem ? "Edit" : "Submit"}
                             </Button>
+                            </a>
                         </Form.Item>
-
-
                     </Row>
 
 
                 </Form >
-            </div>
             </Modal>
         </>
 

@@ -3,6 +3,8 @@ import logo from "../../assets/images/logo.png"
 import { DualAxes } from '@ant-design/plots';
 import { Card, Col, Row, Typography, Table, AutoComplete } from "antd"
 import { AppstoreTwoTone, UserOutlined } from "@ant-design/icons"
+import axios, { Axios } from 'axios';
+
 const url = "http://localhost:4000/financial/";
 
 
@@ -15,22 +17,38 @@ function Admin() {
     const [items, setItems] = useState([]);
     const [totalSum, setTotalSum] = useState(0);
 
+    async function getFinancial() {
+        await axios.get("http://localhost:4000/financial/")
+            .then((res) => {
+                console.log(res.data)
+                setFinancial(res.data);
+            })
+            .catch((err) => {
+                alert(err.message);
+            });
+    }
 
     useEffect(() => {
-        const getData = async () => {
-            const response = await fetch(url);
-            const items = await response.json();
-            setItems(items);
-            console.timeLog(items);
-        };
-        getData()
+        getFinancial().then((va) => {
+            console.log(`===> ${financial}`)
+        })
     }, []);
 
-    useEffect(() => {
-        const total = items.reduce((acc, row) => acc + row.amount, 0);
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         const response = await fetch(url);
+    //         const financial = await response.json();
+    //         setFinancial(financial);
+    //         console.timeLog(financial);
+    //     };
+    //     getData()
+    // }, []);
 
-        setTotalSum(items.total)
-    }, [items]);
+    // useEffect(() => {
+    //     const total = items.reduce((acc, row) => acc + row.amount, 0);
+
+    //     setTotalSum(items.total)
+    // }, [items]);
 
     const count = [
         {
@@ -164,7 +182,7 @@ function Admin() {
                         <Col span={4} />
                         <Card style={{backgroundColor:'#dfa5ec'}}>
                             <div>
-                                <Table dataSource={items} columns={columns} />
+                                <Table  columns={columns} dataSource={financial}/>
                                 <Row>
                                     <Col span={12}>
                                         {/* {totalSum === null ? 'Loading...' : `Count: ${totalSum}`} */}
