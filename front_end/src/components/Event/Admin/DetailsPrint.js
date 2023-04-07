@@ -3,6 +3,7 @@ import { useReactToPrint } from "react-to-print";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import '../Event-Main.css'
+import { Badge, Descriptions } from "antd";
 
 const DetailsPrint = () => {
     const componentRef = useRef();
@@ -34,7 +35,7 @@ const DetailsPrint = () => {
                     eventDate: res.data.Event.eventDate,
                     eventStatus: res.data.Event.eventStatus,
                 };
-                console.log(updateDetails);
+                // console.log(updateDetails);
                 seteventNo(updateDetails.eventNo);
                 seteventName(updateDetails.eventName);
                 seteventPlace(updateDetails.eventPlace);
@@ -92,9 +93,30 @@ const DetailsPrint = () => {
 
     return (
 
-        <div className="printFormOut" responsive>
-            <div className="oidprintMain" ref={componentRef}>
-                <h1>Event Print</h1>
+        <div className="main-container">
+
+            <div className="sub-container" ref={componentRef}>
+
+                <div className="form">
+
+                    <Descriptions title="Event Info" layout="vertical" bordered style={{ marginRight: "8%" }}>
+                        <Descriptions.Item label="Event Number">{eventNo}</Descriptions.Item>
+                        <Descriptions.Item label="Event Date" span={2}>
+                            {eventDate}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Event Name" span={3}>
+                            {eventName}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Event Location" span={3}>
+                            {eventPlace}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Event Description" span={3}>
+                            {eventDetails}
+                        </Descriptions.Item>
+                    </Descriptions>
+
+                </div>
+
             </div>
         </div>
 
