@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Icon, Button, Space, Input, Col,Row } from 'antd';
+import { Table, Icon, Button, Space, Input, Col, Row } from 'antd';
 import axios from "axios";
 import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
@@ -26,6 +26,7 @@ const Ads = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null)
+    const [searchText, setSearchText] = useState("");
     const addOrder = async () => {
         setIsModalOpen(false);
         // setOpenEditOrderModal(false);
@@ -86,7 +87,7 @@ const Ads = () => {
                     { header: 'Small Description', dataKey: 'smallDes' },
                     { header: 'Long Description', dataKey: 'longDes' },
                     { header: 'Help Type Required', dataKey: 'help' },
-                    
+
 
 
                 ],
@@ -98,7 +99,7 @@ const Ads = () => {
                         smallDes: ads.smallDes,
                         longDes: ads.longDes,
                         help: ads.help,
-                        
+
                     };
                 }),
                 didDrawPage: function (data) {
@@ -164,7 +165,7 @@ const Ads = () => {
         render: (text, record) => (
             <span>
 
-                <Button icon={<EditTwoTone key={record._id} />}onClick={()=>{
+                <Button icon={<EditTwoTone key={record._id} />} onClick={() => {
                     setIsEditModalOpen(true);
                     setSelectedItem(record)
                 }}>
@@ -172,8 +173,8 @@ const Ads = () => {
                 </Button>
                 <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }}
                     onClick={() => handleDelete(record._id)} />}>
-                        
-                    </Button>
+
+                </Button>
 
                 {/* <a href="#">Action 一 {record.name}</a>
                 <span className="ant-divider" />
@@ -202,18 +203,17 @@ const Ads = () => {
                                 <Col span={10} />
                                 <Search
                                     placeholder="input search text"
-                                    onSearch={onSearch}
+                                    onChange={(e) => setSearchText(e.target.value)}
                                     style={{
                                         width: 200,
                                     }}
                                 />
-                                <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} onClick={generatePdf}/>
+                                <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} onClick={generatePdf} />
                             </CustomRow>
                         </WrapperCard>
-                        <Table columns={Columns} dataSource={ads}
-                            bordered
-                        // title={() => 'Financial Details'}
-                        />
+                        <Table columns={Columns} dataSource={ads.filter((item) =>
+                            item.name.toLowerCase().includes(searchText.toLowerCase())
+                        )} />
 
                         <PublishAd
                             isOpen={isModalOpen}
