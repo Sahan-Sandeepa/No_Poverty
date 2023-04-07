@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import WrapperCard from "../../common/Wrapper_card";
 import CustomRow from "../../common/Form_header";
-import { Badge, Button, Card, Collapse, Modal, Space } from "antd";
-import { ExclamationCircleFilled } from "@ant-design/icons";
+import { Badge, Button, Card, Collapse, Input, Modal, Space } from "antd";
+import { AudioOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+const { Search } = Input;
 
 const AllEvent = () => {
 
@@ -120,6 +121,16 @@ const AllEvent = () => {
         setActiveTabKey2(key);
     };
 
+    const suffix = (
+        <AudioOutlined
+            style={{
+                fontSize: 16,
+                color: '#1890ff',
+            }}
+        />
+    );
+    const onSearch = (value) => console.log(value);
+
     return (
         <div className="main-container">
 
@@ -137,26 +148,38 @@ const AllEvent = () => {
                             Add
                         </Button>
                     </Link>
+                    <Space direction="vertical">
+                        <Search
+                            placeholder="input search text"
+                            allowClear
+                            enterButton="Search"
+                            size="middle"
+                            onSearch={setsearchDetail}
+                            style={{
+                                marginLeft: "173%"
+                            }}
+                        />
+                    </Space>
                 </section>
                 {eventDetails
-                    // ?.filter((val) => {
-                    //     if (searchDetail === " ") {
-                    //         return val;
-                    //     } else if (
-                    //         val.customerName
-                    //             .toLowerCase()
-                    //             .includes(searchDetail.toLowerCase()) ||
-                    //         val.serialNo
-                    //             .toLowerCase()
-                    //             .includes(searchDetail.toLowerCase()) ||
-                    //         val.status
-                    //             .toLowerCase()
-                    //             .includes(searchDetail.toLowerCase())
-                    //     ) {
-                    //         return val;
-                    //     }
-                    // })
-                    ?.map((eventDetailsVal) => (
+                    ?.filter((val) => {
+                        if (searchDetail === " ") {
+                            return val;
+                        } else if (
+                            val.eventNo
+                                .toLowerCase()
+                                .includes(searchDetail.toLowerCase()) ||
+                            val.eventDate
+                                .toLowerCase()
+                                .includes(searchDetail.toLowerCase()) ||
+                            val.eventName
+                                .toLowerCase()
+                                .includes(searchDetail.toLowerCase())
+                        ) {
+                            return val;
+                        }
+                    })
+                    .map((eventDetailsVal) => (
                         <div className="event_main">
 
                             <Collapse accordion>
