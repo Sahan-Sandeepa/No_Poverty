@@ -1,34 +1,38 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Table, Icon, Button, Space, Input, Col, Row } from 'antd';
 import axios from "axios";
-import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
+import { EditTwoTone, DeleteOutlined, SearchOutlined, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import AddFinancial from './AddFinancial';
 import DeleteModal from '../common/DeleteModal';
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import autoTable from 'jspdf-autotable'
-
+import logo from '../../assets/images/logo2.png'
 const { Search } = Input;
 
 
 const Financial = () => {
     const [financial, setFinancial] = useState([]);
+    const [donation, setDonation] = useState([]);
+
     const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
     const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
-    const [searchResult, setSearchResult] = useState([])
+    const [filteredData, setFilteredFinancial] = useState([])
     const { _id } = useParams();
     const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-
+    const [searchText, setSearchText] = useState("");
+    const history = useNavigate();
 
     const addOrder = async () => {
         setIsModalOpen(false);
         setOpenEditOrderModal(false);
+        refresh();
     }
     const showModal = () => {
         setIsModalOpen(true);
@@ -60,28 +64,45 @@ const Financial = () => {
         })
     }, []);
 
+    function getDonations() {
+        axios.get("http://localhost:4000/donation/")
+            .then((res) => {
+                setDonation(res.data);
+            })
+            .catch((err) => {
+                alert(err.message);
+            });
+    }
+    useEffect(() => {
+        getDonations();
+    }, [])
+
     const handleDelete = async (_id) => {
         setIsDeleteModalOpen(true)
         axios.delete("http://localhost:4000/financial/" + _id)
             .then((result) => {
-                setRefresh("Deleted", result);
+                console.log("Deleted", result);
+                window.location.reload();
+                history.push(history.location.Financial);
 
             }).catch((err) => {
                 console.log(err);
             })
     };
-
+    //added pdf method
     const generatePdf = () => {
-        var doc = new jsPDF()
-        doc.setFontSize(40)
-        doc.text(35, 25, 'Financial Summary')
+        const watermarkTitle = 'Financial Report';
+        // Create the PDF document
+        var doc = new jsPDF();
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'bold');
+        doc.text(10, 10, 'Financial Summary');
+        doc.setFillColor(220, 220, 220);
+        doc.rect(0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight(), 'F');
 
-        autoTable(doc,
+        //header and columns of the pdf
+        doc.autoTable(
             {
-                columns: [
-                    doc.setFontSize(40),
-                    doc.text(35, 25, 'Financial Summary')
-                ],
                 columns: [
                     { header: 'Name', dataKey: 'name' },
                     { header: ' Type', dataKey: 'type' },
@@ -102,14 +123,24 @@ const Financial = () => {
                         total: financial.total,
                         status: financial.status,
                     };
-                })
+                }),
+                didDrawPage: function (data) {
+                    const pageSize = doc.internal.pageSize;
+                    const pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+                    const pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth();
+                    const x = pageWidth / 2;
+                    const y = pageHeight / 2;
+                    doc.setFontSize(65);
+                    doc.setTextColor(255, 128, 128);
+                    doc.text(watermarkTitle, x, y, null, null, 'center');
+
+                }
             })
         doc.save('Financial Report.pdf')
 
     }
 
-    const onSearch = (value) => console.log(value);
-
+    //dashboard columns
     const columns = [{
         title: 'Donation Name',
         dataIndex: 'name',
@@ -119,6 +150,7 @@ const Financial = () => {
         title: 'Fund',
         dataIndex: 'total',
         key: 'total',
+
     },
     ];
 
@@ -161,19 +193,17 @@ const Financial = () => {
 
                 </Button>
                 <Button icon={<DeleteOutlined style={{ color: 'red' }} />}
-                    onClick={() =>
-                        handleDelete(record._id)
-                    }
-
-                ></Button>
+                    onClick={() => {
+                        handleDelete(record._id);
+                        setRefresh(true);
+                    }}
+                />
             </Space>
         ),
     }];
+
     return (
-
-        //     
         <>
-
             <br></br>
             <br></br>
             <br></br>
@@ -181,30 +211,28 @@ const Financial = () => {
             <div style={{ paddingLeft: 150 }} >
                 <div style={{ paddingLeft: 870 }} >
                     <Button onClick={() => { setIsModalOpen(true) }} type="primary">Create Report</Button>
-
-
                 </div>
                 <br></br>
                 <br></br>
-
                 <div style={{ padding: 1, alignItems: "center", width: 1000, height: 650, borderRadius: 5 }}>
-
                     <WrapperCard style={{ backgroundColor: "#37475E" }}>
                         <CustomRow style={{ justifyContent: "space-between", padding: "10px" }} >
                             <h1 style={{ color: "White", fontSize: 18 }}>Financial Summmary</h1>
                             <Col span={12} />
                             <Search
                                 placeholder="input search text"
-                                onSearch={onSearch}
+                                onChange={(e) => setSearchText(e.target.value)}
                                 style={{
                                     width: 250,
                                 }}
+
                             />
                             <Button icon={<FilePdfOutlined style={{ fontSize: '21px', color: 'red' }} />} onClick={generatePdf} />
                         </CustomRow>
                     </WrapperCard>
-                    <Table columns={Columns} dataSource={financial}
-                    />
+                    <Table columns={Columns} dataSource={financial.filter((item) =>
+                        item.name.toLowerCase().includes(searchText.toLowerCase())
+                    )} />
                     <AddFinancial
                         isOpen={isModalOpen}
                         handleCancel={handleCancel}
@@ -217,14 +245,11 @@ const Financial = () => {
                         handleOk={addOrder}
                         selectedItem={selectedItem}
                     />
-
                     <br></br>
                     <br></br>
                     <br></br>
-
-
-                    <Table columns={columns} dataSource={financial} />
-
+                    <Table columns={columns} dataSource={donation}
+                    />
 
                 </div>
             </div>

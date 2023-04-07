@@ -5,6 +5,7 @@ const CustomRow = styled.div`
   justify-content: space-between;
   width: 100%;
   align-items: center;
+  borderRadius:5;
 `
 
 export default CustomRow
