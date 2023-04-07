@@ -1,19 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import '../Event-Main.css'
-import { Descriptions } from "antd";
+import { useReactToPrint } from "react-to-print";
+import { Button, Descriptions, Space } from "antd";
+import { PoweroffOutlined } from "@ant-design/icons";
 
 const DetailsPrint = () => {
     const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        documentTitle: "Event Details",
+    });
 
     const [eventNo, seteventNo] = useState("");
     const [eventName, seteventName] = useState("");
     const [eventPlace, seteventPlace] = useState("");
     const [eventDetails, seteventDetails] = useState("");
     const [eventDate, seteventDate] = useState("");
-
-    // const { id } = useParams();
 
     const { id } = useParams();
 
@@ -41,23 +45,47 @@ const DetailsPrint = () => {
             });
     };
 
+    const [loadings, setLoadings] = useState([]);
+    const downLoading = (index) => {
+        setLoadings((prevLoadings) => {
+            const newLoadings = [...prevLoadings];
+            newLoadings[index] = true;
+            return newLoadings;
+        });
+        setTimeout(() => {
+            setLoadings((prevLoadings) => {
+                const newLoadings = [...prevLoadings];
+                newLoadings[index] = false;
+                return newLoadings;
+            });
+        }, 900);
+    };
+    const enterLoading = (index) => {
+        setLoadings((prevLoadings) => {
+            const newLoadings = [...prevLoadings];
+            newLoadings[index] = true;
+            return newLoadings;
+        });
+        setTimeout(() => {
+            setLoadings((prevLoadings) => {
+                const newLoadings = [...prevLoadings];
+                newLoadings[index] = false;
+                return newLoadings;
+            });
+        }, 900);
+    }
     useEffect(() => getEventDetails(), []);
-    // const location = useLocation();
-
-    const [showA, setShowA] = useState(false);
-
-
-    const [show, setShow] = useState(false);
 
     return (
 
         <div className="main-container">
 
-            <div className="sub-container" ref={componentRef}>
+            <div className="sub-container" style={{ border: "solid 1px black", borderRadius: "7px" }}>
 
-                <div className="form">
+                <div className="form" ref={componentRef}>
 
-                    <Descriptions title="Event Info" layout="vertical" bordered style={{ marginRight: "8%" }}>
+                    <Descriptions title="Event Info" layout="vertical" bordered
+                        style={{ marginRight: "8%", border: "solid 1px black", borderRadius: "10px", padding: "15px" }}>
                         <Descriptions.Item label="Event Number">{eventNo}</Descriptions.Item>
                         <Descriptions.Item label="Event Date" span={2}>
                             {eventDate}
@@ -72,10 +100,35 @@ const DetailsPrint = () => {
                             {eventDetails}
                         </Descriptions.Item>
                     </Descriptions>
-
                 </div>
+                <Space direction="horizontal"
+                    style={{ display: "flex", justifyitem: "center", marginLeft: "43%", marginBottom: "5%" }}>
 
+                    <Space wrap>
+                        <Button type="primary" loading={loadings[0]} onClick={() => downLoading(0)} onClickCapture={handlePrint} style={{
+                            display: "flex",
+                            justifyitem: "center",
+                            marginRight: "50px",
+                        }}>
+                            Download
+                        </Button>
+
+                    </Space>
+
+                    <Space wrap>
+                        <Link to={"/dashboard"}>
+                            <Button
+                                type="primary" danger
+                                loading={loadings[1]}
+                                onClick={() => enterLoading(1)}
+                            >
+                                Cancel
+                            </Button>
+                        </Link>
+                    </Space>
+                </Space>
             </div>
+
         </div>
 
     );
