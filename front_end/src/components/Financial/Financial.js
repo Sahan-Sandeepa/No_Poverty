@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Table, Icon, Button, Space, Input, Col, Row } from 'antd';
 import axios from "axios";
-import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
+import { EditTwoTone, DeleteOutlined, SearchOutlined, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
 import { Link, useParams } from 'react-router-dom'
@@ -18,14 +18,13 @@ const Financial = () => {
     const [financial, setFinancial] = useState([]);
     const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
     const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
-    const [searchResult, setSearchResult] = useState([])
+    const [filteredData, setFilteredFinancial] = useState([])
     const { _id } = useParams();
     const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-
-
+    const [searchText, setSearchText] = useState("");
     const addOrder = async () => {
         setIsModalOpen(false);
         setOpenEditOrderModal(false);
@@ -75,7 +74,7 @@ const Financial = () => {
         const watermarkTitle = 'Financial Report';
         // Create the PDF document
         const watermarkImg = new Image();
-        watermarkImg.src = {logo};
+        watermarkImg.src = { logo };
         var doc = new jsPDF();
         doc.setFontSize(10);
         doc.setFont('helvetica', 'bold');
@@ -120,7 +119,6 @@ const Financial = () => {
 
     }
 
-    const onSearch = (value) => console.log(value);
 
     const columns = [{
         title: 'Donation Name',
@@ -181,6 +179,9 @@ const Financial = () => {
             </Space>
         ),
     }];
+
+
+
     return (
         //     
         <>
@@ -201,16 +202,18 @@ const Financial = () => {
                             <Col span={12} />
                             <Search
                                 placeholder="input search text"
-                                onSearch={onSearch}
+                                onChange={(e) => setSearchText(e.target.value)}
                                 style={{
                                     width: 250,
                                 }}
+
                             />
                             <Button icon={<FilePdfOutlined style={{ fontSize: '21px', color: 'red' }} />} onClick={generatePdf} />
                         </CustomRow>
                     </WrapperCard>
-                    <Table columns={Columns} dataSource={financial}
-                    />
+                    <Table columns={Columns} dataSource={financial.filter((item) =>
+                        item.name.toLowerCase().includes(searchText.toLowerCase())
+                    )} />
                     <AddFinancial
                         isOpen={isModalOpen}
                         handleCancel={handleCancel}
@@ -226,7 +229,9 @@ const Financial = () => {
                     <br></br>
                     <br></br>
                     <br></br>
-                    <Table columns={columns} dataSource={financial} />
+                    <Table columns={columns} dataSource={financial.filter((item) =>
+                        item.name.toLowerCase().includes(searchText.toLowerCase())
+                    )} />
 
                 </div>
             </div>
