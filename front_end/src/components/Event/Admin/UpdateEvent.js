@@ -211,7 +211,7 @@ const UpdateEvent = () => {
                             style={{ paddingTop: "5%" }}
                         >
                             <Typography>
-                                <DatePicker defaultValue={dayjs(eventDate, dateFormat)} format={dateFormat}
+                                <DatePicker value={eventDate && dayjs(eventDate, dateFormat)} 
                                     onChange={onChange} />
                             </Typography>
 
