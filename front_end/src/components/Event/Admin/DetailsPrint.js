@@ -1,17 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useReactToPrint } from "react-to-print";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import '../Event-Main.css'
-import { Badge, Descriptions } from "antd";
+import { Descriptions } from "antd";
 
 const DetailsPrint = () => {
     const componentRef = useRef();
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-        documentTitle: "Event Details",
-        // onafterprint: () => history(-1),
-    });
 
     const [eventNo, seteventNo] = useState("");
     const [eventName, seteventName] = useState("");
@@ -54,42 +48,6 @@ const DetailsPrint = () => {
 
 
     const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const layout = {
-        labelCol: {
-            span: 8,
-
-        },
-        wrapperCol: {
-            span: 90,
-        },
-    };
-
-    // /* eslint-disable no-template-curly-in-string */
-    // const validateMessages = {
-    //     required: '${label} is required!',
-    //     types: {
-    //         email: '${label} is not a valid email!',
-    //         number: '${label} is not a valid number!',
-    //     },
-    //     number: {
-    //         range: '${label} must be between ${min} and ${max}',
-    //     },
-    // };
-    // /* eslint-enable no-template-curly-in-string */
-
-    const onFinish = (values) => {
-        console.log(values);
-    };
-
-    const onChange = (eventDate, dateString) => {
-        seteventDate(dateString);
-    };
-
-    const dateFormat = 'YYYY-MM-DD'
 
     return (
 
