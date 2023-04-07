@@ -47,7 +47,8 @@ const AddFinancial = props => {
     const [venue, setVenue] = useState("");
     const [total, setTotal] = useState();
     const [status, setStatus] = useState("");
-    const [refresh, setRefresh] = useState(false);
+    const [refesh, seRefesh] = useState(false);
+
 
     //handle submit which is a function that  create a new details or update
     const handleSubmit = async (event) => {
@@ -66,9 +67,14 @@ const AddFinancial = props => {
             try {
                 if (selectedItem) {
                     await axios.put(`http://localhost:4000/financial/${selectedItem._id}`, i);
+                    refresh();
+
 
                 } else {
                     await axios.post('http://localhost:4000/financial/create', i);
+                    refresh();
+
+
 
                 }
                 handleOk();
@@ -83,6 +89,9 @@ const AddFinancial = props => {
         }
     };
 
+    const refresh = async () => {
+        await handleSubmit();
+      };
     useEffect(() => {
         if (selectedItem) {
             setName(selectedItem.name);
@@ -93,6 +102,7 @@ const AddFinancial = props => {
             setStatus(selectedItem.status);
         }
     }, [])
+ 
 
     const onChange = (date, dateString) => {
         console.log(date, dateString);
