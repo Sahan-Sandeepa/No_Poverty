@@ -69,18 +69,18 @@ const Financial = () => {
                 console.log(err);
             })
     };
-
+//added pdf method
     const generatePdf = () => {
         const watermarkTitle = 'Financial Report';
         // Create the PDF document
-        const watermarkImg = new Image();
-        watermarkImg.src = { logo };
         var doc = new jsPDF();
         doc.setFontSize(10);
         doc.setFont('helvetica', 'bold');
         doc.text(10, 10, 'Financial Summary');
-
-
+        doc.setFillColor(220, 220, 220);
+        doc.rect(0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight(), 'F');
+      
+//header and columns of the pdf
         doc.autoTable(
             {
                 columns: [
@@ -110,16 +110,17 @@ const Financial = () => {
                     const pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth();
                     const x = pageWidth / 2;
                     const y = pageHeight / 2;
-                    doc.setFontSize(70);
-                    doc.setTextColor(128, 128, 128);
+                    doc.setFontSize(65);
+                    doc.setTextColor(255, 128, 128);
                     doc.text(watermarkTitle, x, y, null, null, 'center');
+                    
                 }
             })
         doc.save('Financial Report.pdf')
 
     }
 
-
+//dashboard columns
     const columns = [{
         title: 'Donation Name',
         dataIndex: 'name',
@@ -170,6 +171,7 @@ const Financial = () => {
                 }}>
 
                 </Button>
+                delete icon
                 <Button icon={<DeleteOutlined style={{ color: 'red' }} />}
                     onClick={() =>
                         handleDelete(record._id)
@@ -180,10 +182,7 @@ const Financial = () => {
         ),
     }];
 
-
-
-    return (
-        //     
+    return (    
         <>
             <br></br>
             <br></br>
