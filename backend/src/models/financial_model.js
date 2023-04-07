@@ -6,7 +6,7 @@ const financialSchema = new Schema({
     type: { type: String, required: true },
     date: { type: String, required: true },
     venue: { type: String, required: true },
-    total: { type: String, required: true },
+    total: { type: Number, required: true },
     status: { type: String, required: true },
 }, {
 

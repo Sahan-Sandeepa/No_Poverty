@@ -23,9 +23,8 @@ dayjs.extend(customParseFormat);
 const config = {
     rules: [
         {
-            type: 'object',
             required: true,
-            message: 'Please select time!',
+            message: 'Please select date!',
         },
     ],
 };
@@ -46,10 +45,11 @@ const AddFinancial = props => {
     const [type, setType] = useState("");
     const [date, setDate] = useState('');
     const [venue, setVenue] = useState("");
-    const [total, setTotal] = useState("");
+    const [total, setTotal] = useState();
     const [status, setStatus] = useState("");
-
     const [refresh, setRefresh] = useState(false);
+
+    //handle submit which is a function that  create a new details or update
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (name !== '' && type !== '') {
@@ -101,7 +101,6 @@ const AddFinancial = props => {
 
     };
     const onStatus = (value) => {
-        // console.log(`selected ${value}`);
         setStatus(value)
     };
     const onType = (value) => {
@@ -112,7 +111,7 @@ const AddFinancial = props => {
 
     return (
         <>
-
+{/* modal which pop the create function or edit function */}
             <Modal
                 open={isOpen}
                 onCancel={handleCancel}
@@ -135,7 +134,7 @@ const AddFinancial = props => {
                     <Col span={12}>
                         <Form.Item
                             name="name"
-                            label="Name"
+                            label="Program Name"
                             initialValue={selectedItem?.name}
                             rules={[
                                 {
@@ -205,7 +204,6 @@ const AddFinancial = props => {
                         >
                             <DatePicker
                                 value={date}
-                                // defaultValue={String(dayjs(selectedItem?.date, dateFormat))}
                                 defaultValue={selectedItem ? dayjs(selectedItem.date, dateFormat) : null}
                                 onChange={onChange}
                             />
@@ -246,8 +244,9 @@ const AddFinancial = props => {
 
                                 rules={[
                                     {
+                                        type:'number',
                                         required: true,
-                                        message: "Please enter the total amount"
+                                        message: "Please enter valid amount"
                                     }
                                 ]}
                             >
