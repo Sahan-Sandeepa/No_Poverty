@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useReactToPrint } from "react-to-print";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import '../Event-Main.css'
+import { useReactToPrint } from "react-to-print";
+import { Button, Descriptions, Space } from "antd";
+import { PoweroffOutlined } from "@ant-design/icons";
 
 const DetailsPrint = () => {
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
         documentTitle: "Event Details",
-        // onafterprint: () => history(-1),
     });
 
     const [eventNo, seteventNo] = useState("");
@@ -17,8 +18,6 @@ const DetailsPrint = () => {
     const [eventPlace, seteventPlace] = useState("");
     const [eventDetails, seteventDetails] = useState("");
     const [eventDate, seteventDate] = useState("");
-
-    // const { id } = useParams();
 
     const { id } = useParams();
 
@@ -34,7 +33,7 @@ const DetailsPrint = () => {
                     eventDate: res.data.Event.eventDate,
                     eventStatus: res.data.Event.eventStatus,
                 };
-                console.log(updateDetails);
+                // console.log(updateDetails);
                 seteventNo(updateDetails.eventNo);
                 seteventName(updateDetails.eventName);
                 seteventPlace(updateDetails.eventPlace);
@@ -46,56 +45,90 @@ const DetailsPrint = () => {
             });
     };
 
+    const [loadings, setLoadings] = useState([]);
+    const downLoading = (index) => {
+        setLoadings((prevLoadings) => {
+            const newLoadings = [...prevLoadings];
+            newLoadings[index] = true;
+            return newLoadings;
+        });
+        setTimeout(() => {
+            setLoadings((prevLoadings) => {
+                const newLoadings = [...prevLoadings];
+                newLoadings[index] = false;
+                return newLoadings;
+            });
+        }, 900);
+    };
+    const enterLoading = (index) => {
+        setLoadings((prevLoadings) => {
+            const newLoadings = [...prevLoadings];
+            newLoadings[index] = true;
+            return newLoadings;
+        });
+        setTimeout(() => {
+            setLoadings((prevLoadings) => {
+                const newLoadings = [...prevLoadings];
+                newLoadings[index] = false;
+                return newLoadings;
+            });
+        }, 900);
+    }
     useEffect(() => getEventDetails(), []);
-    // const location = useLocation();
-
-    const [showA, setShowA] = useState(false);
-
-
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const layout = {
-        labelCol: {
-            span: 8,
-
-        },
-        wrapperCol: {
-            span: 90,
-        },
-    };
-
-    // /* eslint-disable no-template-curly-in-string */
-    // const validateMessages = {
-    //     required: '${label} is required!',
-    //     types: {
-    //         email: '${label} is not a valid email!',
-    //         number: '${label} is not a valid number!',
-    //     },
-    //     number: {
-    //         range: '${label} must be between ${min} and ${max}',
-    //     },
-    // };
-    // /* eslint-enable no-template-curly-in-string */
-
-    const onFinish = (values) => {
-        console.log(values);
-    };
-
-    const onChange = (eventDate, dateString) => {
-        seteventDate(dateString);
-    };
-
-    const dateFormat = 'YYYY-MM-DD'
 
     return (
 
-        <div className="printFormOut" responsive>
-            <div className="oidprintMain" ref={componentRef}>
-                <h1>Event Print</h1>
+        <div className="main-container">
+
+            <div className="sub-container" style={{ border: "solid 1px black", borderRadius: "7px" }}>
+
+                <div className="form" ref={componentRef}>
+
+                    <Descriptions title="Event Info" layout="vertical" bordered
+                        style={{ marginRight: "8%", border: "solid 1px black", borderRadius: "10px", padding: "15px" }}>
+                        <Descriptions.Item label="Event Number">{eventNo}</Descriptions.Item>
+                        <Descriptions.Item label="Event Date" span={2}>
+                            {eventDate}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Event Name" span={3}>
+                            {eventName}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Event Location" span={3}>
+                            {eventPlace}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Event Description" span={3}>
+                            {eventDetails}
+                        </Descriptions.Item>
+                    </Descriptions>
+                </div>
+                <Space direction="horizontal"
+                    style={{ display: "flex", justifyitem: "center", marginLeft: "43%", marginBottom: "5%" }}>
+
+                    <Space wrap>
+                        <Button type="primary" loading={loadings[0]} onClick={() => downLoading(0)} onClickCapture={handlePrint} style={{
+                            display: "flex",
+                            justifyitem: "center",
+                            marginRight: "50px",
+                        }}>
+                            Download
+                        </Button>
+
+                    </Space>
+
+                    <Space wrap>
+                        <Link to={"/dashboard"}>
+                            <Button
+                                type="primary" danger
+                                loading={loadings[1]}
+                                onClick={() => enterLoading(1)}
+                            >
+                                Cancel
+                            </Button>
+                        </Link>
+                    </Space>
+                </Space>
             </div>
+
         </div>
 
     );
