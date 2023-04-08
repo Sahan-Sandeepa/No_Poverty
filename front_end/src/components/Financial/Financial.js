@@ -17,35 +17,29 @@ const { Search } = Input;
 const Financial = () => {
     const [financial, setFinancial] = useState([]);
     const [donation, setDonation] = useState([]);
-
-    const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
     const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
-    const [filteredData, setFilteredFinancial] = useState([])
     const { _id } = useParams();
-    const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [searchText, setSearchText] = useState("");
     const history = useNavigate();
-
+    
+    
     const addOrder = async () => {
         setIsModalOpen(false);
         setOpenEditOrderModal(false);
         refresh();
     }
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-    const handleOk = () => {
-        setIsModalOpen(false);
-        setIsEditModalOpen(false);
-    };
     const handleCancel = () => {
         setIsModalOpen(false);
         setIsEditModalOpen(false);
 
     };
+    const handleDeleteCancel = () => {
+        setIsDeleteModalOpen(false); // Hide the delete modal
+      };
 
     async function getFinancial() {
         await axios.get("http://localhost:4000/financial/")
@@ -57,7 +51,9 @@ const Financial = () => {
                 alert(err.message);
             });
     }
-
+    const refresh = async () => {
+        await getFinancial();
+      };
     useEffect(() => {
         getFinancial().then((va) => {
             console.log(`===> ${financial}`)
@@ -73,18 +69,23 @@ const Financial = () => {
                 alert(err.message);
             });
     }
+
+    
     useEffect(() => {
         getDonations();
     }, [])
 
-    const handleDelete = async (_id) => {
-        setIsDeleteModalOpen(true)
-        axios.delete("http://localhost:4000/financial/" + _id)
-            .then((result) => {
-                console.log("Deleted", result);
-                window.location.reload();
-                history.push(history.location.Financial);
+    
 
+    const handleDelete = async (_id) => {
+        setIsDeleteModalOpen(true); // Show the delete modal
+        setSelectedItem(_id); // Set the selected item to delete
+      };
+    const handleDeleteConfirm  = async (_id) => {
+        axios.delete("http://localhost:4000/financial/" + selectedItem)
+            .then((result) => {
+                setIsDeleteModalOpen(false); // Hide the delete modal
+                refresh();
             }).catch((err) => {
                 console.log(err);
             })
@@ -195,7 +196,8 @@ const Financial = () => {
                 <Button icon={<DeleteOutlined style={{ color: 'red' }} />}
                     onClick={() => {
                         handleDelete(record._id);
-                        setRefresh(true);
+                        refresh();
+
                     }}
                 />
             </Space>
@@ -242,8 +244,15 @@ const Financial = () => {
                     <AddFinancial
                         isOpen={isEditModalOpen}
                         handleCancel={handleCancel}
-                        handleOk={addOrder}
+                        handleOk={async () => { setIsEditModalOpen(false) }}
                         selectedItem={selectedItem}
+                    />
+                    <DeleteModal
+                        isModalOpen={isDeleteModalOpen}
+                        handleCancel={handleDeleteCancel}
+                        handleOk={handleDeleteConfirm}
+                        text="Do you want to delete the report details?"
+                        
                     />
                     <br></br>
                     <br></br>
