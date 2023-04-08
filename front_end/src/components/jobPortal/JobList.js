@@ -6,6 +6,8 @@ import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
 import JobPost from './JobPost';
 import { Link, useParams, useNavigate } from 'react-router-dom'
+import DeleteModal from '../common/DeleteModal';
+
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 
@@ -14,11 +16,10 @@ const { Search } = Input;
 
 const JobList = () => {
     const [jobList, setJobList] = useState([]);
-    const [deleteModalOpen, setIsDeleteModalOpen] = useState(false)
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
     const [searchResult, setSearchResult] = useState([])
     const { _id } = useParams();
-    const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -47,7 +48,9 @@ const JobList = () => {
         setIsEditModalOpen(false);
 
     };
-
+    const handleDeleteCancel = () => {
+        setIsDeleteModalOpen(false); // Hide the delete modal
+      };
     //retireve all the  data
     function getJobList() {
         axios.get("http://localhost:4000/jobHire/")
@@ -62,21 +65,25 @@ const JobList = () => {
         getJobList();
     }, [])
 
+    const refresh = async () => {
+        await getJobList();
+      };
 
     //delete method 
-
     const handleDelete = async (_id) => {
-        setIsDeleteModalOpen(true)
-        axios.delete("http://localhost:4000/jobHire/delete/" + _id)
+        setIsDeleteModalOpen(true); // Show the delete modal
+        setSelectedItem(_id); // Set the selected item to delete
+      };
+    const handleDeleteConfirm  = async (_id) => {
+        axios.delete("http://localhost:4000/jobHire/delete/" + selectedItem)
             .then((result) => {
-                console.log("Deleted", result);
-                // window.location.reload();
-                // history.push(history.location.Financial);
-
+                setIsDeleteModalOpen(false); // Hide the delete modal
+                refresh();
             }).catch((err) => {
                 console.log(err);
             })
     };
+    
 
     //tables header
     //added pdf method
@@ -165,7 +172,6 @@ const JobList = () => {
                 <Button icon={<DeleteOutlined style={{ color: 'red' }} />}
                     onClick={() => {
                         handleDelete(record._id);
-                        setRefresh(true);
                     }}
                 />
             </span>
@@ -231,8 +237,15 @@ const JobList = () => {
                     <JobPost
                         isOpen={isEditModalOpen}
                         handleCancel={handleCancel}
-                        handleOk={addOrder}
+                        handleOk={async () => { setIsEditModalOpen(false) }}
                         selectedItem={selectedItem}
+                    />
+                     <DeleteModal
+                        isModalOpen={isDeleteModalOpen}
+                        handleCancel={handleDeleteCancel}
+                        handleOk={handleDeleteConfirm}
+                        text="Do you want to delete the Job details?"
+                        
                     />
                 </div>
             </div>
