@@ -64,9 +64,13 @@ const JobPost = props => {
             try {
                 if (selectedItem) {
                     await axios.put(`http://localhost:4000/jobHire/update/${selectedItem._id}`, i);
+                    refresh();
+
 
                 } else {
                     await axios.post('http://localhost:4000/jobHire/add', i);
+                    refresh();
+
 
                 }
                 handleOk();
@@ -80,6 +84,9 @@ const JobPost = props => {
 
         }
     };
+    const refresh = async () => {
+        await handleSubmit();
+      };
 
     useEffect(() => {
         if (selectedItem) {

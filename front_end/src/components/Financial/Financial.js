@@ -9,8 +9,7 @@ import AddFinancial from './AddFinancial';
 import DeleteModal from '../common/DeleteModal';
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
-import autoTable from 'jspdf-autotable'
-import logo from '../../assets/images/logo2.png'
+
 const { Search } = Input;
 
 
@@ -24,6 +23,8 @@ const Financial = () => {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [searchText, setSearchText] = useState("");
+    const [ads, setAds] = useState([]);
+
     const history = useNavigate();
     
     
@@ -60,19 +61,17 @@ const Financial = () => {
         })
     }, []);
 
-    function getDonations() {
-        axios.get("http://localhost:4000/donation/")
+    function getAds() {
+        axios.get("http://localhost:4000/adDonations/")
             .then((res) => {
-                setDonation(res.data);
+                setAds(res.data);
             })
             .catch((err) => {
                 alert(err.message);
             });
     }
-
-    
     useEffect(() => {
-        getDonations();
+        getAds();
     }, [])
 
     
@@ -148,9 +147,9 @@ const Financial = () => {
         key: 'name',
         render: text => <a href="#">{text}</a>,
     }, {
-        title: 'Fund',
-        dataIndex: 'total',
-        key: 'total',
+        title: 'Location',
+        dataIndex: 'location',
+        key: 'location',
 
     },
     ];
@@ -257,7 +256,7 @@ const Financial = () => {
                     <br></br>
                     <br></br>
                     <br></br>
-                    <Table columns={columns} dataSource={donation}
+                    <Table columns={columns} dataSource={ads}
                     />
 
                 </div>
