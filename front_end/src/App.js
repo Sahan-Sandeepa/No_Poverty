@@ -8,8 +8,10 @@ import AllEvent from './components/Event/Admin/AllEvent';
 import UpdateEvent from './components/Event/Admin/UpdateEvent';
 import DetailsPrint from './components/Event/Admin/DetailsPrint'
 import Financial from './components/Financial/Financial';
-import JobList from './components/jobPortal/JobList';
-import JobPost from './components/jobPortal/JobPost';
+import JobList from './components/JobPortal/JobList';
+import JobPost from './components/JobPortal/JobPost';
+import Showvacancies from './components/JobFind/Show_Vacancies';
+
 import Home from './pages/Home/Home';
 import MakeDonations from './components/DoDonations/MakeDonations';
 import Register from './components/Register/Register';
@@ -27,6 +29,7 @@ function App() {
 
             <Route path="/add" element={<JobPost />} />
             <Route path="/joblist" element={<JobList />} />
+            <Route path="/ShowVacancies" element={<Showvacancies />} />
 
             {/* Leo's Routes Begin here */}
             <Route  path="/pdonation" element={<PublishAd/>}/> {/*Ad creation form(not being used)*/}
