@@ -14,6 +14,7 @@ import Home from './pages/Home/Home';
 import MakeDonations from './components/DoDonations/MakeDonations';
 import Register from './components/Register/Register';
 import ShowDonations from './components/DoDonations/ShowDonations';
+import EditDonations from './components/DoDonations/EditDonations';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
 
             <Route path="/donate" element={<MakeDonations/>} /> {/*Donating form*/}
             <Route path="/showDonation" element={<ShowDonations/>}/> {/*Donation display*/}
+            <Route path="/editDonation" element={<EditDonations/>}/> {/*Donation editing*/ }
 
             {/*Leo's Routes Ends here*/}
 
