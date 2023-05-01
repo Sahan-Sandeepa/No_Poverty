@@ -29,7 +29,7 @@ function App() {
             <Route path="/joblist" element={<JobList />} />
 
             {/* Leo's Routes Begin here */}
-            <Route  path="/pdonation" element={<PublishAd/>}/> {/*Ad creation form*/}
+            <Route  path="/pdonation" element={<PublishAd/>}/> {/*Ad creation form(not being used)*/}
             <Route path="/showAds" element={<Ads/>} /> {/*Ad display*/}
 
             <Route path="/donate" element={<MakeDonations/>} /> {/*Donating form*/}
