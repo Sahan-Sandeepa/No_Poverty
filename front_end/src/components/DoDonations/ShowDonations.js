@@ -7,6 +7,7 @@ import WrapperCard from '../common/Wrapper_card';
 
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'
+import { Link } from 'react-router-dom';
 
 
 const { Search } = Input;
@@ -29,6 +30,45 @@ const Donations = () => {
     useEffect(() => {
         getDonations();
     }, [])
+
+    async function handleUpdateStatus(id, value) {
+
+        // console.log(id, value);
+
+
+
+
+        axios
+
+            .patch(
+
+                `http://localhost:4000/donation/${id}`,
+
+                {
+
+                    eventStatus: value,
+
+                },
+
+                { headers: { "Content-Type": "application/json" } }
+
+            )
+
+            .then(() => {
+
+                // alert("Details Successfully Updated!");
+
+                window.location.reload(false);
+
+            })
+
+            .catch((err) => {
+
+                alert(err.message);
+
+            });
+
+    }
 
     const generatePdf = () => {
         const watermarkTitle = 'My Donations Report';
@@ -128,7 +168,7 @@ const Donations = () => {
         render: (text, record) => (
             <span>
 
-                <Button icon={<EditTwoTone />}></Button>
+                <Link to="/editDonation"><Button icon={<EditTwoTone />}></Button></Link>
                 <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}></Button>
 
                 {/* <a href="#">Action 一 {record.name}</a>
@@ -161,7 +201,7 @@ const Donations = () => {
                                             width: 200,
                                         }}
                                     />
-                                    <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} onClick={generatePdf}/>
+                                    <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} onClick={generatePdf} />
                                 </CustomRow>
                             </WrapperCard>
                             <Table columns={Columns} dataSource={donate}

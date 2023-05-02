@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const eventSchema = new Schema({eventNo: {type: String,required: true,unique: true,//backend validation
+const registeredEntitySchema = new Schema({
+    id: { type: String },
+    name: { type: String }
+});
+
+const eventSchema = new Schema({eventNo: {type: String,required: true//backend validation
     },
 
     eventName: {type: String,require: true,},
@@ -13,6 +18,8 @@ const eventSchema = new Schema({eventNo: {type: String,required: true,unique: tr
     eventDate: {type: String,require: true,},
 
     eventStatus: { type: String, require: true, default: "OPEN"},
+
+    registeredEntities: { type: [registeredEntitySchema], required: false }
 });
 const event = mongoose.model("event", eventSchema);
 module.exports = event; //export...................
