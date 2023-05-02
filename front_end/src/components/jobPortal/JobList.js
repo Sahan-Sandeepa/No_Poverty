@@ -4,13 +4,11 @@ import axios from "axios";
 import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
-import JobPost from './JobPost';
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import DeleteModal from '../common/DeleteModal';
-
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
-
+import JobPost from './JobPost';
 const { Search } = Input;
 
 
@@ -226,7 +224,6 @@ const JobList = () => {
                     )} />
 
                     {/* passig data to Job post using props */}
-
                     <JobPost
                         isOpen={isModalOpen}
                         handleCancel={handleCancel}

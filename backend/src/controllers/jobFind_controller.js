@@ -27,7 +27,7 @@ const getJobFindlById = async (req, res) => {
 
 // Apply for a job 
 const jobApply = async (req, res) => {
-    const { firstName, lastName, email, contactNum, linkedIn } = req.body
+    const { firstName, lastName, email, contactNum, pastExp } = req.body
 
     //   let emptyFields = []
 
@@ -46,7 +46,7 @@ const jobApply = async (req, res) => {
 
     // add to the database
     try {
-        const jobFind = await JobFind.create({ firstName, lastName, email, contactNum, linkedIn })
+        const jobFind = await JobFind.create({ firstName, lastName, email, contactNum, pastExp })
         res.status(200).json(jobFind)
     } catch (error) {
         res.status(400).json({ error: error.message })
