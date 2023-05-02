@@ -7,9 +7,6 @@ const jobHireSchema = new Schema({
     location: { type: String, required: true },
     openingDate: { type: String, required: true },
     closingDate: { type: String, required: true }
-}, {
-
-    timestamps: true
-})
+},)
 
 module.exports = mongoose.model('JobHire', jobHireSchema)

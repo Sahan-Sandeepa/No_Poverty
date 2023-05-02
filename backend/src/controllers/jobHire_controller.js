@@ -28,23 +28,6 @@ const getJobHirelById = async (req, res) => {
 // create a new Job Vacancy
 const createJobHire = async (req, res) => {
   const { jobTitle, company, location, openingDate, closingDate } = req.body
-
-  //   let emptyFields = []
-
-  //   if (!title) {
-  //     emptyFields.push('title')
-  //   }
-  //   if (!load) {
-  //     emptyFields.push('load')
-  //   }
-  //   if (!reps) {
-  //     emptyFields.push('reps')
-  //   }
-  //   if (emptyFields.length > 0) {
-  //     return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
-  //   }
-
-  // add to the database
   try {
     const jobHire = await JobHire.create({ jobTitle, company, location, openingDate, closingDate })
     res.status(200).json(jobHire)

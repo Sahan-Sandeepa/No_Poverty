@@ -4,33 +4,19 @@ import { Button } from "antd"
 import { Layout, Menu } from "antd"
 import React, { useState } from "react"
 
-
-
 import {
     BankTwoTone,
     UserOutlined,
-    MoneyCollectFilled,
     LineChartOutlined,
-    StockOutlined,
-    TeamOutlined,
-    ShoppingCartOutlined,
     CarFilled
 } from "@ant-design/icons"
 import Header_bar from "../common/header_bar"
-import Home from "../../pages/AdminDashboard/Admin_dashboard"
-import AddFinancial from "../Financial/AddFinancial"
 import Financial from "../Financial/Financial"
-import PublishAd from "../DonationAdmin/PublishAd"
-import JobPost from "../JobPortal/JobPost"
 import Ads from "../DonationAdmin/ShowAllAds"
-import Donations from "../DoDonations/ShowDonations"
-import JobList from "../JobPortal/JobList"
-import Register from "../Register/Register"
 import AllEvent from "../Event/Admin/AllEvent"
-import AddEvent from "../Event/Admin/AddEvent"
-import UpdateEvent from "../Event/Admin/UpdateEvent"
-import Donate from "../DoDonations/MakeDonations"
+
 import Admin from "../../pages/AdminDashboard/Admin_dashboard"
+import JobList from "../JobPortal/JobList"
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -69,13 +55,7 @@ const Dashboard = props => {
         <JobList />,
         <AllEvent />,
         <Financial />,
-        // <Donations />,
-        // <JobPost />,
-        // <JobList />,
-        // <Register />,
-        // <AllEvent />,
-        // <AddEvent/>,
-        // <UpdateEvent />
+
     ]
 
     return (
