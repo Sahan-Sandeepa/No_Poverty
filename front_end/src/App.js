@@ -15,6 +15,7 @@ import DisplayEvent from './components/Event/User/DisplayEvent'
 import EditDonations from './components/DoDonations/EditDonations';
 import JobPost from './components/JobPortal/JobPost';
 import JobList from './components/JobPortal/JobList';
+import UserDashboard from './pages/UserDashboard/UserDashboard';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/Register" element={<Register />} />
+            <Route path="/userDash" element={<UserDashboard/>} />
 
 
             <Route path="/add" element={< JobPost/>} />
@@ -35,12 +37,10 @@ function App() {
             <Route path="/pdonation" element={<PublishAd />} /> {/*Ad creation form(not being used)*/}
             <Route path="/showAds" element={<Ads />} /> {/*Ad display*/}
 
-            <Route path="/donate" element={<MakeDonations />} /> {/*Donating form*/}
-            <Route path="/showDonation" element={<ShowDonations />} /> {/*Donation display*/}
 
             <Route path="/donate" element={<MakeDonations/>} /> {/*Donating form*/}
             <Route path="/showDonation" element={<ShowDonations/>}/> {/*Donation display*/}
-            <Route path="/editDonation" element={<EditDonations/>}/> {/*Donation editing*/ }
+            <Route path="/editDonation/:id" element={<EditDonations/>}/> {/*Donation editing*/ }
 
 
             {/*Leo's Routes Ends here*/}
