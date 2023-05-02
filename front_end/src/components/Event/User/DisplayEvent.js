@@ -22,27 +22,27 @@ const DisplayEvent = () => {
         setModalVisible(true);
     };
 
-const handleCancel = () => {
-    setModalVisible(false);
-};
+    const handleCancel = () => {
+        setModalVisible(false);
+    };
 
-const showParticipateModal = () => {
-    setModalVisible(false);
-    setParticipateModalVisible(true);
-};
+    const showParticipateModal = () => {
+        setModalVisible(false);
+        setParticipateModalVisible(true);
+    };
 
-const handleParticipateCancel = () => {
-    setParticipateModalVisible(false);
-};
+    const handleParticipateCancel = () => {
+        setParticipateModalVisible(false);
+    };
 
-const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-    notification.success({
-        message: "Success",
-        description: "Participation successful"
-    });
-    setParticipateModalVisible(false);
-};
+    const onFinish = (values) => {
+        console.log("Received values of form: ", values);
+        notification.success({
+            message: "Success",
+            description: "Participation successful"
+        });
+        setParticipateModalVisible(false);
+    };
 
     return (
         <div className="main-container">
@@ -54,9 +54,9 @@ const onFinish = (values) => {
                         <h1 style={{ color: "White" }}>Upcoming Events</h1>
                     </CustomRow>
                 </WrapperCard>
-                <div className="form">
+                <div style={{display: 'flex', justifyContent: 'center', margin: '5%'}}>
                     <Card title="Card title" bordered={false} style={{ marginBottom: "20px" }}>
-                        <p>{text}</p>
+                        <p>{text.length > 124 ? text.substring(0, 124) + " ..." : text}</p>
                         <div style={{ display: "flex", justifyContent: "flex-end" }}>
                             <ReadOutlined onClick={showModal} style={{ color: "#5DBB63", cursor: "pointer", marginLeft: "20px" }} />
                         </div>
