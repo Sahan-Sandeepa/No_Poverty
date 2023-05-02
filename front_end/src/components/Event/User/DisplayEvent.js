@@ -1,4 +1,4 @@
-import { Card, Col, Modal, Row, theme } from 'antd';
+import { Card, Modal } from 'antd';
 import React, { useState } from "react";
 import { Form, Input, Button, notification } from "antd";
 import WrapperCard from '../../common/Wrapper_card';
@@ -54,7 +54,7 @@ const DisplayEvent = () => {
                         <h1 style={{ color: "White" }}>Upcoming Events</h1>
                     </CustomRow>
                 </WrapperCard>
-                <div style={{display: 'flex', justifyContent: 'center', margin: '5%'}}>
+                <div style={{ display: 'flex', justifyContent: 'center', margin: '5%' }}>
                     <Card title="Card title" bordered={false} style={{ marginBottom: "20px" }}>
                         <p>{text.length > 124 ? text.substring(0, 124) + " ..." : text}</p>
                         <div style={{ display: "flex", justifyContent: "flex-end" }}>
