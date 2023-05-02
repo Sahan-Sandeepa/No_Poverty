@@ -39,11 +39,10 @@ function App() {
             <Route path="/showAds" element={<Ads />} /> {/*Ad display*/}
 
             <Route path="/donate" element={<MakeDonations />} /> {/*Donating form*/}
-            <Route path="/showDonation" element={<ShowDonations />} /> {/*Donation display*/}
-
+     
             <Route path="/donate" element={<MakeDonations/>} /> {/*Donating form*/}
             <Route path="/showDonation" element={<ShowDonations/>}/> {/*Donation display*/}
-            <Route path="/editDonation" element={<EditDonations/>}/> {/*Donation editing*/ }
+            <Route path="/editDonation/:id" element={<EditDonations/>}/> {/*Donation editing*/ }
 
 
             {/*Leo's Routes Ends here*/}
