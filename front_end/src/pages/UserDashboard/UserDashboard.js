@@ -10,18 +10,14 @@ import {
     LineChartOutlined,
     CarFilled
 } from "@ant-design/icons"
-import Header_bar from "../common/header_bar"
-import Financial from "../Financial/Financial"
-import Ads from "../DonationAdmin/ShowAllAds"
-import AllEvent from "../Event/Admin/AllEvent"
+import Header_bar from "../../components/common/header_bar"
+import JobList from "../../components/JobPortal/JobList"
 
-import Admin from "../../pages/AdminDashboard/Admin_dashboard"
-import JobList from "../JobPortal/JobList"
 
 const { Header, Content, Footer, Sider } = Layout
 
 
-const Dashboard = props => {
+const UserDashboard = props => {
     const { opennav, open } = props
 
     function getItem(label, key, icon) {
@@ -50,11 +46,11 @@ const Dashboard = props => {
 
     const bodyContainer = [
 
-        <Admin />,
-        < Ads />,
         <JobList />,
-        <AllEvent />,
-        <Financial />,
+        // < Ads />,
+        // <JobList />,
+        // <AllEvent />,
+        // <Financial />,
 
     ]
 
@@ -92,4 +88,4 @@ const Dashboard = props => {
     )
 }
 
-export default Dashboard
+export default UserDashboard
