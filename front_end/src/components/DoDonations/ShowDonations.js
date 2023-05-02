@@ -7,7 +7,7 @@ import WrapperCard from '../common/Wrapper_card';
 
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
 const { Search } = Input;
@@ -17,7 +17,8 @@ const Donations = () => {
     const [donate, setDonate] = useState([]);
     const [column, setColumns] = useState([]);
     const [ran, setran] = useState([]);
-
+    const[selectedDonation,setSelected]=useState([])
+    const { _id } = useParams();
     function getDonations() {
         axios.get("http://localhost:4000/donation/")
             .then((res) => {
@@ -168,7 +169,7 @@ const Donations = () => {
         render: (text, record) => (
             <span>
 
-                <Link to="/editDonation"><Button icon={<EditTwoTone />}></Button></Link>
+                <Link to={"/editDonation/" +record._id} ><Button icon={<EditTwoTone />}></Button></Link>
                 <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}></Button>
 
                 {/* <a href="#">Action 一 {record.name}</a>
