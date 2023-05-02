@@ -1,5 +1,6 @@
 const Event = require('../models/event_modal');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const express = require('express');
 
 //Add new event
 const addEvent = async (req, res) => {
@@ -82,6 +83,71 @@ const statusUpdate  = async (req, res) => {
         });
 };
 
+const registerdUpdate = async (req, res) => {
+    try {
+        let eventId = req.params.id;
+
+        // Find the event with the specified ID
+        const event = await Event.findById(eventId);;
+
+        if (!event) {
+            return res.status(404).send({ message: 'Event not found' });
+        }
+
+        // Extract the new registered entities from the request body
+        const { registeredEntities } = req.body;
+
+        // Add the new registered entities to the event
+        event.registeredEntities.push(...registeredEntities);
+
+        // Save the updated event to the database
+        await event.save();
+
+        res.send({ message: 'Registered entities added to event' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: 'Server error' });
+    }
+};
+
+const countID = async (req, res) => {
+    try {
+        let eventId = req.params.id;
+        const event = await Event.findById(eventId);
+        if (!event) {
+            return res.status(404).json({ msg: 'Event not found' });
+        }
+        let count = event.registeredEntities.length;
+        res.json({ count: count});
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+};
+
+const deleteRegistered = async (req, res) => {
+    try {
+        let eventId = req.params.eventId;
+        let entityId = req.params.entityId;
+        const event = await Event.findById(eventId);
+        if (!event) {
+            return res.status(404).send("Event not found");
+        }
+        const entity = event.registeredEntities.id(entityId);
+        if (!entity) {
+            return res.status(404).send("Registered entity not found");
+        }
+        event.registeredEntities.pull(entity);
+        await event.save();
+        res.send("Registered entity deleted successfully");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal server error");
+    }
+
+
+}
+
 module.exports = {
     addEvent,
     getAllEvent,
@@ -89,4 +155,7 @@ module.exports = {
     deleteEvent,
     getSpecific,
     statusUpdate,
+    registerdUpdate,
+    countID,
+    deleteRegistered,
 };
