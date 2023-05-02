@@ -12,7 +12,6 @@ import 'jspdf-autotable'
 
 const { Search } = Input;
 
-
 const Showvacancies = () => {
     const [jobList, setJobList] = useState([]);
     const [searchResult, setSearchResult] = useState([])
@@ -32,6 +31,10 @@ const Showvacancies = () => {
         getAds();
     }, [])
 
+    // const navigate = useNavigate();
+    // const navigateJobApply = () => {
+    //     navigate('./components/JobFind/JobApply');
+    // };
 
     const columns = [{
         title: 'Job Title',
@@ -61,6 +64,17 @@ const Showvacancies = () => {
     {
         title: 'Action',
         key: 'action',
+        render: (text, record) => (
+            <span>
+                <Link to={"/jobApply" } ><Button icon={<EditTwoTone />}></Button></Link>
+
+                {/* <Button icon={<DeleteOutlined style={{ color: 'red' }} />}
+                    onClick={() => {
+                        navigateJobApply();
+                    }}
+                /> */}
+            </span>
+        ),
     },
     ];
 
@@ -82,7 +96,7 @@ const Showvacancies = () => {
                         <WrapperCard style={{ backgroundColor: "#37475E", borderRadius: 5 }}>
                             <CustomRow style={{ justifyContent: "space-between", padding: "10px" }} >
                                 <Row>
-                                <h1 style={{ color: "White", fontSize: 18 ,paddingLeft:25}}>Job vacancies</h1>
+                                    <h1 style={{ color: "White", fontSize: 18, paddingLeft: 25 }}>Job vacancies</h1>
 
                                 </Row>
                                 <Col span={9} />
@@ -105,8 +119,8 @@ const Showvacancies = () => {
                         <br></br>
                         <br></br>
                         <Table columns={columns} dataSource={jobList.filter((job) =>
-                        job.jobTitle.toLowerCase().includes(searchText.toLowerCase())
-                    )}
+                            job.jobTitle.toLowerCase().includes(searchText.toLowerCase())
+                        )}
                         />
                     </Card>
 
