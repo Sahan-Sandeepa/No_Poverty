@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Icon, Button, Space, Input, Col, Row, Modal,Form } from 'antd';
+import { Table, Icon, Button, Space, Input, Col, Row, Modal, Form, Card } from 'antd';
 import axios from "axios";
 import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
-import { useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { ExclamationCircleFilled } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+
 const layout = {
     labelCol: {
         span: 8,
@@ -30,7 +32,9 @@ const EditDonations = () => {
     const [total, setTotal] = useState();
     const [status, setStatus] = useState('');
 
-    const {id} = useParams();
+    const { id } = useParams();
+    const navigate = useNavigate();
+    
 
     // function getDonations() {
     //     axios.get("http://localhost:4000/donation/" + id)
@@ -93,7 +97,7 @@ const EditDonations = () => {
                         .then(() => {
                             // alert("Details Successfully Updated!");
 
-                            //navigate("/MainClaimPage");
+                            navigate("/showDonation");
                         })
                         .catch((err) => {
                             alert(err.message);
@@ -112,164 +116,120 @@ const EditDonations = () => {
     }, [])
 
 
-    const onSearch = (value) => console.log(value);
-
-    // const columns = [{
-    //     title: 'Donation Name',
-    //     dataIndex: 'name',
-    //     key: 'name',
-    //     render: text => <a href="#">{text}</a>,
-    // }, {
-    //     title: 'Fund',
-    //     dataIndex: 'address',
-    //     key: 'address',
-    // },
-    // ];
-
-
-    const Columns = [{
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-    }, {
-        title: 'Email',
-        dataIndex: 'email',
-        key: 'email',
-    }, {
-        title: 'Contact Number',
-        dataIndex: 'contact',
-        key: 'contact',
-    },
-    {
-        title: 'Amount',
-        dataIndex: 'amount',
-        key: 'amount',
-    }, {
-        title: 'Status',
-        dataIndex: 'status',
-        key: 'status',
-        // }, {
-        //     title: 'Status',
-        //     dataIndex: 'status',
-        //     key: 'status',
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (text, record) => (
-            <span>
-
-                <Button icon={<EditTwoTone />}></Button>
-                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}></Button>
-
-                {/* <a href="#">Action 一 {record.name}</a>
-                <span className="ant-divider" />
-                <a href="#">Delete</a> */}
-            </span>
-        ),
-    }];
     return (
-        <div style={{ backgroundColor: "#37475E" }}>
-            <h1>MakeDonations</h1>
-            <Form>
-                <Form.Item
-                    name="name"
-                    label="Name"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Input onChange={(val) => {
-                        setName(val.target.value);
-                    }} />
-                </Form.Item>
-                <Form.Item
-                    name="email"
-                    label="Email"
-                    rules={[
-                        {
-                            type: 'email',
-                        },
-                    ]}
-                >
-                    <Input onChange={(val) => {
-                        setEmail(val.target.value);
-                    }} />
-                </Form.Item>
-                <Form.Item
-                    name="contact"
-                    label="Contact"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Input onChange={(val) => {
-                        setContact(val.target.value);
-                    }} />
-                </Form.Item>
-                <Form.Item
-                    name="amount"
-                >
-                    Enter Amount<Input onChange={(val) => {
-                        setAmount(val.target.value);
-                    }} />
 
-                </Form.Item>
-                <Form.Item
-                    name="total"
-                >
-                    Enter Total<Input onChange={(val) => {
-                        setTotal(val.target.value);
-                    }} />
-                </Form.Item>
-                <Form.Item
-                    name="status"
-                >
-                    Enter status<Input onChange={(val) => {
-                        setStatus(val.target.value);
-                    }} />
+        <><Col span={8} /><Row>
+            <div style={{ paddingLeft: 500 }}>
+                <Card style={{ width: 500, backgroundColor: "lightcyan" }}>
+                    <h1>Edit Donor's Details</h1>
+                    <Form>
+                        <Form.Item
+                            name="name"
 
-                </Form.Item>
-                {/* <Form.Item defaultValue={1000} >
-                <Input 
-                name='amount'
-                id="message"
-                onchange={handleChange}
-                />
-                <h2> MEssage:{amount}</h2>
-            </Form.Item> */}
-                <Form.Item name={['amount']} label="Payment">
-                    <Button type="primary" ghost>
-                        1000
-                    </Button>
-                    <Button type="primary" ghost>
-                        2000
-                    </Button>
-                    <Button type="primary" ghost  id="theButton">
-                        Other
-                    </Button>
-                </Form.Item>
+                            rules={[
+                                {
+                                    required: true,
+                                },
+                            ]}
+                        >
+                            Name<Input value={name} onChange={(val) => {
+                                setName(val.target.value);
+                            }} />
+                        </Form.Item>
+                        <Form.Item
+                            name="email"
+
+                            rules={[
+                                {
+                                    type: 'email',
+                                },
+                            ]}
+                        >
+                            Email<Input value={email} onChange={(val) => {
+                                setEmail(val.target.value);
+                            }} />
+                        </Form.Item>
+                        <Form.Item
+                            name="contact"
+
+                            rules={[
+                                {
+                                    required: true,
+                                },
+                            ]}
+                        >
+                            Contact<Input value={contact} onChange={(val) => {
+                                setContact(val.target.value);
+                            }} />
+                        </Form.Item>
+                        <Form.Item
+                            name="amount"
+                        >
+                            Enter Amount<Input value={amount} disabled onChange={(val) => {
+                                setAmount(val.target.value);
+                            }} />
+
+                        </Form.Item>
+                        {/* <Form.Item
+                            name="total"
+                        >
+                            Enter Total<Input value={total} onChange={(val) => {
+                                setTotal(val.target.value);
+                            } } />
+                        </Form.Item> */}
+                        <Form.Item
+                            name="status"
+                        >
+                            Enter status<Input value={status} disabled onChange={(val) => {
+                                setStatus(val.target.value);
+                            }} />
+
+                        </Form.Item>
+                        {/* <Form.Item defaultValue={1000} >
+<Input
+name='amount'
+id="message"
+onchange={handleChange}
+/>
+<h2> MEssage:{amount}</h2>
+</Form.Item> */}
+                        {/* <Form.Item name={['amount']} label="Payment">
+<Button type="primary" ghost>
+    1000
+</Button>
+<Button type="primary" ghost>
+    2000
+</Button>
+<Button type="primary" ghost id="theButton">
+    Other
+</Button>
+</Form.Item> */}
+
+                        <Row>
+                            <Col span={8} />
+                            <Form.Item
+                                wrapperCol={{
+                                    ...layout.wrapperCol,
+                                    offset: 8,
+                                }}
+                            >
+                                <Link to={"/showDonation"}>
+                                    <Button type="primary" htmlType="submit" onClick={handleSubmit}>
+                                        Update
+                                    </Button>
+                                </Link>
+
+                            </Form.Item>
+                        </Row>
+                    </Form>
+                </Card>
 
 
-                <Form.Item
-                    wrapperCol={{
-                        ...layout.wrapperCol,
-                        offset: 8,
-                    }}
-                >
-                    <Button type="primary" htmlType="submit" onClick={handleSubmit}>
-                        Submit
-                    </Button>
-                </Form.Item>
-            </Form>
+            </div>
+        </Row></>
 
-        </div>
     );
-    
+
 
 }
 export default EditDonations
