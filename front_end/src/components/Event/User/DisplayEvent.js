@@ -58,6 +58,7 @@ const DisplayEvent = () => {
         setModalVisible(true);
     };
 
+
     const handleCancel = () => {
         setModalVisible(false);
     };
@@ -110,11 +111,16 @@ const DisplayEvent = () => {
                             <Card style={{ width: "100%" }} title="Description">
                                 <p>{eventDetailsVal.eventDetails.length > 124 ? eventDetailsVal.eventDetails.substring(0, 120) + " ..." : eventDetailsVal.eventDetails}</p>
                                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                                    <ReadOutlined onClick={() => {
-                                        if (eventDetailsVal._id === selectedEventId) {
-                                            setModalVisible(true);
-                                        }
-                                    }} style={{ color: "#5DBB63", cursor: "pointer", marginLeft: "20px" }} />
+                                    <ReadOutlined
+                                        onClick={() => {
+                                            showModal();
+                                        }}
+                                        style={{
+                                            color: "#5DBB63",
+                                            cursor: "pointer",
+                                            marginLeft: "20px",
+                                        }}
+                                    />
 
                                 </div>
                             </Card>

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import WrapperCard from "../../common/Wrapper_card";
 import CustomRow from "../../common/Form_header";
-import { Badge, Button, Card, Collapse, Input, Modal, Space, Statistic } from "antd";
-import { AudioOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+import { Badge, Button, Card, Collapse, Input, Modal, Space, Typography } from "antd";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 const { Search } = Input;
 
 const AllEvent = () => {
@@ -100,6 +100,7 @@ const AllEvent = () => {
     const [activeTabKey2, setActiveTabKey2] = useState('app');
 
 
+
     return (
         <div className="main-container">
 
@@ -177,11 +178,11 @@ const AllEvent = () => {
 
                                     <Card title={eventDetailsVal.eventName} extra={
                                         <div className="main_btn-controller">
-                                            <Link >
+                                            {/* <Link >
                                                 <Button htmlType="reset" onClick={() => handleEventSelect(eventDetailsVal._id)} className="print_btn">
                                                     participants
                                                 </Button>
-                                            </Link>
+                                            </Link> */}
                                             <Link
                                                 to={
                                                     "/updateEvent/" +
@@ -207,10 +208,21 @@ const AllEvent = () => {
                                             </Link>
                                         </div>
                                     }>
-                                        
-                                        <Card style={{ width: '100%' }} title="Participants" extra={showCount(eventDetailsVal._id, count.id)}>
-                                            <Statistic value={eventCounts[eventDetailsVal._id] ?? 0} />
-                                        </Card>
+
+
+                                        <Typography style={{ display: 'flex', justifyContent: 'space-between', marginBottom: "10px" }}>
+                                            <Button htmlType="reset" style={{ textAlign: 'left', backgroundColor: "#dbe0ed", width: "15%" }} onClick={() => handleEventSelect(eventDetailsVal._id)} className="print_btn">
+                                                participants
+                                            </Button>
+                                            {/* <pre onClick={() => handleEventSelect(eventDetailsVal._id)} >Participants</pre> */}
+                                            {/* <pre style={{ textAlign: 'right' }}>{showCount(eventDetailsVal._id, count.id)}</pre> */}
+
+                                            <Link to={"/AllParticipants/" + eventDetailsVal._id}>
+                                                <Button htmlType="reset" style={{ textAlign: 'right', backgroundColor: "#dbe0ed", width: "15%", marginRight: "3%" }} className="print_btn">
+                                                    {showCount(eventDetailsVal._id, count.id)}
+                                                </Button>
+                                            </Link>
+                                        </Typography>
 
 
                                         <Card style={{

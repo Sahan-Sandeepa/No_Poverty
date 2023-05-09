@@ -18,6 +18,7 @@ import EditDonations from './components/DoDonations/EditDonations';
 import JobPost from './components/JobPortal/JobPost';
 import JobList from './components/JobPortal/JobList';
 import UserDashboard from './pages/UserDashboard/UserDashboard';
+import AllParticipants from './components/Event/Admin/AllParticipants '
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
             <Route path="/updateEvent/:id" element={<UpdateEvent />} />
             <Route path="/printDetails/:id" element={<DetailsPrint />} />
             <Route path="/userEvent" element={<DisplayEvent />} />
+            <Route path="/AllParticipants/:id" element={<AllParticipants />}/>
 
 
             <Route />
