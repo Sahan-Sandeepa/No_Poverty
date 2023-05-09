@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import WrapperCard from "../../common/Wrapper_card";
+import { v4 as uuidv4 } from 'uuid';
 import {
     Button,
     DatePicker,
@@ -14,6 +15,7 @@ import '../Event-Main.css'
 import dayjs from 'dayjs';
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
+
 
 const AddEvent = () => {
 
@@ -59,6 +61,11 @@ const AddEvent = () => {
             }
         });
     };
+
+    useEffect(() => {
+        const uniqueEventNo = uuidv4();
+        seteventNo(uniqueEventNo);
+    }, []);
 
     const onFinish = (values) => {
         console.log(values);
@@ -109,7 +116,7 @@ const AddEvent = () => {
                                 { required: true, message: '${label} is required!' },
                             ]}
                         >
-                            <Input onChange={(e) => {
+                            <Input style={{ backgroundColor: "white" }} placeholder={eventNo} disabled onChange={(e) => {
                                 seteventNo(e.target.value);
                             }} />
                         </Form.Item>
@@ -152,9 +159,6 @@ const AddEvent = () => {
                                 onChange={onChange} />
 
                         </Form.Item>
-
-                        {/* <Form.Item name={['user', 'website']} label="Website"><Input /></Form.Item> */}
-
                         <Form.Item
 
                             name="eventDetails"
@@ -185,18 +189,6 @@ const AddEvent = () => {
                                 </Button>
                             </section>
                         </Form.Item>
-
-                        {/* <Form.Item
-                            wrapperCol={{
-                                ...layout.wrapperCol,
-                                offset: 18,
-                            }}
-                        >
-                            <Button type="primary" htmlType="reset" className="add-btn">
-                                Reset
-                            </Button>
-                        </Form.Item> */}
-
                     </Form>
                 </div>
             </div>
