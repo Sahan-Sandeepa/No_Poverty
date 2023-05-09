@@ -6,7 +6,7 @@ const jobFindSchema = new Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true },
     contactNum: { type: String, required: true },
-    linkedIn: { type: String, required: true }
+    pastExp: { type: String, required: true }
 }, {
 
     timestamps: true

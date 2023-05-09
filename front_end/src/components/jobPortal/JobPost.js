@@ -250,4 +250,4 @@ const JobPost = props => {
     )
 }
 
-export default JobPost
+export default JobPost;

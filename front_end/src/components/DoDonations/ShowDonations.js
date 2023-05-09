@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Icon, Button, Space, Input, Col, Row } from 'antd';
+import { Table, Icon, Button, Space, Input, Col, Row, Card } from 'antd';
 import axios from "axios";
 import { EditTwoTone, DeleteOutlined, DeleteTwoTone, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
@@ -7,6 +7,7 @@ import WrapperCard from '../common/Wrapper_card';
 
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'
+import { Link, useParams } from 'react-router-dom';
 
 
 const { Search } = Input;
@@ -16,7 +17,8 @@ const Donations = () => {
     const [donate, setDonate] = useState([]);
     const [column, setColumns] = useState([]);
     const [ran, setran] = useState([]);
-
+    const [selectedDonation, setSelected] = useState([])
+    const { _id } = useParams();
     function getDonations() {
         axios.get("http://localhost:4000/donation/")
             .then((res) => {
@@ -29,6 +31,45 @@ const Donations = () => {
     useEffect(() => {
         getDonations();
     }, [])
+
+    async function handleUpdateStatus(id, value) {
+
+        // console.log(id, value);
+
+
+
+
+        axios
+
+            .patch(
+
+                `http://localhost:4000/donation/${id}`,
+
+                {
+
+                    eventStatus: value,
+
+                },
+
+                { headers: { "Content-Type": "application/json" } }
+
+            )
+
+            .then(() => {
+
+                // alert("Details Successfully Updated!");
+
+                window.location.reload(false);
+
+            })
+
+            .catch((err) => {
+
+                alert(err.message);
+
+            });
+
+    }
 
     const generatePdf = () => {
         const watermarkTitle = 'My Donations Report';
@@ -128,8 +169,8 @@ const Donations = () => {
         render: (text, record) => (
             <span>
 
-                <Button icon={<EditTwoTone />}></Button>
-                <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}></Button>
+                <Link to={"/editDonation/" + record._id} ><Button icon={<EditTwoTone />}></Button></Link>
+                {/* <Button icon={<DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />}></Button> */}
 
                 {/* <a href="#">Action 一 {record.name}</a>
                 <span className="ant-divider" />
@@ -144,33 +185,43 @@ const Donations = () => {
             <br></br>
             <br></br>
 
-            <div style={{ paddingLeft: 150 }} >
-                <div style={{ paddingLeft: 50 }} >
-                    <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
-                        <Col span={50} />
-                        <Col span={30}>
 
-                            <WrapperCard style={{ backgroundColor: "#37475E" }}>
-                                <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
-                                    <h1 style={{ color: "White" }}>Donation History</h1>
-                                    <Col span={10} />
+
+            <div style={{ paddingLeft: 150 }} >
+
+                <div style={{ padding: 1, alignItems: "center", width: 900, height: 650, borderRadius: 5 }}>
+
+                    <Card style={{ backgroundColor: "purple" }}>
+                        <WrapperCard style={{ backgroundColor: "#37475E", borderRadius: 5 }}>
+                            <CustomRow style={{ justifyContent: "space-between", padding: "10px" }} >
+                                <h1 style={{ color: "White", fontSize: 18, paddingLeft: 25 }}>Donation History</h1>
+                                <Col span={2} />
+                                <div style={{paddingRight:50}}>
                                     <Search
-                                        placeholder="input search text"
+                                        placeholder="Input Search Text"
                                         onSearch={onSearch}
                                         style={{
                                             width: 200,
                                         }}
                                     />
-                                    <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} onClick={generatePdf}/>
-                                </CustomRow>
-                            </WrapperCard>
-                            <Table columns={Columns} dataSource={donate}
-                                bordered
-                            // title={() => 'Financial Details'}
-                            />
-                        </Col>
-                    </div>
-                </div></div>
+                                </div>
+
+
+                            </CustomRow>
+                        </WrapperCard>
+
+                        <Table columns={Columns} dataSource={donate}
+                            bordered
+                        // title={() => 'Financial Details'}
+                        />
+                    </Card>
+
+                </div>
+
+            </div>
+
+
+
         </>
     )
 }
