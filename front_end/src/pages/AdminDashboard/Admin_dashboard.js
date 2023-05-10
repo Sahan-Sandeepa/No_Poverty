@@ -3,56 +3,128 @@ import logo from "../../assets/images/logo.png"
 import { DualAxes } from '@ant-design/plots';
 import { Card, Col, Row, Typography, Table, AutoComplete } from "antd"
 import { AppstoreTwoTone, UserOutlined } from "@ant-design/icons"
-const url = "http://localhost:4000/financial/";
+import axios, { Axios } from 'axios';
 
+const url = "http://localhost:4000/financial/";
+const url1="http://localhost:4000/event/getAll";
 
 function Admin() {
     const { Title, Text } = Typography
-    const [donation, setDonation] = useState(0)
+    const [donate, setDonate] = useState([]);
     const [users, setUser] = useState()
-    const [event, setEvent] = useState()
-    const [financial, setFinancial] = useState();
+    const [jobList, setJobList] = useState([]);
+    const [financial, setFinancial] = useState([]);
     const [items, setItems] = useState([]);
     const [totalSum, setTotalSum] = useState(0);
+    const [eventDetails, setAllEventDetails] = useState([]);
 
+    function getJobList() {
+        axios.get("http://localhost:4000/jobHire/")
+            .then((res) => {
+                setJobList(res.data);
+            })
+            .catch((err) => {
+                alert(err.message);
+            });
+    }
+    useEffect(() => {
+        getJobList();
+    }, [])
+
+    function getAllEventDetails() {
+        axios
+            .get("http://localhost:4000/event/getAll")
+            .then((res) => {
+                setAllEventDetails(res.data.Event);
+            })
+            .catch(() => {
+                alert("Check The Connectivity");
+            });
+    }
+    // console.log(eventDetails);
+    useEffect(() => getAllEventDetails(), []);
+    //get Donation
+    function getDonations() {
+        axios.get("http://localhost:4000/donation/")
+            .then((res) => {
+                setDonate(res.data);
+            })
+            .catch((err) => {
+                alert(err.message);
+            });
+    }
+    useEffect(() => {
+        getDonations();
+    }, [])
+
+      const totalevents = eventDetails.length;
+      const totalFReport = financial.length;
+      const totalDonation = donate.length;
+      const totaljOB = jobList.length;
+
+
+
+    async function getFinancial() {
+        await axios.get("http://localhost:4000/financial/")
+            .then((res) => {
+                console.log(res.data)
+                setFinancial(res.data);
+            })
+            .catch((err) => {
+                alert(err.message);
+            });
+    }
 
     useEffect(() => {
-        const getData = async () => {
-            const response = await fetch(url);
-            const items = await response.json();
-            setItems(items);
-            console.timeLog(items);
-        };
-        getData()
+        getFinancial().then((va) => {
+            console.log(`===> ${financial}`)
+        })
     }, []);
 
-    useEffect(() => {
-        const total = items.reduce((acc, row) => acc + row.amount, 0);
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         const response = await fetch(url);
+    //         const financial = await response.json();
+    //         setFinancial(financial);
+    //         console.timeLog(financial);
+    //     };
+    //     getData()
+    // }, []);
 
-        setTotalSum(items.total)
-    }, [items]);
+    useEffect(() => {
+        if (financial) {
+          const total = financial.reduce((acc, row) => acc + row.total, 0);
+          setTotalSum(total);
+        }
+      }, [financial]);
 
     const count = [
         {
-            today: "Total Users",
-            title: `${users}`,
+            today: "Total Job posted",
+            title: `${totaljOB}`,
             icon: <UserOutlined />,
             bnb: "bnb2",
         },
         {
             today: "Total Donation",
-            title: `${donation}`,
+            title: `${totalDonation}`,
             icon: <AppstoreTwoTone />,
             bnb: "bnb2",
 
         },
         {
             today: "Total Events",
-            title: `${event}`,
+            title: `${totalevents}`,
             icon: <AppstoreTwoTone />,
             bnb: "redtext",
 
 
+        },
+        {
+            today: "Total Financial Report",
+            title: `${totalFReport}`,
+            icon: <UserOutlined />,
+            bnb: "bnb2",
         },
 
     ]
@@ -121,7 +193,7 @@ function Admin() {
     ];
     return (
         <>
-            <div style={{ paddingLeft: 150 }} >
+            <div style={{ paddingLeft: 100 }} >
                 <div style={{ paddingLeft: 70 }} ></div>
                 <Col span={5} />
 
@@ -164,13 +236,14 @@ function Admin() {
                         <Col span={4} />
                         <Card style={{backgroundColor:'#dfa5ec'}}>
                             <div>
-                                <Table dataSource={items} columns={columns} />
-                                <Row>
-                                    <Col span={12}>
-                                        {/* {totalSum === null ? 'Loading...' : `Count: ${totalSum}`} */}
-                                        <h3>Total Bill : {totalSum}</h3>
+                                <Table  columns={columns} dataSource={financial}/>
+                                <Card><Row>
+                                    <Col span={18}>
+                                        <h3>Total  : Rs {totalSum}</h3>
                                     </Col>
-                                </Row>
+                                </Row></Card>
+                                
+                                
 
                             </div>
                         </Card>

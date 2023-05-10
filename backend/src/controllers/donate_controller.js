@@ -25,13 +25,10 @@ const getDonationById = async (req, res) => {
   res.status(200).json(donation)
 }
 
-// create a new Financial
+// create a new Donation
 const makeDonation = async (req, res) => {
   const {name,email,contact,amount,total,status} = req.body
 
-  console.log(name);
-  console.log(email);
-  console.log(contact);
 //   let emptyFields = []
 
 //   if (!title) {
