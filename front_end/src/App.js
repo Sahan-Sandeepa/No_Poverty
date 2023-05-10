@@ -21,6 +21,7 @@ import JobList from './components/JobPortal/JobList';
 import UserDashboard from './pages/UserDashboard/UserDashboard';
 import AllParticipants from './components/Event/Admin/AllParticipants '
 import CardDetails from './components/DoDonations/CardDetails';
+import PaymentPortal from './components/DoDonations/PaymentPortal';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
             <Route path="/showDonation" element={<ShowDonations/>}/> {/*Donation display*/}
             <Route path="/editDonation/:id" element={<EditDonations/>}/> {/*Donation editing*/ }
             <Route path='/cardDetails/' element={<CardDetails/>}/> {/*Card Detail Page*/}
+            <Route path='/paymentPortal' element={<PaymentPortal/>} /> {/* Payment page*/ }
 
             {/*Leo's Routes Ends here*/}
 
