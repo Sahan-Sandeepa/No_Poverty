@@ -18,6 +18,7 @@ import EditDonations from './components/DoDonations/EditDonations';
 import JobPost from './components/JobPortal/JobPost';
 import JobList from './components/JobPortal/JobList';
 import UserDashboard from './pages/UserDashboard/UserDashboard';
+import CardDetails from './components/DoDonations/CardDetails';
 
 
 function App() {
@@ -44,7 +45,7 @@ function App() {
             <Route path="/donate" element={<MakeDonations/>} /> {/*Donating form*/}
             <Route path="/showDonation" element={<ShowDonations/>}/> {/*Donation display*/}
             <Route path="/editDonation/:id" element={<EditDonations/>}/> {/*Donation editing*/ }
-
+            <Route path='/cardDetails/' element={<CardDetails/>}/> {/*Card Detail Page*/}
 
             {/*Leo's Routes Ends here*/}
 
