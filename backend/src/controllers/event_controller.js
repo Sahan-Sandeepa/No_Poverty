@@ -83,47 +83,68 @@ const statusUpdate  = async (req, res) => {
         });
 };
 
-const registerdUpdate = async (req, res) => {
+// const registerdUpdate = async (req, res) => {
+//     try {
+//         let eventId = req.params.id;
+
+//         // Find the event with the specified ID
+//         const event = await Event.findById(eventId);;
+
+//         if (!event) {
+//             return res.status(404).send({ message: 'Event not found' });
+//         }
+
+//         // Extract the new registered entities from the request body
+//         const { registeredEntities } = req.body;
+
+//         // Add the new registered entities to the event
+//         event.registeredEntities.push(...registeredEntities);
+
+//         // Save the updated event to the database
+//         await event.save();
+
+//         res.send({ message: 'Registered entities added to event' });
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send({ message: 'Server error' });
+//     }
+// };
+
+async function registerdUpdate(req, res) {
     try {
-        let eventId = req.params.id;
-
-        // Find the event with the specified ID
-        const event = await Event.findById(eventId);;
-
+        const eventId = req.params.id;
+        const registeredEntity = req.body;
+        const event = await Event.findById(eventId);
         if (!event) {
-            return res.status(404).send({ message: 'Event not found' });
+            return res.status(404).send("Event not found");
         }
-
-        // Extract the new registered entities from the request body
-        const { registeredEntities } = req.body;
-
-        // Add the new registered entities to the event
-        event.registeredEntities.push(...registeredEntities);
-
-        // Save the updated event to the database
+        if (!Array.isArray(event.registeredEntities)) {
+            event.registeredEntities = [];
+        }
+        event.registeredEntities.push(registeredEntity);
         await event.save();
-
-        res.send({ message: 'Registered entities added to event' });
+        res.status(201).json(event);
     } catch (err) {
         console.error(err);
-        res.status(500).send({ message: 'Server error' });
+        res.status(500).json({ error: "Server error" });
     }
-};
+}
 
 const countID = async (req, res) => {
     try {
-        let eventId = req.params.id;
-        const event = await Event.findById(eventId);
+        let id = req.params.id;
+        const event = await Event.findById(id);
         if (!event) {
             return res.status(404).json({ msg: 'Event not found' });
         }
         let count = event.registeredEntities.length;
-        res.json({ count: count});
+        res.json({ count: count, id: id });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
     }
 };
+
 
 const deleteRegistered = async (req, res) => {
     try {

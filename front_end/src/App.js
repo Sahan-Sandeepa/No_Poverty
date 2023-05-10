@@ -9,6 +9,7 @@ import UpdateEvent from './components/Event/Admin/UpdateEvent';
 import DetailsPrint from './components/Event/Admin/DetailsPrint'
 import Showvacancies from './components/JobFind/Show_Vacancies';
 import JobApply from './components/JobFind/JobApply';
+import AppliedJobs from './components/JobFind/AppliedJobs';
 import Home from './pages/Home/Home';
 import MakeDonations from './components/DoDonations/MakeDonations';
 import Register from './components/Register/Register';
@@ -18,6 +19,7 @@ import EditDonations from './components/DoDonations/EditDonations';
 import JobPost from './components/JobPortal/JobPost';
 import JobList from './components/JobPortal/JobList';
 import UserDashboard from './pages/UserDashboard/UserDashboard';
+import AllParticipants from './components/Event/Admin/AllParticipants '
 import CardDetails from './components/DoDonations/CardDetails';
 
 
@@ -36,6 +38,7 @@ function App() {
             <Route path="/joblist" element={<JobList />} />
             <Route path="/ShowVacancies" element={<Showvacancies />} />
             <Route path="/jobApply" element={<JobApply />} />
+            <Route path="/appliedjobs" element={<AppliedJobs />} />
 
             {/* Leo's Routes Begin here */}
             <Route path="/pdonation" element={<PublishAd />} /> {/*Ad creation form(not being used)*/}
@@ -56,6 +59,7 @@ function App() {
             <Route path="/updateEvent/:id" element={<UpdateEvent />} />
             <Route path="/printDetails/:id" element={<DetailsPrint />} />
             <Route path="/userEvent" element={<DisplayEvent />} />
+            <Route path="/AllParticipants/:id" element={<AllParticipants />}/>
 
 
             <Route />
