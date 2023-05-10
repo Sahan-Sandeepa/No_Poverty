@@ -94,22 +94,28 @@ const DisplayEvent = () => {
                     {eventDetails.map((eventDetailsVal) => (
                         <Card
                             key={eventDetailsVal._id}
-                            title={eventDetailsVal.eventName}
+                            title={<div style={{ textAlign: "center", fontWeight: "bolder" }}>{eventDetailsVal.eventName}</div>}
                             bordered={false}
-                            style={{ marginBottom: "20px", width: "100%" }}
-                            extra={eventDetailsVal.eventStatus}
+                            style={{
+                                marginBottom: "20px",
+                                width: "100%",
+                                backgroundColor: selectedEventId === eventDetailsVal._id ? "#e6f7ff" : "#fff",
+                                border: selectedEventId === eventDetailsVal._id ? "2px solid #1890ff" : "1px solid #d9d9d9"
+                            }}
                             onClick={() => handleEventSelect(eventDetailsVal._id)}
+
                         >
-                            <div style={{ display: "flex" }}>
-                                <Card style={{ width: "100%" }} title="Location">
-                                    {eventDetailsVal.eventPlace}
+
+                            <div style={{ display: "flex", marginBottom: "10px" }}>
+                                <Card style={{ width: "100%", backgroundColor: "#eaeaea", marginRight: "10px" }} title={<div style={{ textAlign: "center", fontWeight: "bold" }}>Location</div>}>
+                                    <div style={{ fontWeight: "lighter" }}> {eventDetailsVal.eventPlace}</div>
                                 </Card>
-                                <Card style={{ width: "100%" }} title="Date">
-                                    {eventDetailsVal.eventDate}
+                                <Card style={{ width: "100%", backgroundColor: "#eaeaea" }} title={<div style={{ textAlign: "center", fontWeight: "bold" }}>Date</div>}>
+                                    <div style={{ fontWeight: "lighter", display: "flex", justifyContent: "center" }}>{eventDetailsVal.eventDate}</div>
                                 </Card>
                             </div>
-                            <Card style={{ width: "100%" }} title="Description">
-                                <p>{eventDetailsVal.eventDetails.length > 124 ? eventDetailsVal.eventDetails.substring(0, 120) + " ..." : eventDetailsVal.eventDetails}</p>
+                            <Card style={{ width: "100%", backgroundColor: "#eaeaea" }} title={<div style={{ textAlign: "center", fontWeight: "bold" }}>Description</div>}>
+                                <p style={{ fontWeight: "lighter" }}>{eventDetailsVal.eventDetails.length > 124 ? eventDetailsVal.eventDetails.substring(0, 120) + " ..." : eventDetailsVal.eventDetails}</p>
                                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                                     <ReadOutlined
                                         onClick={() => {
@@ -138,8 +144,8 @@ const DisplayEvent = () => {
                                     <Form onFinish={handleSubmit}>
 
                                         <FormItem>
-                                            <Card style={{ width: "100%" }} title="Description">
-                                                <p>{eventDetailsVal.eventDetails}</p>
+                                            <Card style={{ width: "100%", backgroundColor: "#EAEAEA" }} title={<div style={{ textAlign: "center", fontWeight: "bold" }}>Participate</div>}>
+                                                <p style={{ fontWeight: "lighter" }}>{eventDetailsVal.eventDetails}</p>
                                             </Card>
                                             <h3 style={{ display: "flex", justifyContent: "center" }}>Participate in Event</h3>
                                         </FormItem>
