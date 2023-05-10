@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import WrapperCard from "../../common/Wrapper_card";
 import CustomRow from "../../common/Form_header";
-import { Badge, Button, Card, Collapse, Input, Modal, Space } from "antd";
-import { AudioOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+import { Badge, Button, Card, Collapse, Input, Modal, Space, Typography } from "antd";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 const { Search } = Input;
 
 const AllEvent = () => {
@@ -12,34 +12,21 @@ const AllEvent = () => {
     const [dropdown, setDropdown] = useState("OPEN");
     const [eventDetails, setAllEventDetails] = useState([]);
     const [searchDetail, setsearchDetail] = useState("");
+    const [eventId, setEventId] = useState("");
+    const [count, setcount] = useState(0);
+    const [eventCounts, setEventCounts] = useState({});
+
+
     const { confirm } = Modal;
 
-    async function handleUpdateStatus(id, value) {
-        // console.log(id, value);
-
-        axios
-            .patch(
-                `http://localhost:4000/event/update/${id}`,
-                {
-                    eventStatus: value,
-                },
-                { headers: { "Content-Type": "application/json" } }
-            )
-            .then(() => {
-                // alert("Details Successfully Updated!");
-                window.location.reload(false);
-            })
-            .catch((err) => {
-                alert(err.message);
-            });
-    }
 
     function getAllEventDetails() {
         axios
             .get("http://localhost:4000/event/getAll")
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 setAllEventDetails(res.data.Event);
+                // setEventId(res.data.Event[0]._id);
             })
             .catch(() => {
                 alert("Check The Connectivity");
@@ -61,17 +48,6 @@ const AllEvent = () => {
             });
         // }
     }
-    // const ColoredLine = () => (
-    //     <hr
-    //         style={{
-    //             color: "#F0FFFF",
-    //             backgroundColor: "#7FFFD4",
-    //             height: 105,
-    //             width: 190,
-    //         }}
-    //     />
-    // );
-
     const showPromiseConfirm = (val) => {
         confirm({
             title: 'Do you want to delete these items?',
@@ -90,46 +66,40 @@ const AllEvent = () => {
             onCancel() { },
         });
     };
+    console.log(count)
 
-    const layout = {
-        labelCol: {
-            span: 7,
-
-        },
-        wrapperCol: {
-            span: 100,
-        },
+    const handleEventSelect = (eventId) => {
+        setEventId(eventId);
+        setcount(0); // reset count to zero
+        axios
+            .get(`http://localhost:4000/event/${eventId}/registered-entities-count`)
+            .then((res) => {
+                setcount(res.data);
+            })
+            .catch(() => {
+                alert("Something Went wrong on count");
+            });
     };
+
+    const showCount = (eid, cid) => {
+        if (eid === cid) {
+            return count.count
+        }
+        else { return 0 }
+    }
 
     const [showA, setShowA] = useState(false);
 
-    const toggleShowA = () => setShowA(!showA);
 
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     const { Panel } = Collapse;
 
     const [activeTabKey1, setActiveTabKey1] = useState('tab1');
     const [activeTabKey2, setActiveTabKey2] = useState('app');
-    const onTab1Change = (key) => {
-        setActiveTabKey1(key);
-    };
-    const onTab2Change = (key) => {
-        setActiveTabKey2(key);
-    };
 
-    const suffix = (
-        <AudioOutlined
-            style={{
-                fontSize: 16,
-                color: '#1890ff',
-            }}
-        />
-    );
-    const onSearch = (value) => console.log(value);
+
 
     return (
         <div className="main-container">
@@ -179,7 +149,7 @@ const AllEvent = () => {
                             return val;
                         }
                     })
-                    .map((eventDetailsVal) => (
+                    .map((eventDetailsVal, index) => (
                         <div className="event_main">
 
                             <Collapse accordion>
@@ -202,13 +172,17 @@ const AllEvent = () => {
                                             style={{
                                                 backgroundColor: 'purple',
                                                 fontSize: "14px"
-                                            }}
-                                        />
+                                            }} />
                                     </Space>
                                 } key="1">
 
                                     <Card title={eventDetailsVal.eventName} extra={
                                         <div className="main_btn-controller">
+                                            {/* <Link >
+                                                <Button htmlType="reset" onClick={() => handleEventSelect(eventDetailsVal._id)} className="print_btn">
+                                                    participants
+                                                </Button>
+                                            </Link> */}
                                             <Link
                                                 to={
                                                     "/updateEvent/" +
@@ -234,9 +208,22 @@ const AllEvent = () => {
                                             </Link>
                                         </div>
                                     }>
-                                        {/* <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
-                                            Inner Card content
-                                        </Card> */}
+
+
+                                        <Typography style={{ display: 'flex', justifyContent: 'space-between', marginBottom: "10px" }}>
+                                            <Button htmlType="reset" style={{ textAlign: 'left', backgroundColor: "#dbe0ed", width: "15%" }} onClick={() => handleEventSelect(eventDetailsVal._id)} className="print_btn">
+                                                participants
+                                            </Button>
+                                            {/* <pre onClick={() => handleEventSelect(eventDetailsVal._id)} >Participants</pre> */}
+                                            {/* <pre style={{ textAlign: 'right' }}>{showCount(eventDetailsVal._id, count.id)}</pre> */}
+
+                                            <Link to={"/AllParticipants/" + eventDetailsVal._id}>
+                                                <Button htmlType="reset" style={{ textAlign: 'right', backgroundColor: "#dbe0ed", width: "15%", marginRight: "3%" }} className="print_btn">
+                                                    {showCount(eventDetailsVal._id, count.id)}
+                                                </Button>
+                                            </Link>
+                                        </Typography>
+
 
                                         <Card style={{
                                             width: '100%',
