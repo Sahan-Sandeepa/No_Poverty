@@ -21,54 +21,48 @@ import JobList from './components/JobPortal/JobList';
 import UserDashboard from './pages/UserDashboard/UserDashboard';
 import AllParticipants from './components/Event/Admin/AllParticipants '
 import CardDetails from './components/DoDonations/CardDetails';
+import Login from './components/User/Login';
+import ProtectedRoute from './components/common/ProtectedRoute';
 
 
 function App() {
   return (
-    <BrowserRouter>
-      <body>
-        <main>
-          <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/Register" element={<Register />} />
-            <Route path="/userDash" element={<UserDashboard/>} />
 
+    <Routes>
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/Register" element={<Register />} />
+      <Route path="/userDash" element={<UserDashboard />} />
 
-            <Route path="/add" element={< JobPost/>} />
-            <Route path="/joblist" element={<JobList />} />
-            <Route path="/ShowVacancies" element={<Showvacancies />} />
-            <Route path="/jobApply" element={<JobApply />} />
-            <Route path="/appliedjobs" element={<AppliedJobs />} />
+      <Route path="/add" element={< JobPost />} />
+      <Route path="/joblist" element={<JobList />} />
+      <Route path="/ShowVacancies" element={<Showvacancies />} />
+      <Route path="/jobApply" element={<JobApply />} />
+      <Route path="/appliedjobs" element={<AppliedJobs />} />
+      
+      {/* Leo's Routes Begin here */}
+      <Route path="/pdonation" element={<PublishAd />} /> {/*Ad creation form(not being used)*/}
+      <Route path="/showAds" element={<Ads />} /> {/*Ad display*/}
+      <Route path="/donate" element={<MakeDonations />} /> {/*Donating form*/}
+      <Route path="/showDonation" element={<ShowDonations />} /> {/*Donation display*/}
+      <Route path="/editDonation/:id" element={<EditDonations />} /> {/*Donation editing*/}
+      <Route path='/cardDetails/' element={<CardDetails />} /> {/*Card Detail Page*/}
 
-            {/* Leo's Routes Begin here */}
-            <Route path="/pdonation" element={<PublishAd />} /> {/*Ad creation form(not being used)*/}
-            <Route path="/showAds" element={<Ads />} /> {/*Ad display*/}
-
-     
-            <Route path="/donate" element={<MakeDonations/>} /> {/*Donating form*/}
-            <Route path="/showDonation" element={<ShowDonations/>}/> {/*Donation display*/}
-            <Route path="/editDonation/:id" element={<EditDonations/>}/> {/*Donation editing*/ }
-            <Route path='/cardDetails/' element={<CardDetails/>}/> {/*Card Detail Page*/}
-
-            {/*Leo's Routes Ends here*/}
+      {/*Leo's Routes Ends here*/}
 
 
 
-            <Route path="/addevent" element={<AddEvent />} />
-            <Route path="/allEvent" element={<AllEvent />} />
-            <Route path="/updateEvent/:id" element={<UpdateEvent />} />
-            <Route path="/printDetails/:id" element={<DetailsPrint />} />
-            <Route path="/userEvent" element={<DisplayEvent />} />
-            <Route path="/AllParticipants/:id" element={<AllParticipants />}/>
+      <Route path="/addevent" element={<AddEvent />} />
+      <Route path="/allEvent" element={<AllEvent />} />
+      <Route path="/updateEvent/:id" element={<UpdateEvent />} />
+      <Route path="/printDetails/:id" element={<DetailsPrint />} />
+      <Route path="/userEvent" element={<DisplayEvent />} />
+      <Route path="/AllParticipants/:id" element={<AllParticipants />} />
+      <Route path="/login" element={<Login />} />
 
 
-            <Route />
+    </Routes>
 
-          </Routes>
-        </main>
-      </body>
 
-    </BrowserRouter>
   );
 }
 
