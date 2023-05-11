@@ -23,6 +23,7 @@ import AllParticipants from './components/Event/Admin/AllParticipants '
 import CardDetails from './components/DoDonations/CardDetails';
 import Login from './components/User/Login';
 import ProtectedRoute from './components/common/ProtectedRoute';
+import PaymentPortal from './components/DoDonations/PaymentPortal';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
       <Route path="/showDonation" element={<ShowDonations />} /> {/*Donation display*/}
       <Route path="/editDonation/:id" element={<EditDonations />} /> {/*Donation editing*/}
       <Route path='/cardDetails/' element={<CardDetails />} /> {/*Card Detail Page*/}
+      <Route path='/paymentDetails/' element={<PaymentPortal />} /> {/*Card Detail Page*/}
 
       {/*Leo's Routes Ends here*/}
 
