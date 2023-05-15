@@ -51,6 +51,11 @@ const DonateForm = () => {
     const [status, setStatus] = useState('');
     const [helpGiven, setHelpGiven] = useState('');
     const navigate = useNavigate();
+
+    const [amountError, setAmountError] = useState('');
+    const [contactError, setContactError] = useState('');
+    const isSubmitDisabledforAmount = amountError !== '';
+    const isSubmitDisabled = contactError !== '';
     const handleChange = (event) => {
         setAmount(event.target.value);
     };
@@ -85,6 +90,24 @@ const DonateForm = () => {
                 console.log(`Error: ${err?.response?.data}`);
             })
     }
+
+    
+
+  function validateContact(value) {
+    if (value.length !== 10 || value.charAt(0) !== '0') {
+      setContactError('Enter a valid Contact Number');
+    } else {
+      setContactError('');
+    }
+  }
+
+  function validateAmount(value) {
+    if (isNaN(value) || !Number.isInteger(Number(value))) {
+      setAmountError('Amount must be an integer');
+    } else {
+      setAmountError('');
+    }
+  }
     return (
         <>
             <div className='bgdon'>
@@ -130,9 +153,12 @@ const DonateForm = () => {
                                     required: true,
                                 },
                             ]}
-                        >
+                            validateStatus={contactError ? 'error' : ''}
+                            help={contactError}
+                          >
                             <Input onChange={(val) => {
                                 setContact(val.target.value);
+                                validateContact(val.target.value);
                             }} />
                         </Form.Item>
                         <Form.Item
@@ -140,6 +166,7 @@ const DonateForm = () => {
                         >
                             Enter Amount<Input onChange={(val) => {
                                 setAmount(val.target.value);
+                                validateAmount(val.target.value);
                             }} />
 
                         </Form.Item>
@@ -194,7 +221,7 @@ const DonateForm = () => {
                         >
                             <p>Help Given:{nameDon}</p>
 
-                            <Button type="primary" htmlType="submit" onClick={sendDonation}>
+                            <Button type="primary" htmlType="submit" onClick={sendDonation} disabled={isSubmitDisabled || isSubmitDisabledforAmount}  >
                                 Submit
                             </Button>
                         </Form.Item>
