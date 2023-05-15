@@ -2,7 +2,7 @@ import { Button, Card, Form, Input, InputNumber } from 'antd';
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import "../../assets/styles/makedonate.css";
 const layout = {
     labelCol: {
@@ -38,16 +38,30 @@ function clickMe() {
 }
 const DonateForm = () => {
 
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const nameDon = searchParams.get('name');
+    const paid = "Paid";
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [contact, setContact] = useState('');
     const [amount, setAmount] = useState();
     const [total, setTotal] = useState();
     const [status, setStatus] = useState('');
+    const [helpGiven, setHelpGiven] = useState('');
     const navigate = useNavigate();
     const handleChange = (event) => {
         setAmount(event.target.value);
     };
+
+    useState(() => {
+        setHelpGiven(nameDon);
+      }, [nameDon]);
+
+      useState(() => {
+        setStatus(paid);
+      }, [paid]);
 
     function sendDonation(e) {
         e.preventDefault();
@@ -58,7 +72,8 @@ const DonateForm = () => {
             contact,
             amount,
             total,
-            status
+            status,
+            helpGiven
         }
 
         axios.post("http://localhost:4000/donation/", donateSchema)
@@ -78,6 +93,7 @@ const DonateForm = () => {
             <br></br>
                 <Card style={{ width: "25%", opacity: "0.8", marginLeft: "8%" }}>
                     <h1>I want to Donate</h1>
+                    <h1>{nameDon}</h1>
                     <Form>
                         <Form.Item
                             name="name"
@@ -127,19 +143,26 @@ const DonateForm = () => {
                             }} />
 
                         </Form.Item>
-                        <Form.Item
+                        {/* <Form.Item
                             name="total"
                         >
                             Enter Total<Input onChange={(val) => {
                                 setTotal(val.target.value);
                             }} />
-                        </Form.Item>
-                        <Form.Item
+                        </Form.Item> */}
+                        {/* <Form.Item
                             name="status"
                         >
                             Enter status<Input onChange={(val) => {
                                 setStatus(val.target.value);
                             }} />
+
+                        </Form.Item> */}
+                        <Form.Item
+                            name="helpGiven"
+                            initialValue={nameDon}
+                        >
+                            Help Given to: <Input disabled placeholder={nameDon}/>
 
                         </Form.Item>
                         {/* <Form.Item defaultValue={1000} >
@@ -169,6 +192,7 @@ const DonateForm = () => {
                                 offset: 8,
                             }}
                         >
+                            <p>Help Given:{nameDon}</p>
 
                             <Button type="primary" htmlType="submit" onClick={sendDonation}>
                                 Submit

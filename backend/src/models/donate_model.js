@@ -6,8 +6,9 @@ const donate = new Schema({
     email: { type: String, required: true },
     contact: { type: String, required: true },
     amount: { type: Number, required: true },
-    total: { type: Number, required: true },
+    total: { type: Number, required: false },
     status: { type: String, required: false },
+    helpGiven: {type: String, required: false },
 }
 
 )

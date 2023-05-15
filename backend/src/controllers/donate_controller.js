@@ -27,7 +27,7 @@ const getDonationById = async (req, res) => {
 
 // create a new Donation
 const makeDonation = async (req, res) => {
-  const {name,email,contact,amount,total,status} = req.body
+  const {name,email,contact,amount,total,status,helpGiven} = req.body
 
 //   let emptyFields = []
 
@@ -46,7 +46,7 @@ const makeDonation = async (req, res) => {
 
   // add to the database
   try {
-    const donation = await Donation.create({ name,email,contact,amount,total,status })
+    const donation = await Donation.create({ name,email,contact,amount,total,status,helpGiven })
     res.status(200).json(donation)
   } catch (error) {
     res.status(400).json({ error: error.message })
