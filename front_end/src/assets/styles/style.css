@@ -1,8 +1,40 @@
-.site-layout-background{
-    display: flex;
-    flex-direction: row;
-    justify-items: center;
-    padding: 5px 16px;
-    align-items: center;
-  }
-  
+.site-layout-background {
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  padding: 5px 16px;
+  align-items: center;
+}
+
+
+.login {
+  background-image: url('../images/poverty1.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+ 
+
+}
+
+.site-layout-content {
+  min-height: 280px;
+  padding: 24px;
+}
+
+.ant-row-rtl #components-layout-demo-top .logo {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
+.heading {
+  color: white;
+  text-align: center;
+  font-size: 40px;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
