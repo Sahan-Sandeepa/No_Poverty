@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from "react-router-dom";
 import './App.css';
 import Dashboard from './components/common/header';
 import PublishAd from './components/DonationAdmin/PublishAd';
@@ -24,44 +24,32 @@ import CardDetails from './components/DoDonations/CardDetails';
 import Login from './components/User/Login';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import PaymentPortal from './components/DoDonations/PaymentPortal';
+import Financial from './components/Financial/Financial';
+import { useAuth0 } from "@auth0/auth0-react";
+import { Skeleton } from "antd";
 
 
 function App() {
+  const { getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
+
   return (
 
+    
+
     <Routes>
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/Register" element={<Register />} />
-      <Route path="/userDash" element={<UserDashboard />} />
-
-      <Route path="/add" element={< JobPost />} />
-      <Route path="/joblist" element={<JobList />} />
-      <Route path="/ShowVacancies" element={<Showvacancies />} />
-      <Route path="/jobApply" element={<JobApply />} />
-      <Route path="/appliedjobs" element={<AppliedJobs />} />
-      
-      {/* Leo's Routes Begin here */}
-      <Route path="/pdonation" element={<PublishAd />} /> {/*Ad creation form(not being used)*/}
-      <Route path="/showAds" element={<Ads />} /> {/*Ad display*/}
-      <Route path="/donate" element={<MakeDonations />} /> {/*Donating form*/}
-      <Route path="/showDonation" element={<ShowDonations />} /> {/*Donation display*/}
-      <Route path="/editDonation/:id" element={<EditDonations />} /> {/*Donation editing*/}
-      <Route path='/cardDetails/' element={<CardDetails />} /> {/*Card Detail Page*/}
-      <Route path='/paymentDetails/' element={<PaymentPortal />} /> {/*Card Detail Page*/}
-
-      {/*Leo's Routes Ends here*/}
-
-
-
-      <Route path="/addevent" element={<AddEvent />} />
-      <Route path="/allEvent" element={<AllEvent />} />
-      <Route path="/updateEvent/:id" element={<UpdateEvent />} />
-      <Route path="/printDetails/:id" element={<DetailsPrint />} />
-      <Route path="/userEvent" element={<DisplayEvent />} />
-      <Route path="/AllParticipants/:id" element={<AllParticipants />} />
+      <Route path="/dashboard" element={<ProtectedRoute child={<Financial />} />} />
       <Route path="/login" element={<Login />} />
-
-
+      <Route
+        path="/"
+        element={
+          isAuthenticated ? (
+            <Navigate to={"/dashboard"} />
+          ) : (
+            <Navigate to={"/login"} />
+          )
+        }
+      />
+      
     </Routes>
 
 
