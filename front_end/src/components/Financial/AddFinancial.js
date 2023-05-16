@@ -50,44 +50,38 @@ const AddFinancial = props => {
     const [refesh, seRefesh] = useState(false);
 
 
-    //handle submit which is a function that  create a new details or update
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        if (name !== '' && type !== '') {
-            const i =
-            {
-                name: name,
-                type: type,
-                date: date,
-                venue: venue,
-                total: total,
-                status: status,
-
+        if (event) {
+          event.preventDefault();
+          if (name !== '' && type !== '') {
+            const i = {
+              name: name,
+              type: type,
+              date: date,
+              venue: venue,
+              total: total,
+              status: status,
             };
             try {
-                if (selectedItem) {
-                    await axios.put(`http://localhost:4000/financial/${selectedItem._id}`, i);
-                    refresh();
-
-
-                } else {
-                    await axios.post('http://localhost:4000/financial/create', i);
-                    refresh();
-
-
-
-                }
-                handleOk();
-
+              if (selectedItem) {
+                await axios.put(`http://localhost:4000/financial/${selectedItem._id}`, i);
+                refresh();
+              } else {
+                await axios.post('http://localhost:4000/financial/create', i);
+                refresh();
+              }
+              handleOk();
             } catch (error) {
-                console.log('create item failes ${error}');
-
+              console.log(`create item failed ${error}`);
             }
+          } else {
+            console.log(`else called ${name}`);
+          }
         } else {
-            console.log("else called ${name}");
-
+          console.log('Event is undefined');
         }
-    };
+      };
+      
 
     const refresh = async () => {
         await handleSubmit();
