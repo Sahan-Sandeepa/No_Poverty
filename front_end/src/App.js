@@ -37,16 +37,30 @@ function App() {
       <Route path="/userDash" element={<UserDashboard />} />
       <Route path="/add" element={<JobPost />} />
       <Route path="/joblist" element={<JobList />} />
-      <Route path="/showVacancies" element={<Showvacancies />} />
-      <Route path="/jobApply" element={<JobApply />} />
-      {/* <Route
+      <Route
+        path="/showVacancies"
+        element={
+          <UserLayout>
+            <Showvacancies />
+          </UserLayout>
+        }
+      />
+      <Route
+        path="/jobApply/:id"
+        element={
+          <UserLayout>
+            <JobApply />
+          </UserLayout>
+        }
+      />
+      <Route
         path="/appliedjobs"
         element={
           <UserLayout>
             <AppliedJobs />
           </UserLayout>
         }
-      /> */}
+      />
       {/* Leo's Routes Begin here */}
       <Route path="/pdonation" element={<PublishAd />} />{" "}
       {/*Ad creation form(not being used)*/}
@@ -60,8 +74,7 @@ function App() {
       {/*Card Detail Page*/}
       <Route path="/paymentDetails/" element={<PaymentPortal />} />{" "}
       {/*Card Detail Page*/}
-      <Route path="/adsUserView/" element={<AdsUserView/>} />
-
+      <Route path="/adsUserView/" element={<AdsUserView />} />
       {/*Leo's Routes Ends here*/}
       <Route path="/addevent" element={<AddEvent />} />
       <Route path="/allEvent" element={<AllEvent />} />
