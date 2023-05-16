@@ -81,7 +81,7 @@ app.use('/event-registration', EventUser);
 app.use('/regiUser', RegisterUsers);
 app.use('/donation',Donations);
 app.use('/adDonations',adDonation);
-app.use(authRoutes);
+app.use('/auth',authRoutes);
 app.use('/',requireAuth);
 // connect to db
 mongoose.connect(process.env.MONGO_URI)

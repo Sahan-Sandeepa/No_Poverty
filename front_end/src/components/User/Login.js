@@ -1,54 +1,115 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Input, Button, Card, Row, Breadcrumb, Layout, Col, theme } from 'antd';
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import jwtdecode from "jwt-decode";
+
 const { Header, Content, Footer } = Layout;
 
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const naviagte = useNavigate();
+    const navigate = useNavigate();
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+
+    // const sendLogin = async (e) => {
+    //     e.preventDefault();
+    
+    //     await axios
+    //       .post("http://localhost:4000/auth/login", { email, password })
+    //       .then((res) => {
+    //         localStorage.setItem("token", res.data.token);
+    //         localStorage.setItem("userInfo", JSON.stringify(res.data.user));
+    //         if (res.data.user.role === "user") {
+    //           navigate("/userDash");
+    //         } else if (res.data.user.role === "admin") {
+    //           navigate("/dashboard");
+    //         }
+    //       })
+    //       .catch((err) => {
+    //         console.log(err);
+    //       });
+    //   };
+    
+     
     async function sendLogin(e) {
         e.preventDefault();
-
-        // get values
-
-        const UserSchema = {
-            email,
-            password
-        };
-
-        try {
-            const response = await fetch('http://localhost:4000/login', {
-                method: 'POST',
-                body: JSON.stringify(UserSchema),
-                headers: { 'Content-Type': 'application/json' },
-            });
-
-            if (response.ok) {
-                // Handle successful signup
-                console.log('Signup successful!');
-                naviagte('/dashboard')
-
-                const data = await response.json();
-                if (data.errors) {
-                    console.log("Error" + email.errors)
-                }
-                if (data.user) {
-                    // location.assign('/dashboard');
-                }
-            } else {
-                // Handle signup error
-                console.log('Signup failed. Please try again.');
-            }
-        } catch (err) {
-            console.log(err);
+    
+        // Check the email and password to determine the role
+        let role = '';
+        if (email === 'admin@test.com' && password === 'admin1234') {
+          role = 'admin';
+        } else {
+          role = 'user';
         }
-    }
+    
+        const userCredentials = {
+          email: email,
+          password: password,
+          role: role
+        };
+    
+        try {
+          const response = await fetch('http://localhost:4000/auth/login', {
+            method: 'POST',
+            body: JSON.stringify(userCredentials),
+            headers: { 'Content-Type': 'application/json' }
+          });
+    
+          if (response.ok) {
+            // Handle successful login
+            console.log('Login successful!');
+            if (role === 'user') {
+              navigate('/userDash');
+            } else if (role === 'admin') {
+                navigate('/dashboard');
+            }
+          } else {
+            // Handle login error
+            console.log('Login failed. Please try again.');
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+    // async function sendLogin(e, role) {
+    //     e.preventDefault();
+      
+    //     const userCredentials = {
+    //       email: email,
+    //       password: password,
+    //       role: role
+    //     };
+      
+    //     try {
+    //       const response = await fetch('http://localhost:4000/auth/login', {
+    //         method: 'POST',
+    //         body: JSON.stringify(userCredentials),
+    //         headers: { 'Content-Type': 'application/json' }
+    //       });
+      
+    //       if (response.ok) {
+    //         // Handle successful login
+    //         console.log('Login successful!');
+    //         if (role === 'user') {
+    //           navigate('/userDash');
+    //         } else if (role === 'admin') {
+    //           navigate('/dashboard');
+    //         }
+    //       } else {
+    //         // Handle login error
+    //         console.log('Login failed. Please try again.');
+    //       }
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   }
+      
+
     return (
 
         <>
@@ -70,49 +131,49 @@ const Login = () => {
                         >
                             <h1 style={{ textAlign: 'center' }}>!!!No Poverty!!!</h1>
                             <Row>
-                            <Col span={3} />
-                            <Col span={17}>
+                                <Col span={3} />
+                                <Col span={17}>
 
-                            <Form.Item
-                                label="Email"
-                                name="email"
-                                rules={[
-                                    {
-                                        required: true,
-                                        type: 'email',
-                                        message: 'Please enter a valid email!',
-                                    },
-                                ]}
-                            >
-                                <Input onChange={(val) => {
-                                    setEmail(val.target.value);
+                                    <Form.Item
+                                        label="Email"
+                                        name="email"
+                                        rules={[
+                                            {
+                                                required: true,
+                                                type: 'email',
+                                                message: 'Please enter a valid email!',
+                                            },
+                                        ]}
+                                    >
+                                        <Input onChange={(val) => {
+                                            setEmail(val.target.value);
 
-                                }} />
-                            </Form.Item>
-                            </Col>
+                                        }} />
+                                    </Form.Item>
+                                </Col>
                             </Row>
-                            
+
                             <Row>
-                            <Col span={3} />
-                            <Col span={17}>
-                            <Form.Item
-                                    label="Password"
-                                    name="password"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please enter your password!',
-                                        },
-                                    ]}
-                                >
-                                    <Input.Password onChange={(val) => {
-                                        setPassword(val.target.value);
+                                <Col span={3} />
+                                <Col span={17}>
+                                    <Form.Item
+                                        label="Password"
+                                        name="password"
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please enter your password!',
+                                            },
+                                        ]}
+                                    >
+                                        <Input.Password onChange={(val) => {
+                                            setPassword(val.target.value);
 
-                                    }} />
-                                </Form.Item>
-                            </Col>
+                                        }} />
+                                    </Form.Item>
+                                </Col>
 
-                                
+
                             </Row>
 
 
