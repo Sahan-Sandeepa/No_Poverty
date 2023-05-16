@@ -12,6 +12,8 @@ import {
 } from "@ant-design/icons"
 import Header_bar from "../../components/common/header_bar"
 import JobList from "../../components/JobPortal/JobList"
+import AdsUserView from "../../components/DonationAdmin/AdsUserView"
+import Home from "../Home/Home"
 
 
 const { Header, Content, Footer, Sider } = Layout
@@ -36,7 +38,7 @@ const UserDashboard = props => {
         getItem("Donation", 1, <UserOutlined />),
         getItem("Job Portal", 2, <CarFilled />),
         getItem("Events", 3, <LineChartOutlined />),
-        getItem("Financial", 4, <LineChartOutlined />),
+        
 
 
     ]
@@ -46,10 +48,11 @@ const UserDashboard = props => {
 
     const bodyContainer = [
 
+        // <UserDashboard />,
+        <Home/>,
+        <AdsUserView/>,
         <JobList />,
-        // < Ads />,
-        // <JobList />,
-        // <AllEvent />,
+        // <Events />,
         // <Financial />,
 
     ]

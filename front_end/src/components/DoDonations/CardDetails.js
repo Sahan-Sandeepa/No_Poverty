@@ -1,4 +1,5 @@
 import { Button, Form, Input, InputNumber } from 'antd';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import axios from 'axios';
 import React from 'react'
@@ -57,12 +58,15 @@ function redirect(){
 }
 
 
+
+
 const CardDetails = () => {
 
     const [name, setName] = useState('');
-    
+    const navigate = useNavigate();
     const [cvc, setCvc] = useState('');
     const [amount, setAmount] = useState();
+    
     
     const [cardFields, setCardFields] = useState(['', '', '', '']);
 
@@ -70,6 +74,13 @@ const CardDetails = () => {
         setAmount(event.target.value);
     };
 
+    const handleSubmit = () => {
+        // Perform form submission logic here
+        // Show alert
+        alert('Payment Successful!!');
+        // Redirect to another page
+        navigate('/showdonation');
+      };
 
     function handleCardFieldChange(index, value) {
         const newCardFields = [...cardFields];
@@ -104,7 +115,7 @@ const CardDetails = () => {
 
         <div style={{ backgroundColor: "#37475E", width: "45%", marginLeft: "25%", marginTop: "10%",paddingLeft:"5%" }} >
             <h1>Provide Card Details </h1>
-            <Form style={{color:"white"}}>ggg
+            <Form style={{color:"white"}}>
                 <Form.Item
                     name="name"
                     label="Name on Card"
@@ -119,7 +130,7 @@ const CardDetails = () => {
                     }}
                     
                 >
-                    hahaha<Input onChange={(val) => {
+                    <Input onChange={(val) => {
                         setName(val.target.value);
                     }} style={{ width: "300px",color:"pink" }}
                     />
@@ -219,7 +230,7 @@ const CardDetails = () => {
                     }}
                 >
                     {/* <Link to="/PaymentPortal"> */}
-                        <Button type="primary" htmlType="submit" >
+                        <Button type="primary" htmlType="submit" onClick={handleSubmit} >
                             Submit
                         </Button>
                     {/* </Link> */}
