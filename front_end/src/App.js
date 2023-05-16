@@ -28,6 +28,8 @@ import UserLayout from "./layouts/UserLayout";
 import AdsUserView from "./components/DonationAdmin/AdsUserView";
 
 function App() {
+  // const { getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
+
   return (
     <Routes>
       <Route path="/dashboard" element={<Dashboard />} />
@@ -37,14 +39,14 @@ function App() {
       <Route path="/joblist" element={<JobList />} />
       <Route path="/showVacancies" element={<Showvacancies />} />
       <Route path="/jobApply" element={<JobApply />} />
-      <Route
+      {/* <Route
         path="/appliedjobs"
         element={
           <UserLayout>
             <AppliedJobs />
           </UserLayout>
         }
-      />
+      /> */}
       {/* Leo's Routes Begin here */}
       <Route path="/pdonation" element={<PublishAd />} />{" "}
       {/*Ad creation form(not being used)*/}

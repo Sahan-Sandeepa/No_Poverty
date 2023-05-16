@@ -17,6 +17,14 @@
 
 }
 
+.dashbaord{
+  background-image: url('../images/admin.jpg  ');
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
 .site-layout-content {
   min-height: 280px;
   padding: 24px;

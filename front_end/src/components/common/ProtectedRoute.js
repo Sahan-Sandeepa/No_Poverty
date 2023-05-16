@@ -1,18 +1,18 @@
-// import React from 'react';
-// import { Route, Navigate, Routes } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
+import PageLayout from "../../components/layout/pageLayout";
+import React from "react";
+import { Skeleton } from "antd"
+import { Route, Navigate, Routes } from 'react-router-dom';
 
-// const ProtectedRoute = ({ path, element: Element }) => {
-//   // Check if the JWT exists and is valid
-//   const isAuthenticated = localStorage.getItem('jwt') !== null;
+const ProtectedRoute = ({ child })  => {
+    const { isAuthenticated, isLoading } = useAuth0();
 
-//   return (
-//     <Routes>
-//       <Route
-//         path={path}
-//         element={isAuthenticated ? <Element /> : <Navigate to="/login" />}
-//       />
-//     </Routes>
-//   );
-// };
+    if (isLoading) return <Skeleton />;
 
-// export default ProtectedRoute;
+    return isAuthenticated ? (
+        <PageLayout>{child}</PageLayout>
+    ) : (
+        <Navigate to={"/login"} />
+    );
+};
+export default ProtectedRoute;

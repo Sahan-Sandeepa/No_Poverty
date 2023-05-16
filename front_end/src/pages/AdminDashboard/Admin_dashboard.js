@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import logo from "../../assets/images/logo.png"
 import { DualAxes } from '@ant-design/plots';
-import { Card, Col, Row, Typography, Table, AutoComplete } from "antd"
+import { Card, Col, Row, Typography, Table, Progress } from "antd"
 import { AppstoreTwoTone, UserOutlined } from "@ant-design/icons"
 import axios, { Axios } from 'axios';
 
 const url = "http://localhost:4000/financial/";
-const url1="http://localhost:4000/event/getAll";
+const url1 = "http://localhost:4000/event/getAll";
 
 function Admin() {
     const { Title, Text } = Typography
@@ -57,10 +57,10 @@ function Admin() {
         getDonations();
     }, [])
 
-      const totalevents = eventDetails.length;
-      const totalFReport = financial.length;
-      const totalDonation = donate.length;
-      const totaljOB = jobList.length;
+    const totalevents = eventDetails.length;
+    const totalFReport = financial.length;
+    const totalDonation = donate.length;
+    const totaljOB = jobList.length;
 
 
 
@@ -93,10 +93,10 @@ function Admin() {
 
     useEffect(() => {
         if (financial) {
-          const total = financial.reduce((acc, row) => acc + row.total, 0);
-          setTotalSum(total);
+            const total = financial.reduce((acc, row) => acc + row.total, 0);
+            setTotalSum(total);
         }
-      }, [financial]);
+    }, [financial]);
 
     const count = [
         {
@@ -193,63 +193,91 @@ function Admin() {
     ];
     return (
         <>
-            <div style={{ paddingLeft: 100 }} >
-                <div style={{ paddingLeft: 70 }} ></div>
-                <Col span={5} />
+            <div
+                className="dashbaord"
+                style={{
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "repeat",
 
-                <div className="layout-content" style={{ padding: "16px", paddingLeft: 25 }}>
-                    <Row className="rowgap-vbox" gutter={[24, 0]}>
-                        {count.map((c, index) => (
-                            <Col
-                                key={index}
-                                xs={24}
-                                sm={24}
-                                md={12}
-                                lg={6}
-                                xl={6}
-                                className="mb-24"
-                            >
-                                <Card bordered={false} className="criclebox " style={{backgroundColor:"#d9e2f5"}}>
-                                    <div className="number">
-                                        <Row align="middle" gutter={[35, 7]}>
-                                            <Col xs={18}>
-                                                <span>{c.today}</span>
-                                                <Title level={3}>
-                                                    {c.title} <small className={c.bnb}></small>
-                                                </Title>
-                                            </Col>
-                                            <Col xs={7}>
-                                                <div className="icon-box">{c.icon}</div>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </Card>
-                            </Col>
-                        ))}
-                    </Row>
 
-                    <br></br><br></br><br></br><br></br>
-                    <Row >
-                        <div>
-                            <DualAxes {...config} />
-                        </div>
-                        <Col span={4} />
-                        <Card style={{backgroundColor:'#dfa5ec'}}>
+                }}
+            >
+                <div style={{ paddingLeft: 100 }} >
+                    <div style={{ paddingLeft: 70 }} ></div>
+                    <Col span={5} />
+
+                    <div className="layout-content" style={{ padding: "16px", paddingLeft: 25 }}>
+                        <Row className="rowgap-vbox" gutter={[24, 0]}>
+                            {count.map((c, index) => (
+                                <Col
+                                    key={index}
+                                    xs={24}
+                                    sm={24}
+                                    md={12}
+                                    lg={6}
+                                    xl={6}
+                                    className="mb-24"
+                                >
+                                    <Card bordered={false} className="criclebox " style={{ backgroundColor: "#d9e2f5" }}>
+                                        <div className="number">
+                                            <Row align="middle" gutter={[35, 7]}>
+                                                <Col xs={18}>
+                                                    <span>{c.today}</span>
+                                                    <Title level={3}>
+                                                        {c.title} <small className={c.bnb}></small>
+                                                    </Title>
+                                                </Col>
+                                                <Col xs={7}>
+                                                    <div className="icon-box">{c.icon}</div>
+                                                </Col>
+                                            </Row>
+                                        </div>
+                                    </Card>
+                                </Col>
+                            ))}
+                        </Row>
+
+                        <br></br><br></br><br></br><br></br>
+                        <Row >
                             <div>
-                                <Table  columns={columns} dataSource={financial}/>
-                                <Card><Row>
-                                    <Col span={18}>
-                                        <h3>Total  : Rs {totalSum}</h3>
-                                    </Col>
-                                </Row></Card>
-                                
-                                
+                                <Card>
+                                    <h1>Details Bar</h1>
+                                    <Progress percent={totalFReport} strokeColor="red" />
+                                    <span>Total Financial Report</span>
 
+                                    <Progress percent={totalDonation} strokeColor="#2db7f5" Text="hello" />
+                                    <span>Total Donation</span>
+
+                                    <Progress percent={totalevents} strokeColor="#87d068" />
+                                    <span>Total Events</span>
+
+                                    <Progress percent={totaljOB} strokeColor="blue" />
+                                    <span>Total Job posted</span>
+
+                                </Card>
                             </div>
-                        </Card>
-                    </Row>
+                            <Col span={1} />
+                            <Card style={{ backgroundColor: '#dfa5ec' }}>
+                                <div>
+                                    <Table columns={columns} dataSource={financial} />
+                                    <Card><Row>
+                                        <Col span={18}>
+                                            <h3>Total  : Rs {totalSum}</h3>
+                                        </Col>
+                                    </Row></Card>
+
+
+
+                                </div>
+                            </Card>
+                        </Row>
+                        <br>
+                        </br>
+
+                    </div>
                 </div>
-            </div>               
+            </div>
         </>
     )
 }
