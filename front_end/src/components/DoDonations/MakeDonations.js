@@ -2,7 +2,7 @@ import { Button, Card, Form, Input, InputNumber } from 'antd';
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import "../../assets/styles/makedonate.css";
 const layout = {
     labelCol: {
@@ -38,16 +38,35 @@ function clickMe() {
 }
 const DonateForm = () => {
 
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const nameDon = searchParams.get('name');
+    const paid = "Paid";
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [contact, setContact] = useState('');
     const [amount, setAmount] = useState();
     const [total, setTotal] = useState();
     const [status, setStatus] = useState('');
+    const [helpGiven, setHelpGiven] = useState('');
     const navigate = useNavigate();
+
+    const [amountError, setAmountError] = useState('');
+    const [contactError, setContactError] = useState('');
+    const isSubmitDisabledforAmount = amountError !== '';
+    const isSubmitDisabled = contactError !== '';
     const handleChange = (event) => {
         setAmount(event.target.value);
     };
+
+    useState(() => {
+        setHelpGiven(nameDon);
+      }, [nameDon]);
+
+      useState(() => {
+        setStatus(paid);
+      }, [paid]);
 
     function sendDonation(e) {
         e.preventDefault();
@@ -58,7 +77,8 @@ const DonateForm = () => {
             contact,
             amount,
             total,
-            status
+            status,
+            helpGiven
         }
 
         axios.post("http://localhost:4000/donation/", donateSchema)
@@ -70,6 +90,24 @@ const DonateForm = () => {
                 console.log(`Error: ${err?.response?.data}`);
             })
     }
+
+    
+
+  function validateContact(value) {
+    if (value.length !== 10 || value.charAt(0) !== '0') {
+      setContactError('Enter a valid Contact Number');
+    } else {
+      setContactError('');
+    }
+  }
+
+  function validateAmount(value) {
+    if (isNaN(value) || !Number.isInteger(Number(value))) {
+      setAmountError('Amount must be an integer');
+    } else {
+      setAmountError('');
+    }
+  }
     return (
         <>
             <div className='bgdon'>
@@ -78,6 +116,7 @@ const DonateForm = () => {
             <br></br>
                 <Card style={{ width: "25%", opacity: "0.8", marginLeft: "8%" }}>
                     <h1>I want to Donate</h1>
+                    <h1>{nameDon}</h1>
                     <Form>
                         <Form.Item
                             name="name"
@@ -114,9 +153,12 @@ const DonateForm = () => {
                                     required: true,
                                 },
                             ]}
-                        >
+                            validateStatus={contactError ? 'error' : ''}
+                            help={contactError}
+                          >
                             <Input onChange={(val) => {
                                 setContact(val.target.value);
+                                validateContact(val.target.value);
                             }} />
                         </Form.Item>
                         <Form.Item
@@ -124,22 +166,30 @@ const DonateForm = () => {
                         >
                             Enter Amount<Input onChange={(val) => {
                                 setAmount(val.target.value);
+                                validateAmount(val.target.value);
                             }} />
 
                         </Form.Item>
-                        <Form.Item
+                        {/* <Form.Item
                             name="total"
                         >
                             Enter Total<Input onChange={(val) => {
                                 setTotal(val.target.value);
                             }} />
-                        </Form.Item>
-                        <Form.Item
+                        </Form.Item> */}
+                        {/* <Form.Item
                             name="status"
                         >
                             Enter status<Input onChange={(val) => {
                                 setStatus(val.target.value);
                             }} />
+
+                        </Form.Item> */}
+                        <Form.Item
+                            name="helpGiven"
+                            initialValue={nameDon}
+                        >
+                            Help Given to: <Input disabled placeholder={nameDon}/>
 
                         </Form.Item>
                         {/* <Form.Item defaultValue={1000} >
@@ -169,8 +219,9 @@ const DonateForm = () => {
                                 offset: 8,
                             }}
                         >
+                            <p>Help Given:{nameDon}</p>
 
-                            <Button type="primary" htmlType="submit" onClick={sendDonation}>
+                            <Button type="primary" htmlType="submit" onClick={sendDonation} disabled={isSubmitDisabled || isSubmitDisabledforAmount}  >
                                 Submit
                             </Button>
                         </Form.Item>

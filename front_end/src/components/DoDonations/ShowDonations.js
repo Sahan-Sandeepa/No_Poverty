@@ -90,7 +90,7 @@ const Donations = () => {
                     { header: 'Contact Number', dataKey: 'contact' },
                     { header: 'Amount Donated', dataKey: 'amount' },
                     { header: 'Status', dataKey: 'status' },
-
+                    { header: 'Donated To ', dataKey: 'helpGiven' },  
 
 
                 ],
@@ -102,7 +102,7 @@ const Donations = () => {
                         contact: donate.contact,
                         amount: donate.amount,
                         status: donate.status,
-
+                        helpGiven: donate.helpGiven,
                     };
                 }),
                 didDrawPage: function (data) {
@@ -158,6 +158,15 @@ const Donations = () => {
         title: 'Status',
         dataIndex: 'status',
         key: 'status',
+        // }, {
+        //     title: 'Status',
+        //     dataIndex: 'status',
+        //     key: 'status',
+    },
+    {
+        title: 'Help Given',
+        dataIndex: 'helpGiven',
+        key: 'helpGiven',
         // }, {
         //     title: 'Status',
         //     dataIndex: 'status',

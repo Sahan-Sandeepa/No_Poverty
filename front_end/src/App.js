@@ -25,6 +25,7 @@ import Login from "./components/User/Login";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import PaymentPortal from "./components/DoDonations/PaymentPortal";
 import UserLayout from "./layouts/UserLayout";
+import AdsUserView from "./components/DonationAdmin/AdsUserView";
 
 function App() {
   return (
@@ -57,6 +58,8 @@ function App() {
       {/*Card Detail Page*/}
       <Route path="/paymentDetails/" element={<PaymentPortal />} />{" "}
       {/*Card Detail Page*/}
+      <Route path="/adsUserView/" element={<AdsUserView/>} />
+
       {/*Leo's Routes Ends here*/}
       <Route path="/addevent" element={<AddEvent />} />
       <Route path="/allEvent" element={<AllEvent />} />
