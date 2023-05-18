@@ -17,7 +17,6 @@ const JobList = () => {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
     const [searchResult, setSearchResult] = useState([])
-    const { _id } = useParams();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
