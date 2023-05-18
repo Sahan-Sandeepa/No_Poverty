@@ -1,4 +1,6 @@
+
 require('dotenv').config()
+
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -15,7 +17,7 @@ const JobFindRoute = require('./routes/jobFind_routes');
 const EventRoute = require('./routes/event_routes');
 const EventUser = require('./routes/event_regiter_routes')
 const RegisterUsers = require('./routes/register_routes');
-//const User = require('./models/user_model')
+// const userRoutes = require('./models/use')
 const Donations = require('./routes/donate_routes');
 const adDonation = require('./routes/adsDonate_routes');
 const authRoutes=require('./routes/auth_routes')
@@ -81,8 +83,9 @@ app.use('/event-registration', EventUser);
 app.use('/regiUser', RegisterUsers);
 app.use('/donation',Donations);
 app.use('/adDonations',adDonation);
-app.use('/auth',authRoutes);
+app.use("/auth",authRoutes);
 app.use('/',requireAuth);
+
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

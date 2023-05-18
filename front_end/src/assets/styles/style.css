@@ -18,9 +18,10 @@
 }
 
 .dashbaord{
-  background-image: url('../images/admin.jpg  ');
-  background-repeat: repeat;
-  background-size: cover;
+  /* background-image: url('../images/admin.jpg  '); */
+
+  background-image: url('../images/4d.jpg');
+  background-repeat: no-repeat;
   background-position: center;
   height: 100vh;
 }

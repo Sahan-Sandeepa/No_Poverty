@@ -18,12 +18,16 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import "../../assets/styles/header.css";
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 const { Header, Content, Footer } = Layout;
+const userName = "John Doe"; // Replace this with the actual user's name
 
 const Header_bar = (props) => {
   const { opennav, open } = props;
-
+  const [name, setName] = useState(""); // State to hold the username
+const id =useParams();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -36,6 +40,16 @@ const Header_bar = (props) => {
       <Menu.Item key="3">Logout</Menu.Item>
     </Menu>
   );
+  useEffect(() => {
+    // Fetch the username from the API
+    axios.get("http://localhost:4000/regiUser/" +id).then(response => {
+      const data = response.data; // Assuming the username is in the response data
+      setName(data.name);
+    }).catch(error => {
+      console.log("Error fetching username:", error);
+    });
+  }, []);
+
   return (
     <Layout>
       <Header
@@ -60,7 +74,11 @@ const Header_bar = (props) => {
           <Col>
             <h1 style={{ color: "white" }}>HelpingHands</h1>
           </Col>
-          <Col>
+          {/* Render the user's name */}
+          <div style={{ textAlign: "right", padding: "16px", color: "white" }}>
+            Welcome, {name}
+          </div>
+          {/* <Col>
             <Dropdown.Button
               className="dropdown-btn"
               overlay={userMenu}
@@ -75,7 +93,7 @@ const Header_bar = (props) => {
                 />
               }
             ></Dropdown.Button>
-          </Col>
+          </Col> */}
         </Row>
       </Header>
       <div>

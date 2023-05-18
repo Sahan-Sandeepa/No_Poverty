@@ -11,29 +11,13 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const [userId, setUserId] = useState("");
+
     const {
         token: { colorBgContainer },
     } = theme.useToken();
 
-    // const sendLogin = async (e) => {
-    //     e.preventDefault();
-    
-    //     await axios
-    //       .post("http://localhost:4000/auth/login", { email, password })
-    //       .then((res) => {
-    //         localStorage.setItem("token", res.data.token);
-    //         localStorage.setItem("userInfo", JSON.stringify(res.data.user));
-    //         if (res.data.user.role === "user") {
-    //           navigate("/userDash");
-    //         } else if (res.data.user.role === "admin") {
-    //           navigate("/dashboard");
-    //         }
-    //       })
-    //       .catch((err) => {
-    //         console.log(err);
-    //       });
-    //   };
-    
+ 
      
     async function sendLogin(e) {
         e.preventDefault();
@@ -62,10 +46,14 @@ const Login = () => {
           if (response.ok) {
             // Handle successful login
             console.log('Login successful!');
+            const data = await response.json();
+
+            setUserId(data.userId); // Assuming the user ID is returned in the response
+
             if (role === 'user') {
-              navigate('/userDash');
+              navigate(`/userDash`);
             } else if (role === 'admin') {
-                navigate('/dashboard');
+                navigate(`/dashboard`);
             }
           } else {
             // Handle login error

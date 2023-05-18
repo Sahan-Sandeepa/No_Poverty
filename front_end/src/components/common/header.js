@@ -62,7 +62,7 @@ const Dashboard = props => {
         <>
             <div>
                 <Header_bar />
-                <Layout style={{ minHeight: "180vh" }}>
+                <Layout style={{ minHeight: "90vh" }}>
                     <Sider
                         collapsible
                         collapsed={collapsed}
@@ -70,6 +70,9 @@ const Dashboard = props => {
                         }
 
                     >
+                        <div style={{ textAlign: "center", padding: "16px", color: "white", fontSize: 20 }}>
+                            Welcome to <br></br>Admin Menu
+                        </div>
 
                         <Menu
                             theme="dark"

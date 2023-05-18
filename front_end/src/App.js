@@ -34,7 +34,7 @@ function App() {
     <Routes>
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/Register" element={<Register />} />
-      <Route path="/userDash" element={<UserDashboard />} />
+      <Route path="/userDash"element={<UserDashboard />} />
       <Route path="/add" element={<JobPost />} />
       <Route path="/joblist" element={<JobList />} />
       <Route path="/showVacancies" element={<Showvacancies />} />
