@@ -33,7 +33,6 @@ const UserLayout = ({ children }) => {
     getItem("Job Portal", "/showVacancies", <CarFilled />),
     getItem("Applied Jobs", "/appliedJobs", <CarFilled />),
     getItem("Events", "/userEvent", <LineChartOutlined />),
-    getItem("Financial", "/finacial", <LineChartOutlined />),
   ];
 
   return (

@@ -44,8 +44,8 @@ const JobApply = () => {
     <PageWithTitleSearch title={"Job Application : " + jobData?.jobTitle}>
       <Form
         onFinish={sendApplication}
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 12 }}
         form={form}
       >
         <Form.Item

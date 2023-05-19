@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./components/common/header";
 import PublishAd from "./components/DonationAdmin/PublishAd";
@@ -33,11 +33,16 @@ function App() {
 
   return (
     <Routes>
-
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/userDash" element={<UserDashboard />} />
-
+      <Route
+        path="/userDash"
+        element={
+          <UserLayout>
+            <Home />
+          </UserLayout>
+        }
+      />
       {/* Sakuni's Routes Begn here */}
       <Route path="/add" element={<JobPost />} />
       <Route path="/joblist" element={<JobList />} />
@@ -74,13 +79,19 @@ function App() {
         }
       />
       {/*SakuniF's Routes Ends here*/}
-
-
       {/* Leo's Routes Begin here */}
       <Route path="/pdonation" element={<PublishAd />} />{" "}
       {/*Ad creation form(not being used)*/}
       <Route path="/showAds" element={<Ads />} /> {/*Ad display*/}
-      <Route path="/donate" element={<MakeDonations />} /> {/*Donating form*/}
+      <Route
+        path="/donate"
+        element={
+          <UserLayout>
+            <MakeDonations />
+          </UserLayout>
+        }
+      />{" "}
+      {/*Donating form*/}
       <Route path="/showDonation" element={<ShowDonations />} />{" "}
       {/*Donation display*/}
       <Route path="/editDonation/:id" element={<EditDonations />} />{" "}
@@ -95,10 +106,17 @@ function App() {
       <Route path="/allEvent" element={<AllEvent />} />
       <Route path="/updateEvent/:id" element={<UpdateEvent />} />
       <Route path="/printDetails/:id" element={<DetailsPrint />} />
-      <Route path="/userEvent" element={<DisplayEvent />} />
+      <Route
+        path="/userEvent"
+        element={
+          <UserLayout>
+            <DisplayEvent />
+          </UserLayout>
+        }
+      />
       <Route path="/AllParticipants/:id" element={<AllParticipants />} />
-      <Route path="/login"  element={<Login />} />
-
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Navigate to={"/userDash"} />} />
     </Routes>
   );
 }
