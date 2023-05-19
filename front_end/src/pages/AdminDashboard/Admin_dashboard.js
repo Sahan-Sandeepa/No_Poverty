@@ -129,49 +129,6 @@ function Admin() {
 
     ]
 
-    const data = [
-        {
-            time: '2019-03',
-            value: 350,
-            count: 800,
-        },
-        {
-            time: '2019-04',
-            value: 900,
-            count: 600,
-        },
-        {
-            time: '2019-05',
-            value: 300,
-            count: 400,
-        },
-        {
-            time: '2019-06',
-            value: 450,
-            count: 380,
-        },
-        {
-            time: '2019-07',
-            value: 470,
-            count: 220,
-        },
-    ];
-    const config = {
-        data: [data, data],
-        xField: 'time',
-        yField: ['value', 'count'],
-        geometryOptions: [
-            {
-                geometry: 'column',
-            },
-            {
-                geometry: 'line',
-                lineStyle: {
-                    lineWidth: 2,
-                },
-            },
-        ],
-    };
 
     const columns = [
         {
@@ -219,8 +176,8 @@ function Admin() {
                                     xl={6}
                                     className="mb-24"
                                 >
-                                    <Card bordered={false} className="criclebox " style={{ backgroundColor: "#d9e2f5" }}>
-                                        <div className="number">
+                                    <Card bordered={false} className="criclebox" style={{ boxShadow:"2px 10px 10px 2px lightblue",backgroundColor:"#25476A",fontWeight:"bold",fontSize:25,color:"white"}}>
+                                        <div className="number"  style={{fontSize:20,fontFamily:"serif"}}>
                                             <Row align="middle" gutter={[35, 7]}>
                                                 <Col xs={18}>
                                                     <span>{c.today}</span>
@@ -241,7 +198,7 @@ function Admin() {
                         <br></br><br></br><br></br><br></br>
                         <Row >
                             <div>
-                                <Card>
+                                <Card style={{ boxShadow:"2px 5px 5px 5px lightblue"}}>
                                     <h1>Details Bar</h1>
                                     <Progress percent={totalFReport} strokeColor="red" />
                                     <span>Total Financial Report</span>
@@ -258,7 +215,7 @@ function Admin() {
                                 </Card>
                             </div>
                             <Col span={1} />
-                            <Card style={{ backgroundColor: '#dfa5ec' }}>
+                            <Card style={{ boxShadow:"2px 5px 5px 5px lightblue"}}>
                                 <div>
                                     <Table columns={columns} dataSource={financial} />
                                     <Card><Row>

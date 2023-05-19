@@ -1,24 +1,15 @@
  import React, { useEffect } from 'react'
 import {
-    Button,
-    Col,
-    Form,
-    Input,
-    Row,
-    Select,
-    DatePicker,
-    Modal
-} from 'antd';
+    Button,Col,Form,Input,Row,Select,DatePicker,Modal,notification} from 'antd';
 import { useState } from 'react';
-import Form_header from '../common/Form_header';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
-import WrapperContainer from '../common/Wrapper_container';
 import axios, { Axios } from 'axios';
 import { } from "react-router-dom";
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
+
 
 const config = {
     rules: [
@@ -28,6 +19,7 @@ const config = {
         },
     ],
 };
+
 
 const selection = {
     rules: [
@@ -65,9 +57,17 @@ const AddFinancial = props => {
             try {
               if (selectedItem) {
                 await axios.put(`http://localhost:4000/financial/${selectedItem._id}`, i);
+                notification.success({
+                    message: 'Updated Successful',
+                    description: 'You have successfully Updated Report',
+                  });
                 refresh();
               } else {
                 await axios.post('http://localhost:4000/financial/create', i);
+                notification.success({
+                    message: 'Created Successful',
+                    description: 'You have successfully Created Report',
+                  });
                 refresh();
               }
               handleOk();

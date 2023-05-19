@@ -150,6 +150,7 @@ const JobList = () => {
       key: "company",
     },
     {
+
       title: "Location",
       dataIndex: "location",
       key: "location",
@@ -196,6 +197,55 @@ const JobList = () => {
       <br></br>
       <br></br>
       <br></br>
+
+        title: 'Action',
+        key: 'action',
+        render: (text, record) => (
+            <span>
+
+                <Button icon={<EditTwoTone key={record._id} />} onClick={() => {
+                    setIsEditModalOpen(true);
+                    setSelectedItem(record)
+                }} >
+                </Button>
+
+                <Button icon={<DeleteOutlined style={{ color: 'red' }} />}
+                    onClick={() => {
+                        handleDelete(record._id);
+                    }}
+                />
+            </span>
+        ),
+    }];
+    return (
+        <>
+            <div className='otherdash' style={{
+                    minHeight: '100vh',
+                    display: 'flex',
+                  
+                }}>
+
+            <div style={{ paddingLeft: 150 }} >
+            <br></br><br></br><br></br>
+                <div style={{ paddingLeft: 870 }} >
+                    <Button onClick={() => { setIsModalOpen(true) }} type="primary">Add New Vacancy</Button>
+
+
+                </div>
+                <br></br>
+                <br></br>
+                <div style={{ padding: 1, alignItems: "center", width: 1000, height: 650, borderRadius: 5 }}>
+                    <WrapperCard style={{ backgroundColor: "#37475E",borderRadius:5 }}>
+                        <CustomRow style={{ justifyContent: "space-between", padding: "10px" }} >
+                            <h1 style={{ color: "White", fontSize: 18 }}>Job Vacancies</h1>
+                            <Col span={12} />
+                            <Search
+                                placeholder="Input search text"
+                                onChange={(e) => setSearchText(e.target.value)}
+                                style={{
+                                    width: 250,
+                                }}
+
 
       <div style={{ paddingLeft: 150 }}>
         <div style={{ paddingLeft: 870 }}>
@@ -262,12 +312,29 @@ const JobList = () => {
             )}
           />
 
+
           {/* passig data to Job post using props */}
           <JobPost
             isOpen={isModalOpen}
             handleCancel={handleCancel}
             handleOk={addOrder}
           />
+                    <JobPost
+                        isOpen={isEditModalOpen}
+                        handleCancel={handleCancel}
+                        handleOk={async () => { setIsEditModalOpen(false) }}
+                        selectedItem={selectedItem}
+                    />
+                     <DeleteModal
+                        isModalOpen={isDeleteModalOpen}
+                        handleCancel={handleDeleteCancel}
+                        handleOk={handleDeleteConfirm}
+                        text="Do you want to delete the Job details?"
+                        
+                    />
+                </div>
+            </div>
+            </div>
 
           <JobPost
             isOpen={isEditModalOpen}
