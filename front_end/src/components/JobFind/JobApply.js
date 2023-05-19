@@ -24,7 +24,6 @@ const JobApply = () => {
   }, []);
 
   function sendApplication(e) {
-    debugger;
     const jobApplySchema = {
       ...e,
       jobId: id,
