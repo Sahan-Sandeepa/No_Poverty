@@ -27,6 +27,7 @@ const Donations = () => {
     const [ran, setran] = useState([]);
     const [selectedDonation, setSelected] = useState([])
     const { _id } = useParams();
+    const [searchText, setSearchText] = useState("");
     function getDonations() {
         axios.get("http://localhost:4000/donation/")
             .then((res) => {
@@ -158,7 +159,7 @@ const Donations = () => {
         //     key: 'status',
     },
     {
-        title: 'Help Given',
+        title: 'Donated To',
         dataIndex: 'helpGiven',
         key: 'helpGiven',
         // }, {
@@ -206,18 +207,19 @@ const Donations = () => {
                                 <div style={{ paddingRight: 50 }}>
                                     <Search
                                         placeholder="Input Search Text"
-                                        onSearch={onSearch}
+                                        onChange={(e) => setSearchText(e.target.value)}
                                         style={{
                                             width: 200,
                                         }}
                                     />
                                 </div>
 
-
+                                <Button icon={<FilePdfOutlined style={{ fontSize: '22px', color: 'red' }} />} onClick={generatePdf} />
                             </CustomRow>
                         </WrapperCard>
 
-                        <Table columns={Columns} dataSource={donate}
+                        <Table columns={Columns} dataSource={donate.filter((item)=>
+                        item.name.toLowerCase().includes(searchText.toLowerCase()))}
                             bordered
                         // title={() => 'Financial Details'}
                         />
@@ -268,7 +270,7 @@ const Donations = () => {
                     <br></br>
                     <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 10 }}>
                         <Card style={{ backgroundColor: 'transparent' }}>
-                            <d>My Five Donation</d>
+                            <d>My Fifth Donation</d>
                             <div style={{ position: 'relative' }}>
                                 <img
                                     src={five}
