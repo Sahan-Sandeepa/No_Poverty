@@ -73,16 +73,10 @@ const UserDashboard = props => {
     const items = [
 
         getItem("Dashboard", 0, <BankTwoTone />),
-
         getItem("Donation", 1, <UserOutlined />),
-
         getItem("Job Portal", 2, <CarFilled />),
-
         getItem("Events", 3, <LineChartOutlined />),
         getItem("LogOut", 4, <LogoutOutlined />),
-
-
-
 
 
 
@@ -102,7 +96,7 @@ const UserDashboard = props => {
         // <UserDashboard />,
         <Home />,
         <AdsUserView />,
-        <JobList />,
+        <Showvacancies />,
 
         // <Events />,
 

@@ -8,6 +8,11 @@ const financialSchema = new Schema({
     venue: { type: String, required: true },
     total: { type: Number, required: true },
     status: { type: String, required: true },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users', // Assuming you have a User model to reference
+        required: true,
+      },
 }, {
 
     timestamps:true

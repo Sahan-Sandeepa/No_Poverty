@@ -32,9 +32,10 @@ function App() {
 
   return (
     <Routes>
+
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/Register" element={<Register />} />
-      <Route path="/userDash"element={<UserDashboard />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/userDash" element={<UserDashboard />} />
       <Route path="/add" element={<JobPost />} />
       <Route path="/joblist" element={<JobList />} />
       <Route
@@ -82,7 +83,8 @@ function App() {
       <Route path="/printDetails/:id" element={<DetailsPrint />} />
       <Route path="/userEvent" element={<DisplayEvent />} />
       <Route path="/AllParticipants/:id" element={<AllParticipants />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login"  element={<Login />} />
+
     </Routes>
   );
 }

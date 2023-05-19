@@ -176,12 +176,14 @@ const JobList = () => {
     }];
     return (
         <>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
+            <div className='otherdash' style={{
+                    minHeight: '100vh',
+                    display: 'flex',
+                  
+                }}>
 
             <div style={{ paddingLeft: 150 }} >
+            <br></br><br></br><br></br>
                 <div style={{ paddingLeft: 870 }} >
                     <Button onClick={() => { setIsModalOpen(true) }} type="primary">Add New Vacancy</Button>
 
@@ -190,7 +192,7 @@ const JobList = () => {
                 <br></br>
                 <br></br>
                 <div style={{ padding: 1, alignItems: "center", width: 1000, height: 650, borderRadius: 5 }}>
-                    <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                    <WrapperCard style={{ backgroundColor: "#37475E",borderRadius:5 }}>
                         <CustomRow style={{ justifyContent: "space-between", padding: "10px" }} >
                             <h1 style={{ color: "White", fontSize: 18 }}>Job Vacancies</h1>
                             <Col span={12} />
@@ -244,6 +246,7 @@ const JobList = () => {
                         
                     />
                 </div>
+            </div>
             </div>
 
         </>

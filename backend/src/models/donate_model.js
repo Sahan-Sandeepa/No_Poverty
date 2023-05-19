@@ -9,7 +9,6 @@ const donate = new Schema({
     total: { type: Number, required: false },
     status: { type: String, required: false },
     helpGiven: {type: String, required: false },
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the User model
 
 }
 

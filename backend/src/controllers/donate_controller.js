@@ -29,13 +29,7 @@ const getDonationById = async (req, res) => {
 
 const makeDonation = async (req, res) => {
   try {
-    // Find the user associated with the donation
-    const user = await User.findOne({ email: req.body.email });
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
+    
     // Create the new donation
     const newDonation = new Donation({
       name: req.body.name,
@@ -45,7 +39,6 @@ const makeDonation = async (req, res) => {
       total: req.body.total,
       status: req.body.status,
       helpGiven: req.body.helpGiven,
-      user: user._id, // Associate the donation with the user by storing the user's ID
     });
 
     // Save the donation
