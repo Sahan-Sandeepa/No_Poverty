@@ -22,7 +22,7 @@ const contentStyle = {
 const Home = () => {
   return (
     <div>
-    <div style={{ paddingLeft:380}}>
+    <div style={{ paddingLeft:250}}>
 
     <Carousel autoplay>
     <div>
@@ -42,33 +42,35 @@ const Home = () => {
   </br><br></br>
   </div>
   <div>
+  <Card style={{boxShadow:"10px 5px 5px 10px lightblue"}}>
+
   <Row>
     <Col span={1}/>
     <Card style={{backgroundColor:"#EBDEF0"}}>
-      <h2 style={{fontWeight:"normal"}}> Donation</h2>
-      <img src={logo} style={{height:150,width:250}}/>
-      <h3 style={{fontWeight:"normal"}}>One of the best ways you <br></br>can make a
+      <h2 style={{fontWeight:"normal",fontFamily:"serif",fontWeight:"bold"}}> Donation</h2>
+      <img src={logo} style={{height:150,width:250,borderRadius:5}}/>
+      <h3 style={{fontWeight:"normal",fontFamily:"serif",fontWeight:"bold"}}>One of the best ways you <br></br>can make a
          different in the lives <br></br>of these peopleis to
           make a financial<br></br> donation to our work.</h3>
     </Card>
-    <Col span={1}/>
+
     <Card style={{backgroundColor:"#EBDEF0"}}>
-      <h1 style={{fontWeight:"normal"}}>
+      <h1 style={{fontWeight:"normal",fontFamily:"serif",fontWeight:"bold"}}>
         "Alone we can do little things <br></br>together we can do so much"
       </h1>
-      <img src={do2} style={{height:350,width:400}}/>
+      <img src={do2} style={{height:350,width:400,borderRadius:5}}/>
     </Card>
-    <Col span={1}/>
 
     <Card style={{backgroundColor:"#EBDEF0"}}>
-      <img src={do3} style={{height:200,width:350}}/>
-      <h3 style={{fontWeight:"normal"}}>The open sources are susceptible to drying up, 
+      <img src={do3} style={{height:200,width:300,borderRadius:5}}/>
+      <h3 style={{fontWeight:"normal",fontFamily:"serif",fontWeight:"bold"}}>The open sources are susceptible to drying up, 
       <br></br>contamination and hence the poor quality of .<br></br>water
          These children also faced a bigger risk of <br></br>shortage of water. </h3>
-
-
     </Card>
+    
   </Row>
+  </Card>
+
   </div>
 
   

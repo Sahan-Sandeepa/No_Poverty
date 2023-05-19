@@ -27,7 +27,8 @@ const getFinancialById = async (req, res) => {
 
 // create a new Financial
 const createFinancial = async (req, res) => {
-  
+  const userId = req.userId; // Assuming you have the user ID available in req.userId
+
   const {name,type,date,venue,total,status} = req.body
   console.log("name", name);
   console.log("name", type);
@@ -38,7 +39,7 @@ const createFinancial = async (req, res) => {
 
   // add to the database
   try {
-    const financial = await Financial.create({ name,type,date,venue,total,status })
+    const financial = await Financial.create({ name,type,date,venue,total,status,userId })
     res.status(200).json(financial)
   } catch (error) {
     res.status(400).json({ error: error.message })

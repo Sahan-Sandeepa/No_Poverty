@@ -1,19 +1,18 @@
 
 
-import { Button } from "antd"
 import { Layout, Menu } from "antd"
 import React, { useState } from "react"
 
 import {
     BankTwoTone,
-    UserOutlined,
+    CarFilled,
     LineChartOutlined,
-    CarFilled
+    UserOutlined
 } from "@ant-design/icons"
-import Header_bar from "../common/header_bar"
-import Financial from "../Financial/Financial"
 import Ads from "../DonationAdmin/ShowAllAds"
 import AllEvent from "../Event/Admin/AllEvent"
+import Financial from "../Financial/Financial"
+import Header_bar from "../common/header_bar"
 
 import Admin from "../../pages/AdminDashboard/Admin_dashboard"
 import JobList from "../JobPortal/JobList"
@@ -60,9 +59,12 @@ const Dashboard = props => {
 
     return (
         <>
+        
             <div>
                 <Header_bar />
+             
                 <Layout style={{ minHeight: "180vh" }}>
+               
                     <Sider
                         collapsible
                         collapsed={collapsed}
@@ -70,6 +72,9 @@ const Dashboard = props => {
                         }
 
                     >
+                        <div style={{ textAlign: "center", padding: "16px", color: "white", fontSize: 20 }}>
+                            Welcome to <br></br>Admin Menu
+                        </div>
 
                         <Menu
                             theme="dark"
@@ -86,7 +91,9 @@ const Dashboard = props => {
                             NoPoverty System ©2023
                         </Footer>
                     </Layout>
+
                 </Layout>
+                
             </div>
         </>
     )
