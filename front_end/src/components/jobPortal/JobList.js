@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Table, Icon, Button, Row, Input, Col } from "antd";
 import axios from "axios";
+import { EditTwoTone, DeleteOutlined,  FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
+import CustomRow from '../common/Form_header';
+import WrapperCard from '../common/Wrapper_card';
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import DeleteModal from '../common/DeleteModal';
+import jsPDF from 'jspdf'
+import 'jspdf-autotable'
+import JobPost from './JobPost';
+
 import {
   EditTwoTone,
   DeleteOutlined,
@@ -244,6 +253,7 @@ const JobList = () => {
                                 onChange={(e) => setSearchText(e.target.value)}
                                 style={{
                                     width: 250,
+
                                 }}
 
 
@@ -334,6 +344,7 @@ const JobList = () => {
                     />
                 </div>
             </div>
+
             </div>
 
           <JobPost
