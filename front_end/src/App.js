@@ -18,6 +18,7 @@ import DisplayEvent from "./components/Event/User/DisplayEvent";
 import EditDonations from "./components/DoDonations/EditDonations";
 import JobPost from "./components/JobPortal/JobPost";
 import JobList from "./components/JobPortal/JobList";
+import AppliedUsers from "./components/JobPortal/AppliedUsers";
 import UserDashboard from "./pages/UserDashboard/UserDashboard";
 import AllParticipants from "./components/Event/Admin/AllParticipants ";
 import CardDetails from "./components/DoDonations/CardDetails";
@@ -36,8 +37,18 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/register" element={<Register />} />
       <Route path="/userDash" element={<UserDashboard />} />
+
+      {/* Sakuni's Routes Begn here */}
       <Route path="/add" element={<JobPost />} />
       <Route path="/joblist" element={<JobList />} />
+      <Route
+        path="/appliedUsers"
+        element={
+          <UserLayout>
+            <AppliedUsers />
+          </UserLayout>
+        }
+      />
       <Route
         path="/showVacancies"
         element={
@@ -62,6 +73,9 @@ function App() {
           </UserLayout>
         }
       />
+      {/*SakuniF's Routes Ends here*/}
+
+
       {/* Leo's Routes Begin here */}
       <Route path="/pdonation" element={<PublishAd />} />{" "}
       {/*Ad creation form(not being used)*/}
