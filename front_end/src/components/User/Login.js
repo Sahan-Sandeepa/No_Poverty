@@ -171,7 +171,7 @@ const Login = () => {
                         <Form
                             name="login-form"
                         >
-                            <h1 style={{ textAlign: 'center' }}>!!!Helping Hands!!!</h1>
+                            <h1 style={{ textAlign: 'center' }}>Helping Hands</h1>
                             <Row>
                                 <Col span={3} />
                                 <Col span={17}>
