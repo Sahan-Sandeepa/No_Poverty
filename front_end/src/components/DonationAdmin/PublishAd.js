@@ -51,6 +51,8 @@ const PublishAd = props => {
                         message: 'Updated Successful',
                         description: 'You have successfully Updated Report',
                       });
+                      window.location.reload(); 
+
 
                 } else {
                     await axios.post('http://localhost:4000/adDonations/create', i);
@@ -58,6 +60,8 @@ const PublishAd = props => {
                         message: 'Created Successful',
                         description: 'You have successfully Created Report',
                       });
+                      window.location.reload(); 
+
 
                 }
                 handleOk();

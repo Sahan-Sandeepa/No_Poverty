@@ -242,7 +242,7 @@ const Financial = () => {
                 <br></br>
                 <div style={{ padding: 1, alignItems: "center", width: 1000, height: 650, borderRadius: 5 }}>
 
-                    <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                    <WrapperCard style={{ backgroundColor: "#37475E",borderRadius:5 }}>
                         <CustomRow style={{ justifyContent: "space-between", padding: "10px" }} >
                             <h1 style={{ color: "White", fontSize: 18 }}>Financial Summmary</h1>
                             <Col span={12} />
