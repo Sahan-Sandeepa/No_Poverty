@@ -200,7 +200,7 @@ const DonateForm = () => {
                 />
                 <h2> MEssage:{amount}</h2>
             </Form.Item> */}
-                        <Form.Item name={['amount']} label="Payment">
+                        {/* <Form.Item name={['amount']} label="Payment">
                             <Button type="primary" ghost>
                                 1000
                             </Button>
@@ -210,7 +210,7 @@ const DonateForm = () => {
                             <Button type="primary" ghost onClick={clickMe} id="theButton">
                                 Other
                             </Button>
-                        </Form.Item>
+                        </Form.Item> */}
 
 
                         <Form.Item
@@ -227,6 +227,9 @@ const DonateForm = () => {
                         </Form.Item>
                     </Form>
                 </Card>
+                <br></br>
+                <br></br>
+                <br></br>
             </div>
         </>
     );

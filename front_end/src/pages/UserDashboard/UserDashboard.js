@@ -23,6 +23,8 @@ import {
 import Header_bar from "../../components/common/header_bar"
 
 import JobList from "../../components/JobPortal/JobList"
+import AdsUserView from "../../components/DonationAdmin/AdsUserView"
+import Home from "../Home/Home"
 
 import AdsUserView from "../../components/DonationAdmin/AdsUserView"
 import Applied from '../../components/JobFind/AppliedJobs'
@@ -81,6 +83,7 @@ const UserDashboard = props => {
 
 
 
+
     ]
 
 
@@ -97,10 +100,6 @@ const UserDashboard = props => {
         <Home />,
         <AdsUserView />,
         <Showvacancies />,
-
-        // <Events />,
-
-        // <Financial />,
 
     ]
     const userName = "John Doe"; // Replace this with the actual user's name
