@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Table, Icon, Button, Row, Input, Col, Card } from "antd";
+import { Table, Button, Input } from "antd";
 import axios from "axios";
 import { CheckCircleOutlined } from "@ant-design/icons";
-import CustomRow from "../common/Form_header";
-import WrapperCard from "../common/Wrapper_card";
 import { Link } from "react-router-dom";
 import PageWithTitleSearch from "../common/PageWithTitleSearch";
 
@@ -13,7 +11,7 @@ const Showvacancies = () => {
   const [jobList, setJobList] = useState([]);
   const [searchText, setSearchText] = useState("");
 
-  function getAds() {
+  function getAllJobVacancies() {
     axios
       .get("http://localhost:4000/jobHire/")
       .then((res) => {
@@ -24,7 +22,7 @@ const Showvacancies = () => {
       });
   }
   useEffect(() => {
-    getAds();
+    getAllJobVacancies();
   }, []);
 
   const columns = [
@@ -61,12 +59,6 @@ const Showvacancies = () => {
           <Link to={"/jobApply/" + record._id}>
             <Button icon={<CheckCircleOutlined />}></Button>
           </Link>
-
-          {/* <Button icon={<DeleteOutlined style={{ color: 'red' }} />}
-                    onClick={() => {
-                        navigateJobApply();
-                    }}
-                /> */}
         </span>
       ),
     },
