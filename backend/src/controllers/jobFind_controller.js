@@ -8,6 +8,15 @@ const getJobFinds = async (req, res) => {
   res.status(200).json(jobFind);
 };
 
+// get all Job details
+const getApplicationsByJob = async (req, res) => {
+  const { id } = req.params;
+
+  const jobFind = await JobFind.find({ jobId: id }).sort({ createdAt: -1 });
+
+  res.status(200).json(jobFind);
+};
+
 // get a single Job detail
 const getJobFindlById = async (req, res) => {
   const { id } = req.params;
@@ -105,4 +114,5 @@ module.exports = {
   jobApply,
   deleteJobApplication,
   updateJobApplication,
+  getApplicationsByJob
 };

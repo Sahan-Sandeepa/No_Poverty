@@ -2,22 +2,24 @@ import React, { useState, useEffect } from "react";
 import { Table, Button, Input } from "antd";
 import axios from "axios";
 import PageWithTitleSearch from "../common/PageWithTitleSearch";
+import { useParams } from "react-router-dom";
 
 const Showvacancies = () => {
   const [appliedUsersList, setAppliedUsersList] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const { id } = useParams();
 
-  function getAppliedUsers() {
-    axios
-      .get("http://localhost:4000/jobFind")
-      .then((res) => {
-        setAppliedUsersList(res.data);
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
-  }
   useEffect(() => {
+    function getAppliedUsers() {
+      axios
+        .get("http://localhost:4000/jobFind/applications/" + id)
+        .then((res) => {
+          setAppliedUsersList(res.data);
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    }
     getAppliedUsers();
   }, []);
 
