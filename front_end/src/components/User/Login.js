@@ -9,10 +9,12 @@ import { notification } from 'antd';
 const { Header, Content, Footer } = Layout;
 
 
-const   Login = () => {
+const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userId, setUserId] = useState("");
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     // useEffect(() => {
     //   if (cookies.jwt) {
@@ -23,66 +25,130 @@ const   Login = () => {
         token: { colorBgContainer },
     } = theme.useToken();
 
-    const handleRegister=()=>{
+    const handleRegister = () => {
         navigate("/register")
     }
-
-    async function sendLogin(e) {
+    const sendLogin = async (e) => {
         e.preventDefault();
-
-        // Check the email and password to determine the role
-        let role = '';
-        if (email === 'admin@test.com' && password === 'admin1234') {
-            role = 'admin';
-        } else {
-            role = 'user';
-        }
-
-        const userCredentials = {
-            email: email,
-            password: password,
-            role: role
+        setLoading(true);
+      
+        const newOb = {
+          email: email,
+          password: password,
+          role: 'admin', // Specify the role as 'admin' for admin login
         };
-
-        try {
-            const response = await fetch('http://localhost:4000/auth/login', {
-                method: 'POST',
-                body: JSON.stringify(userCredentials),
-                headers: { 'Content-Type': 'application/json' }
-            });
-
-            if (response.ok) {
-                // Handle successful login
-                console.log('Login successful!');
-                const data = await response.json();
-                const token = data.token; // Assuming the JWT token is returned in the response
-
-                // Save the JWT token to local storage or session storage
-                // localStorage.setItem('token', token); // You can change 'localStorage' to 'sessionStorage' if desired
-
-                notification.success({
-                    message: 'Login Successful',
-                    description: 'You have successfully logged in.',
-                });
-                setUserId(data.userId); // Assuming the user ID is returned in the response
-
-                if (role === 'user') {
-                    navigate(`/userDash`);
-                } else if (role === 'admin') {
-                    navigate(`/dashboard`);
-                }
+      
+        axios
+          .post("http://localhost:4000/auth/login", newOb) // Assuming the API endpoint is '/auth/login' for user and admin login
+          .then((res) => {
+            //console.log(res.data);
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("userInfo", JSON.stringify(res.data));
+            setLoading(false);
+            setError(false);
+            // Redirect based on the role
+            if (res.data.user.role === 'admin') {
+              navigate("/dashboard"); // Redirect to admin dashboard
             } else {
-                // Handle login error
-                console.log('Login failed. Please try again.');
-                notification.error({
-                    message: 'Login Failed',
-                    description: 'Please check your email and password and try again.',
-                });
+              navigate("/userDash"); // Redirect to user dashboard
             }
-        } catch (err) {
-            console.log(err);
+          })
+          .catch((err) => {
+            setLoading(false);
+            setError(true);
+          });
+      };
+      
+    //   useEffect(() => {
+    //     const userInfo = localStorage.getItem("userInfo");
+      
+    //     if (userInfo) {
+    //       navigate("/dashboard");
+    //     }
+    //   });
+      
+    useEffect(() => {
+        const userInfo = localStorage.getItem("userInfo");
+      
+        if (userInfo) {
+          const userRole = JSON.parse(userInfo).user.role;
+      
+          if (userRole === "admin") {
+            navigate("/dashboard"); // Redirect to admin dashboard
+          } else {
+            navigate("/userDash"); // Redirect to user dashboard
+          }
         }
-    }
+      }, []);
+      
+      
+    
+    
+    // const sendLogin=async (values)=> {
+
+    //     const { email, password } = values;
+
+    //     // Check the email and password to determine the role
+    //     let role = '';
+    //     if (email === 'admin@test.com' && password === 'admin1234') {
+    //         role = 'admin';
+    //     } else {
+    //         role = 'user';
+    //     }
+
+    //     const userCredentials = {
+    //         email: email,
+    //         password: password,
+    //         role: role
+    //     };
+
+    //     try {
+    //         const response = await fetch('http://localhost:4000/auth/login', {
+    //             method: 'POST',
+    //             body: JSON.stringify(userCredentials),
+    //             headers: { 'Content-Type': 'application/json' }
+    //         });
+
+    //         if (response.ok) {
+    //             // Handle successful login
+    //             console.log('Login successful!');
+    //             const data = await response.json();
+    //             const token = data.token; // Assuming the JWT token is returned in the response
+
+    //             // Save the JWT token to local storage or session storage
+    //             localStorage.setItem('users', token); // You can change 'localStorage' to 'sessionStorage' if desired
+
+    //             notification.success({
+    //                 message: 'Login Successful',
+    //                 description: 'You have successfully logged in.',
+    //             });
+    //             setUserId(data.userId); // Assuming the user ID is returned in the response
+
+    //             if (role === 'user') {
+    //                 navigate(`/userDash`);
+    //             } else if (role === 'admin') {
+    //                 navigate(`/dashboard`);
+    //             }
+    //         } else {
+    //             // Handle login error
+    //             console.log('Login failed. Please try again.');
+    //             notification.error({
+    //                 message: 'Login Failed',
+    //                 description: 'Please check your email and password and try again.',
+    //             });
+    //         }
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     const userInfo = localStorage.getItem("userInfo");
+
+    //     if (userInfo) {
+    //       history("/home");
+    //     }
+    //   });
 
 
 
@@ -168,7 +234,7 @@ const   Login = () => {
                                 <Form.Item>
                                     <Link to="/Register">
                                         <Button type="ghost" htmlType="submit" onClick={handleRegister}>
-                                        Don't have an account? Sign up
+                                            Don't have an account? Sign up
                                         </Button>
 
                                     </Link>
