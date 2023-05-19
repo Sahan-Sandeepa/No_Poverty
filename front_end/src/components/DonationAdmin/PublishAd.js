@@ -1,25 +1,16 @@
-import React,{useEffect} from 'react'
 import {
-    AutoComplete,
     Button,
-    Cascader,
-    Checkbox,
     Col,
     Form,
     Input,
-    InputNumber,
+    Modal,
     Row,
-    Select,
-    DatePicker,
-    Layout,
-    Modal
+    notification
 } from 'antd';
-import { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
-import WrapperContainer from '../common/Wrapper_container';
-import { Link } from 'react-router-dom';
-import axios, { Axios } from 'axios';
 
 
 const config = {
@@ -56,9 +47,17 @@ const PublishAd = props => {
             try {
                 if (selectedItem) {
                     await axios.put(`http://localhost:4000/adDonations/${selectedItem._id}`, i);
+                    notification.success({
+                        message: 'Updated Successful',
+                        description: 'You have successfully Updated Report',
+                      });
 
                 } else {
                     await axios.post('http://localhost:4000/adDonations/create', i);
+                    notification.success({
+                        message: 'Created Successful',
+                        description: 'You have successfully Created Report',
+                      });
 
                 }
                 handleOk();

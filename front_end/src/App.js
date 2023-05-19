@@ -18,6 +18,7 @@ import DisplayEvent from "./components/Event/User/DisplayEvent";
 import EditDonations from "./components/DoDonations/EditDonations";
 import JobPost from "./components/JobPortal/JobPost";
 import JobList from "./components/JobPortal/JobList";
+import AppliedUsers from "./components/JobPortal/AppliedUsers";
 import UserDashboard from "./pages/UserDashboard/UserDashboard";
 import AllParticipants from "./components/Event/Admin/AllParticipants ";
 import CardDetails from "./components/DoDonations/CardDetails";
@@ -32,21 +33,49 @@ function App() {
 
   return (
     <Routes>
+
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/Register" element={<Register />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/userDash" element={<UserDashboard />} />
+
+      {/* Sakuni's Routes Begn here */}
       <Route path="/add" element={<JobPost />} />
       <Route path="/joblist" element={<JobList />} />
-      <Route path="/showVacancies" element={<Showvacancies />} />
-      <Route path="/jobApply" element={<JobApply />} />
-      {/* <Route
+      <Route
+        path="/appliedUsers"
+        element={
+          <UserLayout>
+            <AppliedUsers />
+          </UserLayout>
+        }
+      />
+      <Route
+        path="/showVacancies"
+        element={
+          <UserLayout>
+            <Showvacancies />
+          </UserLayout>
+        }
+      />
+      <Route
+        path="/jobApply/:id"
+        element={
+          <UserLayout>
+            <JobApply />
+          </UserLayout>
+        }
+      />
+      <Route
         path="/appliedjobs"
         element={
           <UserLayout>
             <AppliedJobs />
           </UserLayout>
         }
-      /> */}
+      />
+      {/*SakuniF's Routes Ends here*/}
+
+
       {/* Leo's Routes Begin here */}
       <Route path="/pdonation" element={<PublishAd />} />{" "}
       {/*Ad creation form(not being used)*/}
@@ -60,8 +89,7 @@ function App() {
       {/*Card Detail Page*/}
       <Route path="/paymentDetails/" element={<PaymentPortal />} />{" "}
       {/*Card Detail Page*/}
-      <Route path="/adsUserView/" element={<AdsUserView/>} />
-
+      <Route path="/adsUserView/" element={<AdsUserView />} />
       {/*Leo's Routes Ends here*/}
       <Route path="/addevent" element={<AddEvent />} />
       <Route path="/allEvent" element={<AllEvent />} />
@@ -69,7 +97,8 @@ function App() {
       <Route path="/printDetails/:id" element={<DetailsPrint />} />
       <Route path="/userEvent" element={<DisplayEvent />} />
       <Route path="/AllParticipants/:id" element={<AllParticipants />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login"  element={<Login />} />
+
     </Routes>
   );
 }

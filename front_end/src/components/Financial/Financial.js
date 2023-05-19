@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Table, Icon, Button, Space, Input, Col, Row } from 'antd';
+import { Table, Card, Button, Space, Input, Col, Row } from 'antd';
 import axios from "axios";
 import { EditTwoTone, DeleteOutlined, SearchOutlined, DownloadOutlined, FilePdfOutlined, FilePdfTwoTone, SelectOutlined, MessageOutlined } from '@ant-design/icons';
 import CustomRow from '../common/Form_header';
@@ -9,6 +9,7 @@ import AddFinancial from './AddFinancial';
 import DeleteModal from '../common/DeleteModal';
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
+import { notification } from 'antd';
 
 const { Search } = Input;
 
@@ -24,10 +25,11 @@ const Financial = () => {
     const [selectedItem, setSelectedItem] = useState(null);
     const [searchText, setSearchText] = useState("");
     const [ads, setAds] = useState([]);
+    const [totalSum, setTotalSum] = useState(0);
 
     const history = useNavigate();
-    
-    
+
+
     const addOrder = async () => {
         setIsModalOpen(false);
         setOpenEditOrderModal(false);
@@ -40,7 +42,7 @@ const Financial = () => {
     };
     const handleDeleteCancel = () => {
         setIsDeleteModalOpen(false); // Hide the delete modal
-      };
+    };
 
     async function getFinancial() {
         await axios.get("http://localhost:4000/financial/")
@@ -54,15 +56,17 @@ const Financial = () => {
     }
     const refresh = async () => {
         await getFinancial();
-      };
+    };
     useEffect(() => {
         getFinancial().then((va) => {
             console.log(`===> ${financial}`)
         })
     }, []);
 
+
+
     function getAds() {
-        axios.get("http://localhost:4000/adDonations/")
+        axios.get(`http://localhost:4000/donation/`)
             .then((res) => {
                 setAds(res.data);
             })
@@ -74,15 +78,26 @@ const Financial = () => {
         getAds();
     }, [])
 
-    
+
+    useEffect(() => {
+        if (ads) {
+            const amount = ads.reduce((acc, row) => acc + row.amount, 0);
+            setTotalSum(amount);
+        }
+    }, [ads]);
+
 
     const handleDelete = async (_id) => {
         setIsDeleteModalOpen(true); // Show the delete modal
         setSelectedItem(_id); // Set the selected item to delete
-      };
-    const handleDeleteConfirm  = async (_id) => {
+    };
+    const handleDeleteConfirm = async (_id) => {
         axios.delete("http://localhost:4000/financial/" + selectedItem)
             .then((result) => {
+                notification.success({
+                    message: 'Deleted Successful',
+                    description: 'You have successfully Deleted Report',
+                });
                 setIsDeleteModalOpen(false); // Hide the delete modal
                 refresh();
             }).catch((err) => {
@@ -147,9 +162,15 @@ const Financial = () => {
         key: 'name',
         render: text => <a href="#">{text}</a>,
     }, {
-        title: 'Location',
-        dataIndex: 'location',
-        key: 'location',
+        title: 'Amount',
+        dataIndex: 'amount',
+        key: 'amount',
+
+    },
+    {
+        title: 'Status',
+        dataIndex: 'status',
+        key: 'status',
 
     },
     ];
@@ -205,17 +226,22 @@ const Financial = () => {
 
     return (
         <>
-            <br></br>
-            <br></br>
-            <br></br>
+            <div className='otherdash' style={{
+                    minHeight: '100vh',
+                    display: 'flex',
+                  
+                }}>
 
             <div style={{ paddingLeft: 150 }} >
+            <br></br>
+                <br></br>
                 <div style={{ paddingLeft: 870 }} >
                     <Button onClick={() => { setIsModalOpen(true) }} type="primary">Create Report</Button>
                 </div>
                 <br></br>
                 <br></br>
                 <div style={{ padding: 1, alignItems: "center", width: 1000, height: 650, borderRadius: 5 }}>
+
                     <WrapperCard style={{ backgroundColor: "#37475E" }}>
                         <CustomRow style={{ justifyContent: "space-between", padding: "10px" }} >
                             <h1 style={{ color: "White", fontSize: 18 }}>Financial Summmary</h1>
@@ -226,14 +252,15 @@ const Financial = () => {
                                 style={{
                                     width: 250,
                                 }}
-
                             />
                             <Button icon={<FilePdfOutlined style={{ fontSize: '21px', color: 'red' }} />} onClick={generatePdf} />
                         </CustomRow>
                     </WrapperCard>
+
                     <Table columns={Columns} dataSource={financial.filter((item) =>
                         item.name.toLowerCase().includes(searchText.toLowerCase())
                     )} />
+
                     <AddFinancial
                         isOpen={isModalOpen}
                         handleCancel={handleCancel}
@@ -251,16 +278,28 @@ const Financial = () => {
                         handleCancel={handleDeleteCancel}
                         handleOk={handleDeleteConfirm}
                         text="Do you want to delete the report details?"
-                        
+
                     />
                     <br></br>
-                    <br></br>
-                    <br></br>
-                    <Table columns={columns} dataSource={ads}
-                    />
+
+                    <Card style={{ borderColor: "black" }}>
+                        <h1 style={{ textAlign: "center" }}>Donation Details</h1>
+                        <Table columns={columns} dataSource={ads} />
+                        <Card>
+                            <Row>
+                                <Col span={18}>
+                                    <h3>Total  : Rs {totalSum}</h3>
+                                </Col>
+                            </Row>
+                        </Card>
+
+                    </Card>
+
 
                 </div>
             </div>
+            </div>
+
         </>
     )
 }

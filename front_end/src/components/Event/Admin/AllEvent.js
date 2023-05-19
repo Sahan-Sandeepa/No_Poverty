@@ -102,6 +102,11 @@ const AllEvent = () => {
 
 
     return (
+        <div className='otherdash' style={{
+            minHeight: '100vh',
+            display: 'flex',
+          
+        }}>
         <div className="main-container">
 
             <div className="sub-container">
@@ -253,6 +258,8 @@ const AllEvent = () => {
                     ))}
             </div>
         </div>
+        </div>
+
     );
 
 };

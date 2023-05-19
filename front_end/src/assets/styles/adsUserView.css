@@ -2,7 +2,8 @@
     background-image: url('../images/adUserBG.jpg');
     background-size: cover;
     background-position: center;
-    
+    height: 180vh;
+
     background-attachment: fixed;
 }
 .card{

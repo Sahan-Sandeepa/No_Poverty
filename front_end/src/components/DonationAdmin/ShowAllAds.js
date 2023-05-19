@@ -199,13 +199,17 @@ const Ads = () => {
     }];
     return (
         <>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
+       <div className='otherdash' style={{
+            minHeight: '100vh',
+            display: 'flex',
+          
+        }}>
 
             <div style={{ paddingLeft: 150 }} >
-                <div style={{ paddingLeft: 745 }} >
+            <br></br>
+                <br></br>
+
+                <div style={{ paddingLeft: 825 }} >
                     <Button onClick={() => { setIsModalOpen(true) }} type="primary">Create Advertistment</Button>
                 </div>
                 <br></br>
@@ -215,7 +219,7 @@ const Ads = () => {
                     <Col span={50} />
                     <Col span={30}>
 
-                        <WrapperCard style={{ backgroundColor: "#37475E" }}>
+                        <WrapperCard style={{ backgroundColor: "#37475E",borderRadius:5 }}>
                             <CustomRow style={{ justifyContent: "space-between", padding: "16px" }} >
                                 <h1 style={{ color: "White" }}>Advertistment Summmary</h1>
                                 <Col span={10} />
@@ -254,6 +258,7 @@ const Ads = () => {
                     />
                     </Col>
                 </div>
+            </div>
             </div>
 
         </>

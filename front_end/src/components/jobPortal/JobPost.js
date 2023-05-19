@@ -1,23 +1,8 @@
-import React, { createContext } from 'react'
-import {
-    AutoComplete,
-    Button,
-    Cascader,
-    Checkbox,
-    Col,
-    Form,
-    Input,
-    Modal,
-    Row,
-    Select,
-    DatePicker,
-    Layout,
-    message
-} from 'antd';
+import React from 'react'
+import {  Button,notification, Col, Form, Input, Modal, Row, DatePicker,} from 'antd';
 import { useState, useEffect } from 'react';
 import CustomRow from '../common/Form_header';
 import WrapperCard from '../common/Wrapper_card';
-import WrapperContainer from '../common/Wrapper_container';
 import axios from "axios";
 import { } from "react-router-dom";
 import dayjs from 'dayjs';
@@ -25,8 +10,6 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
 const dateFormat = 'YYYY/MM/DD';
 
-const { Option } = Select;
-const { Header, Content, Footer } = Layout;
 
 
 const config = {
@@ -64,11 +47,20 @@ const JobPost = props => {
             try {
                 if (selectedItem) {
                     await axios.put(`http://localhost:4000/jobHire/update/${selectedItem._id}`, i);
+                    notification.success({
+                        message: 'Updated Successful',
+                        description: 'You have successfully Updated Report',
+                      });
+
                     refresh();
 
 
                 } else {
                     await axios.post('http://localhost:4000/jobHire/add', i);
+                    notification.success({
+                        message: 'Created Successful',
+                        description: 'You have successfully Created Report',
+                      });
                     refresh();
 
 

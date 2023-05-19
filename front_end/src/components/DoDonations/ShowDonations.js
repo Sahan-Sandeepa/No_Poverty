@@ -50,33 +50,19 @@ const Donations = () => {
         axios
 
             .patch(
-
                 `http://localhost:4000/donation/${id}`,
-
                 {
-
                     eventStatus: value,
-
                 },
-
                 { headers: { "Content-Type": "application/json" } }
-
             )
-
             .then(() => {
-
                 // alert("Details Successfully Updated!");
-
                 window.location.reload(false);
-
             })
-
             .catch((err) => {
-
                 alert(err.message);
-
             });
-
     }
 
     const generatePdf = () => {

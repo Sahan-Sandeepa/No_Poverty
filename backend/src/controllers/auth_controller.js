@@ -84,3 +84,9 @@ module.exports.login_post = async (req, res) => {
     res.status(400).json({ errors});
   }
 }
+
+module.exports.logout_get = (req, res) => {
+  // Clear the JWT cookie to logout the user
+  res.cookie('jwt', '', { maxAge: 1 }); // Set the cookie to expire immediately
+  res.status(200).json({ message: 'Logout successful' });
+}
