@@ -141,7 +141,7 @@ const PublishAd = props => {
                                     initialValue={selectedItem?.name}
                                     rules={[
                                         {
-                                            
+                                            required: true,
                                             message: "Enter name"
                                         }
 
@@ -164,7 +164,8 @@ const PublishAd = props => {
                                 initialValue={selectedItem?.location}
                                 rules={[
                                     {
-                                        
+                                        required: true,
+
                                         message: 'Enter Location!',
                                     },
                                 ]}
@@ -185,7 +186,8 @@ const PublishAd = props => {
                                 initialValue={selectedItem?.smallDes}
                                 rules={[
                                     {
-                                        
+                                        required: true,
+
                                         message: "Please enter data"
                                     }
                                 ]}
@@ -201,7 +203,8 @@ const PublishAd = props => {
                                 initialValue={selectedItem?.help}
                                 rules={[
                                     {
-                                        
+                                        required: true,
+
                                         message: "Please enter data"
                                     }
                                 ]}
@@ -221,9 +224,8 @@ const PublishAd = props => {
                                     label="Enter Long Description"
                                     initialValue={selectedItem?.longDes}
                                     rules={[
-
                                         {
-                                            
+                                            required: true,
                                             message: "Please enter data"
                                         }
                                     ]}

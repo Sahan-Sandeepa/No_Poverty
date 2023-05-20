@@ -141,6 +141,7 @@ function App() {
       {/*Donation editing*/}
       <Route path="/cardDetails/" element={<CardDetails />} />{" "}
       {/*Card Detail Page*/}
+      
       <Route path="/paymentDetails/" element={<PaymentPortal />} />{" "}
       {/*Card Detail Page*/}
       <Route

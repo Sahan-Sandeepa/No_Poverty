@@ -72,14 +72,27 @@ const Login = () => {
                 });
             });
     };
-
     useEffect(() => {
-            const userInfo = localStorage.getItem("userInfo");
+        const userInfo = localStorage.getItem("userInfo");
+      
+        if (userInfo) {
+          const userRole = JSON.parse(userInfo).user.role;
+      
+          if (userRole === "admin") {
+            navigate("/dashboard");
+          } else {
+            navigate("/userDash");
+          }
+        }
+      }, []);
+      
+    // useEffect(() => {
+    //         const userInfo = localStorage.getItem("userInfo");
             
-            if (userInfo) {
-              navigate("/login");
-            }
-    }, []);
+    //         if (userInfo) {
+    //           navigate("/login");
+    //         }
+    // }, []);
 
 
 

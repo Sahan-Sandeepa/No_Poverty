@@ -1,9 +1,9 @@
-import { Button, Form, Input, InputNumber } from 'antd';
+import { Button, Form, Input, InputNumber, Row, Card, Col } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import axios from 'axios';
 import React from 'react'
-import { useState,Link } from 'react';
+import { useState, Link } from 'react';
 const layout = {
     labelCol: {
         span: 8,
@@ -53,8 +53,8 @@ function formatCardNumber(inputValue) {
         return group;
     }); // inserts a space after each group of 4 digits
 }
-function redirect(){
-    
+function redirect() {
+
 }
 
 
@@ -66,8 +66,8 @@ const CardDetails = () => {
     const navigate = useNavigate();
     const [cvc, setCvc] = useState('');
     const [amount, setAmount] = useState();
-    
-    
+
+
     const [cardFields, setCardFields] = useState(['', '', '', '']);
 
     const handleChange = (event) => {
@@ -80,7 +80,7 @@ const CardDetails = () => {
         alert('Payment Successful!!');
         // Redirect to another page
         navigate('/showdonation');
-      };
+    };
 
     function handleCardFieldChange(index, value) {
         const newCardFields = [...cardFields];
@@ -112,133 +112,156 @@ const CardDetails = () => {
     //         })
     // }
     return (
-
-        <div style={{ backgroundColor: "#37475E", width: "45%", marginLeft: "25%", marginTop: "10%",paddingLeft:"5%" }} >
-            <h1>Provide Card Details </h1>
-            <Form style={{color:"white"}}>
-                <Form.Item
-                    name="name"
-                    label="Name on Card"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]} 
-                    labelCol={{
-                        span:6,
-                        style:{color:"white"},
-                    }}
+        <>
+         <div className='otherdash' style={{
+                    minHeight: '100vh',
+                    display: 'flex',
+                  
+                }}>
                     
-                >
-                    <Input onChange={(val) => {
-                        setName(val.target.value);
-                    }} style={{ width: "300px",color:"pink" }}
-                    />
-                </Form.Item>
-                <Form.Item
-                    label="Card Number"
-                    rules={[
-                        {
-                            required: true,
-                            validator: (_, __, cb) => {
-                                const cardNumber = getCardNumber();
-                                if (validateCardNumber(cardNumber)) {
-                                    cb();
-                                } else {
-                                    cb(new Error('Please enter a valid 16-digit card number'));
-                                }
-                            },
-                        },
-                    ]}
-                >
-                    <Input value={cardFields[0]} maxLength={4} onChange={(e) => handleCardFieldChange(0, e.target.value)} style={{ width: "80px" }} />
-                    <span>&nbsp;</span>
-                    <Input value={cardFields[1]} maxLength={4} onChange={(e) => handleCardFieldChange(1, e.target.value)} style={{ width: "80px" }} />
-                    <span>&nbsp;</span>
-                    <Input value={cardFields[2]} maxLength={4} onChange={(e) => handleCardFieldChange(2, e.target.value)} style={{ width: "80px" }} />
-                    <span>&nbsp;</span>
-                    <Input value={cardFields[3]} maxLength={4} onChange={(e) => handleCardFieldChange(3, e.target.value)} style={{ width: "80px" }} />
-                </Form.Item>
 
-                <Form.Item
-                    name="contact"
-                    label="CVC"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                        {
-                            validator: (_, value) => {
-                                if (!/^\d{3}$/.test(value)) {
-                                    return Promise.reject(new Error('Please enter a valid 3-digit CVC number'));
-                                }
-                                return Promise.resolve();
-                            },
-                        },
-                    ]}
-                >
-                    <Input onChange={(e) => setCvc(e.target.value)} style={{ width: "75px" }} />
-                </Form.Item>
-                {/* <Form.Item
-                    name="amount"
-                >
-                    Enter Amount<Input onChange={(val) => {
-                        setAmount(val.target.value);
-                    }} />
+            <div style={{paddingLeft:450}}>
+            <br></br>
+                    <br></br>
+                    <br></br>
 
-                </Form.Item>
-                <Form.Item
-                    name="total"
-                >
-                    Enter Total<Input onChange={(val) => {
-                        setTotal(val.target.value);
-                    }} />
-                </Form.Item>
-                <Form.Item
-                    name="status"
-                >
-                    Enter status<Input onChange={(val) => {
-                        setStatus(val.target.value);
-                    }} />
+                <Col span={5} />
+                <Card style={{ height: 400, width: 500 }}>
+                    {/* <div style={{ backgroundColor: "#37475E", width: "45%", marginLeft: "25%", marginTop: "10%",paddingLeft:"5%" }} > */}
+                    <Row>
 
-                </Form.Item> */}
-                {/* <Form.Item defaultValue={1000} >
-                <Input 
-                name='amount'
-                id="message"
-                onchange={handleChange}
-                />
-                <h2> MEssage:{amount}</h2>
-            </Form.Item> */}
-                {/* <Form.Item name={['amount']} label="Payment">
-                    <Button type="primary" ghost>
-                        1000
-                    </Button>
-                    <Button type="primary" ghost>
-                        2000
-                    </Button>
-                    <Button type="primary" ghost onClick={clickMe} id="theButton">
-                        Other
-                    </Button>
-                </Form.Item> */}
+                        <h1>Provide Card Details </h1>
+                        <Form style={{ color: "white" }}>
+                            <Form.Item
+                                name="name"
+                                label="Name on Card"
+                                rules={[
+                                    {
+                                        required: true,
+                                    },
+                                ]}
+                                labelCol={{
+                                    span: 6,
+                                    style: { color: "white" },
+                                }}
+
+                            >
+                                <Input onChange={(val) => {
+                                    setName(val.target.value);
+                                }} style={{ width: "300px", color: "pink" }} />
+                            </Form.Item>
+                            <Form.Item
+                                label="Card Number"
+                                rules={[
+                                    {
+                                        required: true,
+                                        validator: (_, __, cb) => {
+                                            const cardNumber = getCardNumber();
+                                            if (validateCardNumber(cardNumber)) {
+                                                cb();
+                                            } else {
+                                                cb(new Error('Please enter a valid 16-digit card number'));
+                                            }
+                                        },
+                                    },
+                                ]}
+                            >
+                                <Input value={cardFields[0]} maxLength={4} onChange={(e) => handleCardFieldChange(0, e.target.value)} style={{ width: "80px" }} />
+                                <span>&nbsp;</span>
+                                <Input value={cardFields[1]} maxLength={4} onChange={(e) => handleCardFieldChange(1, e.target.value)} style={{ width: "80px" }} />
+                                <span>&nbsp;</span>
+                                <Input value={cardFields[2]} maxLength={4} onChange={(e) => handleCardFieldChange(2, e.target.value)} style={{ width: "80px" }} />
+                                <span>&nbsp;</span>
+                                <Input value={cardFields[3]} maxLength={4} onChange={(e) => handleCardFieldChange(3, e.target.value)} style={{ width: "80px" }} />
+                            </Form.Item>
+
+                            <Form.Item
+                                name="contact"
+                                label="CVC"
+                                rules={[
+                                    {
+                                        required: true,
+                                    },
+                                    {
+                                        validator: (_, value) => {
+                                            if (!/^\d{3}$/.test(value)) {
+                                                return Promise.reject(new Error('Please enter a valid 3-digit CVC number'));
+                                            }
+                                            return Promise.resolve();
+                                        },
+                                    },
+                                ]}
+                            >
+                                <Input onChange={(e) => setCvc(e.target.value)} style={{ width: "75px" }} />
+                            </Form.Item>
+                            {/* <Form.Item
+        name="amount"
+    >
+        Enter Amount<Input onChange={(val) => {
+            setAmount(val.target.value);
+        }} />
+
+    </Form.Item>
+    <Form.Item
+        name="total"
+    >
+        Enter Total<Input onChange={(val) => {
+            setTotal(val.target.value);
+        }} />
+    </Form.Item>
+    <Form.Item
+        name="status"
+    >
+        Enter status<Input onChange={(val) => {
+            setStatus(val.target.value);
+        }} />
+
+    </Form.Item> */}
+                            {/* <Form.Item defaultValue={1000} >
+    <Input
+    name='amount'
+    id="message"
+    onchange={handleChange}
+    />
+    <h2> MEssage:{amount}</h2>
+</Form.Item> */}
+                            {/* <Form.Item name={['amount']} label="Payment">
+        <Button type="primary" ghost>
+            1000
+        </Button>
+        <Button type="primary" ghost>
+            2000
+        </Button>
+        <Button type="primary" ghost onClick={clickMe} id="theButton">
+            Other
+        </Button>
+    </Form.Item> */}
 
 
-                <Form.Item
-                    wrapperCol={{
-                        ...layout.wrapperCol,
-                        offset: 8,
-                    }}
-                >
-                    {/* <Link to="/PaymentPortal"> */}
-                        <Button type="primary" htmlType="submit" onClick={handleSubmit} >
-                            Submit
-                        </Button>
-                    {/* </Link> */}
+                            <Form.Item
+                                wrapperCol={{
+                                    ...layout.wrapperCol,
+                                    offset: 8,
+                                }}
+                            >
+                                {/* <Link to="/PaymentPortal"> */}
+                                <Button type="primary" htmlType="submit" onClick={handleSubmit}>
+                                    Submit
+                                </Button>
+                                {/* </Link> */}
 
-                </Form.Item>
-            </Form>
+                            </Form.Item>
+                        </Form>
+                    </Row>
 
-        </div>
+
+                    {/* </div> */}
+                </Card>
+
+            </div>
+            </div>
+        </>
+
     );
 
 }
