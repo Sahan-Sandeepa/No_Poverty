@@ -31,59 +31,60 @@ const Login = () => {
     const sendLogin = async (e) => {
         e.preventDefault();
         setLoading(true);
-      
-        const newOb = {
-          email: email,
-          password: password,
-          role: 'admin', // Specify the role as 'admin' for admin login
-        };
-      
-        axios
-          .post("http://localhost:4000/auth/login", newOb) // Assuming the API endpoint is '/auth/login' for user and admin login
-          .then((res) => {
-            //console.log(res.data);
-            localStorage.setItem("token", res.data.token);
-            localStorage.setItem("userInfo", JSON.stringify(res.data));
-            setLoading(false);
-            setError(false);
-            // Redirect based on the role
-            if (res.data.user.role === 'admin') {
-              navigate("/dashboard"); // Redirect to admin dashboard
-            } else {
-              navigate("/userDash"); // Redirect to user dashboard
-            }
-          })
-          .catch((err) => {
-            setLoading(false);
-            setError(true);
-          });
-      };
-      
-    //   useEffect(() => {
-    //     const userInfo = localStorage.getItem("userInfo");
-      
-    //     if (userInfo) {
-    //       navigate("/dashboard");
-    //     }
-    //   });
-      
-    useEffect(() => {
-        const userInfo = localStorage.getItem("userInfo");
-      
-        if (userInfo) {
-          const userRole = JSON.parse(userInfo).user.role;
-      
-          if (userRole === "admin") {
-            navigate("/dashboard"); // Redirect to admin dashboard
-          } else {
-            navigate("/userDash"); // Redirect to user dashboard
-          }
+
+        let role = '';
+        if (email === 'admin@test.com' && password === 'admin1234') {
+            role = 'admin';
+        } else {
+            role = 'user';
         }
-      }, []);
-      
-      
-    
-    
+
+        const userCredentials = {
+            email: email,
+            password: password,
+            role: role
+        };
+
+        axios
+            .post("http://localhost:4000/auth/login", userCredentials)
+            .then((res) => {
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem("userInfo", JSON.stringify(res.data));
+                notification.success({
+                    message: 'Login Successful',
+                    description: 'You have successfully logged in.',
+                });
+                setLoading(false);
+                setError(false);
+
+                if (role === 'admin') {
+                    navigate("/dashboard");
+                } else {
+                    navigate("/userDash");
+                }
+            })
+            .catch((err) => {
+                setLoading(false);
+                setError(true);
+                notification.error({
+                    message: 'Login Failed',
+                    description: 'Please check your email and password and try again.',
+                });
+            });
+    };
+
+    useEffect(() => {
+            const userInfo = localStorage.getItem("userInfo");
+            
+            if (userInfo) {
+              navigate("/login");
+            }
+    }, []);
+
+
+
+
+
     // const sendLogin=async (values)=> {
 
     //     const { email, password } = values;

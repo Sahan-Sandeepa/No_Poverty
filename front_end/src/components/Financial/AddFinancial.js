@@ -61,6 +61,8 @@ const AddFinancial = props => {
                     message: 'Updated Successful',
                     description: 'You have successfully Updated Report',
                   });
+                  window.location.reload(); 
+
                 refresh();
               } else {
                 await axios.post('http://localhost:4000/financial/create', i);
@@ -68,6 +70,8 @@ const AddFinancial = props => {
                     message: 'Created Successful',
                     description: 'You have successfully Created Report',
                   });
+                  window.location.reload(); 
+
                 refresh();
               }
               handleOk();
