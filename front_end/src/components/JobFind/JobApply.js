@@ -77,6 +77,7 @@ const JobApply = () => {
           label="Email"
           rules={[
             {
+              required: true,
               type: "email",
               message: "Enter Email",
             },
@@ -92,6 +93,10 @@ const JobApply = () => {
               required: true,
               message: "Enter Your Contact Number",
             },
+            {
+              pattern: /^0\d{9}$/,
+              message: "Please enter a valid 10-digit phone number starting with 0",
+            },
           ]}
         >
           <Input />
@@ -101,6 +106,7 @@ const JobApply = () => {
           label="Past Experience"
           rules={[
             {
+              required: true,
               message: "Past Experience",
             },
           ]}

@@ -30,7 +30,7 @@ const UserLayout = ({ children }) => {
   const items = [
     getItem("Dashboard", "/", <BankTwoTone />),
     getItem("Donate Now", "/adsUserView", <BankTwoTone />),
-    getItem("Donation", "/showDonation", <UserOutlined />),
+    getItem("My Donation", "/showDonation", <UserOutlined />),
     getItem("Job Portal", "/showVacancies", <CarFilled />),
     getItem("Applied Jobs", "/appliedJobs", <CarFilled />),
     getItem("Events", "/userEvent", <LineChartOutlined />),
