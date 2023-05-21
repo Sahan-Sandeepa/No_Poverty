@@ -1,7 +1,8 @@
 import { Button, Form, Input, InputNumber } from 'antd';
+
 import axios from 'axios';
 import React from 'react'
-import { useState } from 'react';
+import { useState,Link } from 'react';
 const layout = {
     labelCol: {
         span: 8,
@@ -51,16 +52,18 @@ function formatCardNumber(inputValue) {
         return group;
     }); // inserts a space after each group of 4 digits
 }
+function redirect(){
+    
+}
 
 
 const CardDetails = () => {
 
     const [name, setName] = useState('');
-    const [cardNo, setCard] = useState('');
+    
     const [cvc, setCvc] = useState('');
     const [amount, setAmount] = useState();
-    const [total, setTotal] = useState();
-    const [status, setStatus] = useState('');
+    
     const [cardFields, setCardFields] = useState(['', '', '', '']);
 
     const handleChange = (event) => {
@@ -99,9 +102,9 @@ const CardDetails = () => {
     // }
     return (
 
-        <div style={{ backgroundColor: "#37475E",width: "45%", marginLeft:"25%",marginTop:"10%"}} >
+        <div style={{ backgroundColor: "#37475E", width: "45%", marginLeft: "25%", marginTop: "10%",paddingLeft:"5%" }} >
             <h1>Provide Card Details </h1>
-            <Form >
+            <Form style={{color:"white"}}>ggg
                 <Form.Item
                     name="name"
                     label="Name on Card"
@@ -109,11 +112,16 @@ const CardDetails = () => {
                         {
                             required: true,
                         },
-                    ]}
+                    ]} 
+                    labelCol={{
+                        span:6,
+                        style:{color:"white"},
+                    }}
+                    
                 >
-                    <Input onChange={(val) => {
+                    hahaha<Input onChange={(val) => {
                         setName(val.target.value);
-                    }} style={{ width: "300px" }}
+                    }} style={{ width: "300px",color:"pink" }}
                     />
                 </Form.Item>
                 <Form.Item
@@ -158,7 +166,7 @@ const CardDetails = () => {
                         },
                     ]}
                 >
-                    <Input onChange={(e) => setCvc(e.target.value)} style={{ width: "75px" }}/>
+                    <Input onChange={(e) => setCvc(e.target.value)} style={{ width: "75px" }} />
                 </Form.Item>
                 {/* <Form.Item
                     name="amount"
@@ -210,9 +218,12 @@ const CardDetails = () => {
                         offset: 8,
                     }}
                 >
-                    <Button type="primary" htmlType="submit" >
-                        Submit
-                    </Button>
+                    {/* <Link to="/PaymentPortal"> */}
+                        <Button type="primary" htmlType="submit" >
+                            Submit
+                        </Button>
+                    {/* </Link> */}
+
                 </Form.Item>
             </Form>
 

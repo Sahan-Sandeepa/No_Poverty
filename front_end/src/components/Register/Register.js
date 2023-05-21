@@ -15,34 +15,58 @@ import axios from "axios";
 const Register = () => {
     const [name, setName] = useState("");
     const [designation, setDesignation] = useState("");
-    const [sex, setSex] = useState('');
     const [address, setAddress] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [gender, setGender] = useState("");
     const [cNo, setCno] = useState("");
 
-    const onSex = (value) => {
-        console.log(`selected ${value}`);
-        setSex(value)
-    };
+   
 
-    function sendData(e) {
+
+    async function sendRegister(e) {
         e.preventDefault();
 
+        // get values
+      
         const UserSchema = {
-            name, designation, sex, address, email, password, cNo
+          email,
+          password,name,designation,gender,address,cNo
         };
+      
+        try {
+          const response = await fetch('http://localhost:4000/signup', {
+            method: 'POST',
+            body: JSON.stringify(UserSchema),
+            headers: { 'Content-Type': 'application/json' },
+          });
+      
+          if (response.ok) {
+            // Handle successful signup
+            console.log('Signup successful!');
+            const data = await response.json();
+            if (data.errors) {
+                console.log("Error" +email.errors)
+              }
+              if (data.user) {
+                // location.assign('/dashboard');
+              }
+          } else {
+            // Handle signup error
+            console.log('Signup failed. Please try again.');
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      
+      
 
-        axios.post("http://localhost:4000/regiUser/", UserSchema)
+    const onHandleGender = (value) => {
+        setGender(value)
+    };
 
-            .then(value => {
-                console.log(value);
-            })
-            .catch((err) => {
-                console.log(`Error: ${err?.response?.data}`);
-            })
-    }
-    //   .ca
+    
     return (
         <>
             <div style={{ padding: 1, alignItems: "center", backgroundColor: '#D3D3D3', width: 900, height: 650, borderRadius: 5 }}>
@@ -104,13 +128,14 @@ const Register = () => {
                         <Col span={2} />
                         <Form.Item
                             label="Gender"
+                            name="gender"
                         >
                             <Select
                                 defaultValue="Gender"
                                 style={{
                                     width: 120,
                                 }}
-                                onChange={onSex}
+                                onChange={onHandleGender}
                                 options={[
                                     {
                                         value: 'male',
@@ -153,7 +178,7 @@ const Register = () => {
                     <Row>
                         <Col span={11}>
                             <Form.Item
-                                name="eamil"
+                                name="email"
                                 label="Email"
 
                                 rules={[
@@ -194,7 +219,7 @@ const Register = () => {
                     <br></br>
                     <Col span={11}>
                         <Form.Item
-                            name="total"
+                            name="cNo"
                             label="Contact Number"
 
                             rules={[
@@ -228,7 +253,7 @@ const Register = () => {
                         <Form.Item label=" " colon={false}>
 
                             <a href='/financial'><Button type="primary" htmlType="submit"
-                                style={{ fontWeight: "bold" }} onClick={sendData}
+                                style={{ fontWeight: "bold" }} onClick={sendRegister}
                             >
                                 Register
                             </Button>
