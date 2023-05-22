@@ -24,7 +24,6 @@ const JobApply = () => {
   }, []);
 
   function sendApplication(e) {
-    debugger;
     const jobApplySchema = {
       ...e,
       jobId: id,
@@ -44,8 +43,8 @@ const JobApply = () => {
     <PageWithTitleSearch title={"Job Application : " + jobData?.jobTitle}>
       <Form
         onFinish={sendApplication}
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 12 }}
         form={form}
       >
         <Form.Item
@@ -78,6 +77,7 @@ const JobApply = () => {
           label="Email"
           rules={[
             {
+              required: true,
               type: "email",
               message: "Enter Email",
             },
@@ -93,6 +93,10 @@ const JobApply = () => {
               required: true,
               message: "Enter Your Contact Number",
             },
+            {
+              pattern: /^0\d{9}$/,
+              message: "Please enter a valid 10-digit phone number starting with 0",
+            },
           ]}
         >
           <Input />
@@ -102,6 +106,7 @@ const JobApply = () => {
           label="Past Experience"
           rules={[
             {
+              required: true,
               message: "Past Experience",
             },
           ]}

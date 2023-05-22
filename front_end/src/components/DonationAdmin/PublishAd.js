@@ -51,6 +51,8 @@ const PublishAd = props => {
                         message: 'Updated Successful',
                         description: 'You have successfully Updated Report',
                       });
+                      window.location.reload(); 
+
 
                 } else {
                     await axios.post('http://localhost:4000/adDonations/create', i);
@@ -58,6 +60,8 @@ const PublishAd = props => {
                         message: 'Created Successful',
                         description: 'You have successfully Created Report',
                       });
+                      window.location.reload(); 
+
 
                 }
                 handleOk();
@@ -137,7 +141,7 @@ const PublishAd = props => {
                                     initialValue={selectedItem?.name}
                                     rules={[
                                         {
-                                            
+                                            required: true,
                                             message: "Enter name"
                                         }
 
@@ -160,7 +164,8 @@ const PublishAd = props => {
                                 initialValue={selectedItem?.location}
                                 rules={[
                                     {
-                                        
+                                        required: true,
+
                                         message: 'Enter Location!',
                                     },
                                 ]}
@@ -181,7 +186,8 @@ const PublishAd = props => {
                                 initialValue={selectedItem?.smallDes}
                                 rules={[
                                     {
-                                        
+                                        required: true,
+
                                         message: "Please enter data"
                                     }
                                 ]}
@@ -197,7 +203,8 @@ const PublishAd = props => {
                                 initialValue={selectedItem?.help}
                                 rules={[
                                     {
-                                        
+                                        required: true,
+
                                         message: "Please enter data"
                                     }
                                 ]}
@@ -217,9 +224,8 @@ const PublishAd = props => {
                                     label="Enter Long Description"
                                     initialValue={selectedItem?.longDes}
                                     rules={[
-
                                         {
-                                            
+                                            required: true,
                                             message: "Please enter data"
                                         }
                                     ]}

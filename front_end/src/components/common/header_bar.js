@@ -1,10 +1,4 @@
-import {
-  Layout,
-  Menu,
-  theme,
-  Col,
-  Row,
-} from "antd";
+import { Layout, Menu, theme, Col, Row } from "antd";
 import logo from "../../assets/images/logo2.png";
 import "../../assets/styles/style.css";
 import "../../assets/styles/header.css";
@@ -16,17 +10,13 @@ const userName = "John Doe"; // Replace this with the actual user's name
 
 const Header_bar = (props) => {
   const { opennav, open } = props;
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const [name, setName] = useState(""); // State to hold the username
-const id =useParams();
+  const id = useParams();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-
-
-
-   
   return (
     <Layout>
       <Header

@@ -3,15 +3,15 @@ import Header_bar from "../components/common/header_bar";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   BankTwoTone,
-  UserOutlined,
-  LineChartOutlined,
   CarFilled,
+  LineChartOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import { Content, Footer } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 
-const UserLayout = ({ children }) => {
+const AdminLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,12 +28,11 @@ const UserLayout = ({ children }) => {
   }
 
   const items = [
-    getItem("Dashboard", "/", <BankTwoTone />),
-    getItem("Donate Now", "/adsUserView", <BankTwoTone />),
-    getItem("My Donation", "/showDonation", <UserOutlined />),
-    getItem("Job Portal", "/showVacancies", <CarFilled />),
-    getItem("Applied Jobs", "/appliedJobs", <CarFilled />),
-    getItem("Events", "/userEvent", <LineChartOutlined />),
+    getItem("Dashboard", '/dashboard', <BankTwoTone />),
+    getItem("Donation", "/showAds", <UserOutlined />),
+    getItem("Job Portal", "/jobList", <CarFilled />),
+    getItem("Events", "/allEvent", <LineChartOutlined />),
+    getItem("Financial", "/financial", <LineChartOutlined />),
   ];
 
   return (
@@ -63,4 +62,4 @@ const UserLayout = ({ children }) => {
   );
 };
 
-export default UserLayout;
+export default AdminLayout;
